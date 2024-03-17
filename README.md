@@ -11,7 +11,7 @@ Simple room booking application created with Vue.js, Java 17, Micronaut Framewor
 The room booking application enables easy management of available rooms on the campus of the University of Economics campus. Our application is designed for users to facilitate planning and reservation of rooms for classes, events and meetings. Below, we present the most important functionalities that enable convenient room booking.
 
 ## UI design
-##### Link to the app's UI design in Figma: 
+#### Link to the app's UI design in Figma: 
 https://www.figma.com/file/BpuhlZ3LtSNlUFFMz7B4gk/BookIT---final-ver?type=design&node-id=0%3A1&mode=design&t=XHDQ0bneAZIQ2tyC-1
 
 ## Functionality description
