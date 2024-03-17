@@ -1,5 +1,5 @@
 # BookIT - The Room Booking System at the University of Economics
-Simple room booking application created with Vue.js, Java 17, Micronaut Framework and PostrgreSQL
+Simple room booking application created with Vue.js, Java 17, Micronaut Framework and PostgreSQL
 ## Table of contents
 * [General information](#general-info)
 * [UI design](#UI-design)
@@ -20,6 +20,6 @@ Project is created with:
 * Vue.js version: 
 * Java version: 17
 * Micronaut Framework version: 4.3.6
-* PostrgreSQL
+* PostgreSQL
 	
 ## Setup
