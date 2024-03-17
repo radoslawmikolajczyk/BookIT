@@ -17,9 +17,9 @@ Link to the app's UI design in Figma: https://www.figma.com/file/BpuhlZ3LtSNlUFF
 
 ## Technologies
 Project is created with:
-* Vue.js version: 
+* Vue.js version: 3
 * Java version: 17
 * Micronaut Framework version: 4.3.6
-* PostgreSQL
+* PostgreSQL 
 	
 ## Setup
