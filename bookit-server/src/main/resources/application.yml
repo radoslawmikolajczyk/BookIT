@@ -1,0 +1,22 @@
+micronaut:
+  application:
+    name: bookit
+  server:
+    port: 7777
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:8080
+
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: uektest
+    dialect: POSTGRES
+    maximumPoolSize: 5
+    connectionTestQuery: SELECT 1
+    connectionTimeout: 30000
