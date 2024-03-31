@@ -4,14 +4,13 @@ import com.bai.controllers.UserController;
 import com.bai.entities.User;
 import com.bai.repositories.UserRepository;
 import com.bai.utils.PasswordHash;
+import com.bai.utils.RequestResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import jakarta.inject.Inject;
-
-import java.util.Optional;
 
 @Controller("/api/users")
 public class UserService {
@@ -24,19 +23,56 @@ public class UserService {
     }
 
     @Get("/{id}")
-    public User show(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(new User());
+    public RequestResponse getUserById(Long id) {
+        RequestResponse requestResponse = new RequestResponse();
+        try {
+            requestResponse.setUser(userRepository.findById(id).orElse(null));
+            requestResponse.setIsSuccess(true);
+        } catch (Exception ex) {
+            return new RequestResponse("Exception occurred: " + ex.getMessage(), false);
+        }
+        return requestResponse;
+    }
+
+    @Get("/getByEmail/{email}")
+    public RequestResponse getUserByEmail(String email) {
+        RequestResponse requestResponse = new RequestResponse();
+        try {
+            requestResponse.setUser(userRepository.findByEmail(email));
+            requestResponse.setIsSuccess(true);
+        } catch (Exception ex) {
+            return new RequestResponse("Exception occurred: " + ex.getMessage(), false);
+        }
+        return requestResponse;
     }
 
     @Post(value = "/register", consumes = MediaType.APPLICATION_JSON)
-    public User createUser(@Body User user) {
-        user.setPassword(new PasswordHash().getEncodedPassword(user.getPassword()).trim());
-        return userRepository.save(user);
+    public RequestResponse createUser(@Body User user) {
+        RequestResponse requestResponse = new RequestResponse();
+        try {
+            user.setPassword(new PasswordHash().getEncodedPassword(user.getPassword()).trim());
+            requestResponse.setUser(userRepository.save(user));
+            requestResponse.setIsSuccess(true);
+        } catch (Exception ex) {
+            return new RequestResponse("Exception occurred: " + ex.getMessage(), false);
+        }
+        return requestResponse;
     }
 
     @Post(value = "/login", consumes = MediaType.APPLICATION_JSON)
-    public User login(@Body User user) {
-        return new UserController(this.userRepository).isAuthorized(user) ? this.userRepository.findByEmail(user.getEmail()) : new User();
+    public RequestResponse login(@Body User user) {
+        RequestResponse requestResponse = new RequestResponse();
+        try {
+            if (new UserController(this.userRepository).isAuthorized(user)) {
+                requestResponse.setIsSuccess(true);
+                requestResponse.setMessage("Authorized");
+            } else {
+                requestResponse.setIsSuccess(false);
+                requestResponse.setMessage("Password incorrect!");
+            }
+        } catch (Exception ex) {
+            return new RequestResponse("Exception occurred: " + ex.getMessage(), false);
+        }
+        return requestResponse;
     }
 }
