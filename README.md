@@ -14,14 +14,14 @@ The room booking application enables easy management of available rooms on the c
 Link to the app's UI design in Figma: https://www.figma.com/file/BpuhlZ3LtSNlUFFMz7B4gk/BookIT---final-ver?type=design&node-id=0%3A1&mode=design&t=XHDQ0bneAZIQ2tyC-1
 
 ## Functionality description
-1. ### Registration
+1. #### Registration
 The registration screen in the application offers the following functionalities:
 	Fields to be filled:
-	- First Name
-	- Last Name
-	- Email
-	- Password
-	- Repeat Password
+	* First Name
+	* Last Name
+	* Email
+	* Password
+	* Repeat Password
 
 	Access option to terms & conditions:
 	- Button or link leading to the terms & conditions page
