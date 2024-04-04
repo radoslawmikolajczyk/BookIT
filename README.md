@@ -16,6 +16,7 @@ Link to the app's UI design in Figma: https://www.figma.com/file/BpuhlZ3LtSNlUFF
 ## Functionality description
 1. #### Registration
 The registration screen in the application offers the following functionalities:
+
 Fields to be filled:
 * First Name
 * Last Name
