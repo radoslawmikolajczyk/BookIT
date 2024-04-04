@@ -62,6 +62,26 @@ If the user is added to a group and has no reservations yet, the main page displ
 
 If the user is added to a group and has existing reservations, the main page displays the 'Upcoming Reservation' section, showing information about the next upcoming reservation. This information includes the building name, room number, reservation time, and a 'Delete' button, which allows the user to delete the reservation. Upon clicking 'Delete', another reservation appears in the 'Upcoming Reservation' section.
 
+5. #### My Bookings Page
+This page contains a section titled 'My Reservations'.
+
+If the user does not have any bookings yet, the 'My Reservations' section displays a message indicating that the user has no reservations and shows an 'Add booking' button, which redirects to the add booking page.
+
+If the user has reservations, each of them will be displayed in the 'My Reservations' section. This information includes the building name, room number, reservation time, and a 'Delete' button, which allows the user to remove the reservation. 
+
+6. #### Add Booking Page
+This page contains a section titled 'Make Reservation'. The user fills in the following fields:
+
+* Building - dropdown list
+* Floor - dropdown list
+* Start date and time - interactive clock and calendar
+* End date and time - interactive clock and calendar
+
+Upon clicking 'Search', the data is validated. If the user hasn't filled in any of the fields, a message appears prompting them to fill in all fields. An additional section titled 'Search Results' is displayed. If the rooms are unavailable for the selected time slot, an appropriate message appears. If the rooms are available, they will be displayed in the 'Search Results' section. This information includes the building name, room number, reservation time, and a 'Reserve' button, which allows the user to reserve the room. Upon clicking 'Reserve', the user is redirected to the 'My Bookings' page.
+
+7. #### Help Page
+This page contains frequently asked questions and our answers.
+
 ## Technologies
 Project is created with:
 * Vue.js version: 3
