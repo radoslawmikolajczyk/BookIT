@@ -16,25 +16,24 @@ Link to the app's UI design in Figma: https://www.figma.com/file/BpuhlZ3LtSNlUFF
 ## Functionality description
 1. #### Registration
 The registration screen in the application offers the following functionalities:
-	Fields to be filled:
-	* First Name
-	* Last Name
-	* Email
-	* Password
-	* Repeat Password
+Fields to be filled:
+* First Name
+* Last Name
+* Email
+* Password
+* Repeat Password
 
-	Access option to terms & conditions:
-	- Button or link leading to the terms & conditions page
+Access option to terms & conditions:
+* Button or link leading to the terms & conditions page
 
-	Registration process:
-	- After filling in all the fields, the user clicks the "Sign up" button.
-	- Data is validated for correctness.
-	- If the data is correct, a new account is created, and the user is redirected to the main page of the application.
-	- In case of incorrect data, an error message is displayed, prompting the user to correct the information.
+Registration process:
+* After filling in all the fields, the user clicks the "Sign up" button.
+* Data is validated for correctness.
+* If the data is correct, a new account is created, and the user is redirected to the main page of the application.
+* In case of incorrect data, an error message is displayed, prompting the user to correct the information.
 
-	Additional option for users who already have an account:
-	- Link allowing them to navigate to the login screen.
-
+Additional option for users who already have an account:
+* Link allowing them to navigate to the login screen.
 4. 
 ## Technologies
 Project is created with:
