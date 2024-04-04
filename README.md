@@ -54,7 +54,13 @@ Login process:
 This page allows the user to read the terms and conditions.
 
 The "Back" button takes the user back to the registration page. By creating an account, we assume that the user accepts the terms and conditions.   
-4. 
+4. #### Main Page
+We assume that in order for a user to use the application, they must belong to a user group. If the user does not belong to a group, on the main page, there is a button labeled 'Add group'. Upon clicking it, a popup appears where the user fills in two fields: group name and password. The user selects the appropriate group name from a dropdown list and enters the password, which they must know beforehand. After clicking 'Add group', the user is redirected to the main page.
+
+If the user is added to a group and has no reservations yet, the main page displays the 'Upcoming Reservation' section, with a message stating that the user does not have any reservations yet and a button labeled 'Add booking'. Clicking this button redirects the user to the 'Add booking' page.
+
+If the user is added to a group and has existing reservations, the main page displays the 'Upcoming Reservation' section, showing information about the next upcoming reservation. This information includes the building name, room number, reservation time, and a 'Delete' button, which allows the user to delete the reservation. Upon clicking 'Delete', another reservation appears in the 'Upcoming Reservation' section.
+
 ## Technologies
 Project is created with:
 * Vue.js version: 3
