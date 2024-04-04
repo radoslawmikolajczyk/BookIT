@@ -27,11 +27,7 @@ Fields to be filled:
 Access option to terms & conditions:
 * Link leading to the terms & conditions page.
 
-Registration process:
-* After filling in all the fields, the user clicks the "Sign up" button.
-* Data is validated for correctness.
-* If the data is correct, a new account is created, and the user is redirected to the main page of the application.
-* In case of incorrect data, an error message is displayed, prompting the user to correct the information.
+After filling in all the fields, the user clicks the "Sign up" button. Data is validated for correctness. If the data is correct, a new account is created, and the user is redirected to the main page of the application. In case of incorrect data, an error message is displayed, prompting the user to correct the information.
 
 Additional option for users who already have an account:
 * Link allowing them to navigate to the login page.
@@ -43,12 +39,7 @@ Fields to be filled:
 * Email
 * Password
 
-Login process:
-* The user enters their email and password.
-* After filling in the fields and clicking the "Login" button, the data is checked against the database.
-* If the data is correct, the user is redirected to the main screen of the application.
-* In case of incorrect data, an error message is displayed, informing the user to check their login and password.
-* If the user does not have an account yet, they can navigate to the registration page using the "Need an account? SIGN UP" link.
+The user enters their email and password. After filling in the fields and clicking the "Login" button, the data is checked against the database. If the data is correct, the user is redirected to the main screen of the application. In case of incorrect data, an error message is displayed, informing the user to check their login and password. If the user does not have an account yet, they can navigate to the registration page using the "Need an account? SIGN UP" link.
 
 #### Terms & Conditions Page
 This page allows the user to read the terms and conditions.
