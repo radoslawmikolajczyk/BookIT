@@ -1,9 +1,8 @@
 <script setup>
-    import AddBooking from './components/AddBooking.vue'
 </script>
 
 <template>
-    <AddBooking></AddBooking>
+    <h1>Pusta aplikacja Vue 3</h1>
 </template>
 
 <style scoped>
