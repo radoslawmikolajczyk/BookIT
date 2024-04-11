@@ -8,14 +8,14 @@ micronaut:
       configurations:
         web:
           allowedOrigins:
-            - http://localhost:8080
+            - https://localhost:5173
 
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/postgres
     driverClassName: org.postgresql.Driver
     username: postgres
-    password: uektest
+    password: admin
     dialect: POSTGRES
     maximumPoolSize: 5
     connectionTestQuery: SELECT 1

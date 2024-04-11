@@ -1,9 +1,10 @@
 <script setup>
     import AddBooking from './components/AddBooking.vue'
+    import Login from './components/CreateAccount.vue'
 </script>
 
 <template>
-    <AddBooking></AddBooking>
+    <Login></Login>
 </template>
 
 <style scoped>

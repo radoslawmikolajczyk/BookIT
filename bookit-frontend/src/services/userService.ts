@@ -1,3 +1,5 @@
+import { User } from "../model/User";
+
 export class UserService {
 
     async getUserById(id: string) : Promise<string>{
@@ -10,12 +12,22 @@ export class UserService {
         return await response.json();
     }
 
-    async createUser(id: string) : Promise<string>{
-        const response = await fetch('http://localhost:7777/api/users/register');
+    async createUser(user: User) : Promise<string>{
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        };
+        const response = await fetch('http://localhost:7777/api/users/register', requestOptions);
         return await response.json();
     }
 
-    async login(id: string) : Promise<string>{
+    async login(user: User) : Promise<string>{
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        };
         const response = await fetch('http://localhost:7777/api/users/login');
         return await response.json();
     }

@@ -18,15 +18,16 @@
 
 import { ref } from 'vue'
 
-const username = ref("")
-const password = ref("")
+const message = ref("")
 
 function login(){
+
   if(username.value != "" || password.value != ""){
         console.log("authenticated")
       }else{
         console.log("Username and Password can not be empty")
       }
+
 }
   
 </script>
