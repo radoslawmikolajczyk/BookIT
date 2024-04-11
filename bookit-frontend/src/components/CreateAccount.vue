@@ -1,4 +1,12 @@
 <script setup>
+    // repeat password checking
+    // email validation
+    // email exists in db
+    // strong password validation 
+    // ref to term and conditions
+    // ref to sign in
+    // redirect to login page after register
+
     import { ref } from 'vue'
     import { UserService } from '../services/UserService.ts'
     import { User } from '../model/User.ts'
@@ -25,13 +33,13 @@
             <p>Creat Account</p>
             <p>Fill in this form to create an account</p>
             <p>First name: <input type="text" required v-model="firstName"></p>
-            <p>Last name: <input type="text" v-model="lastName"></p>
-            <p>Email: <input type="text" v-model="email"></p>
-            <p>Password: <input type="text" v-model="password"></p>
-            <p>Repeat password: <input type="text" v-model="rpassword"></p>
-            <p>By creating an account you agree to our TERMS & CONDITIONS</p>
+            <p>Last name: <input type="text" required v-model="lastName"></p>
+            <p>Email: <input type="text" required v-model="email"></p>
+            <p>Password: <input type="text" required v-model="password"></p>
+            <p>Repeat password: <input type="text" required v-model="rpassword"></p>
+            <p>By creating an account you agree to our <a v-bind:href="'/terms'">TERMS & CONDITIONS</a></p>
             <button type="submit">SIGN UP</button>
-            <p>Already have an account? SIGN IN</p>
+            <p>Already have an account? <a v-bind:href="'/login'">SIGN IN</a></p>
         </form>
     </div>
 </template>

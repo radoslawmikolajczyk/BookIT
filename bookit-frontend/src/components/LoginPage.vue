@@ -1,8 +1,8 @@
 <template>
   <form name="login-form" >
     <div class="mb-3">
-      <label for="username">Username: </label>
-      <input type="text" id="username" v-model="username" />
+      <label for="email">Email: </label>
+      <input type="text" id="email" v-model="email" />
     </div>
   <div class="mb-3">
      <label for="password">Password: </label>
@@ -12,22 +12,32 @@
       Login
     </button>
   </form>
+  <p> Need an account?<a v-bind:href="'/register'">SIGN UP</a></p>
+  <p>{{ message }}</p>
 </template>
 
 <script setup>
 
 import { ref } from 'vue'
+import { UserService } from '../services/UserService';
+import { User } from '../model/User.ts'
 
 const message = ref("")
+const password = ref("")
+const email = ref("")
+const service = new UserService()
 
-function login(){
-
-  if(username.value != "" || password.value != ""){
-        console.log("authenticated")
-      }else{
-        console.log("Username and Password can not be empty")
+function login() {
+  const user = new User("", "", email.value, password.value)
+    service.login(user)
+    .then( result =>{
+      if(result.isSuccess){
+        localStorage.setItem('token', email.value)
+        message.value = ""
+      } else {
+        message.value = "Wrong email or password!"
       }
-
+    })
 }
   
 </script>

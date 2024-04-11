@@ -4,7 +4,7 @@
 
 <template>
     
-    <h1>Pusta aplikacja Vue</h1>
+    <h1>My bookings</h1>
 
 </template>
 

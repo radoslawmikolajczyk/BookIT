@@ -28,7 +28,7 @@ export class UserService {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)
         };
-        const response = await fetch('http://localhost:7777/api/users/login');
+        const response = await fetch('http://localhost:7777/api/users/login', requestOptions);
         return await response.json();
     }
 

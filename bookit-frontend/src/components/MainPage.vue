@@ -4,7 +4,7 @@
 
 <template>
     
-    <h1>Pusta aplikacja Vue 3sdfsfd</h1>
+    <h1>Main Page</h1>
 
 </template>
 

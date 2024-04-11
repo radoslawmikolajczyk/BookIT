@@ -1,12 +1,14 @@
 <script setup>
-
+    // only text
+    // css
 </script>
 
 <template>
     
-    <h1>Pusta aplikacja Vue 3sdfsfd</h1>
+    <h1>Help</h1>
 
 </template>
 
 <style scoped>
+    
 </style>
