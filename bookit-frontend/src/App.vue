@@ -1,8 +1,10 @@
 <script setup>
+    import AddBooking from './components/AddBooking.vue'
+    import Login from './components/CreateAccount.vue'
 </script>
 
 <template>
-    <h1>Pusta aplikacja Vue 3</h1>
+    <router-view></router-view>
 </template>
 
 <style scoped>
