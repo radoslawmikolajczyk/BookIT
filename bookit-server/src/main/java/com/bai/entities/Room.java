@@ -33,6 +33,12 @@ public class Room {
     @Column(name = "room_name")
     private String roomName;
 
+    @Column(name = "room_description")
+    private String description;
+
+    @Column(name = "room_image")
+    private String imageUrl;
+
     @OneToMany(mappedBy = "reservation", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     private List<Reservation> reservations;
 }

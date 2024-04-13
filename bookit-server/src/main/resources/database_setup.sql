@@ -1,7 +1,7 @@
+DROP TABLE IF EXISTS public.reservations;
 DROP TABLE IF EXISTS public.users;
 DROP TABLE IF EXISTS public.groups;
 DROP TABLE IF EXISTS public.rooms;
-DROP TABLE IF EXISTS public.reservations;
 
 CREATE TABLE IF NOT EXISTS public.groups
 (
@@ -25,7 +25,9 @@ CREATE TABLE IF NOT EXISTS public.rooms
     id SERIAL PRIMARY KEY,
     building_name character varying(50) NOT NULL,
     floor_number integer NOT NULL,
-    room_name character varying(50) NOT NULL
+    room_name character varying(50) NOT NULL,
+    room_description varchar,
+    room_image varchar
 );
 
 CREATE TABLE IF NOT EXISTS public.reservations

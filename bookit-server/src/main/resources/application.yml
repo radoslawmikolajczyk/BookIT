@@ -20,3 +20,6 @@ datasources:
     maximumPoolSize: 5
     connectionTestQuery: SELECT 1
     connectionTimeout: 30000
+
+app:
+  dateFormat: yyyy-MM-dd HH:mm

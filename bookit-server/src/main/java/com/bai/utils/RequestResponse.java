@@ -1,6 +1,8 @@
 package com.bai.utils;
 
 import com.bai.entities.Group;
+import com.bai.entities.Reservation;
+import com.bai.entities.Room;
 import com.bai.entities.User;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
@@ -18,7 +20,11 @@ import java.util.List;
 public class RequestResponse {
     User user;
     Group group;
+    Room room;
+    Reservation reservation;
     List<Group> groups;
+    List<Room> rooms;
+    List<Reservation> reservations;
     String message;
     Boolean isSuccess;
 

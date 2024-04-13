@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller("/api/groups")
-public class GroupService {
+public class GroupService extends Service {
 
     protected final GroupRepository groupRepository;
     protected final UserRepository userRepository;
