@@ -21,4 +21,28 @@ public interface RoomRepository extends CrudRepository<Room, Long> {
             "(:endTime > res.start_time AND :endTime <= res.end_time) OR " +
             "(res.start_time >= :startTime AND res.start_time < :endTime))")
     List<Room> findAvailableRooms(Timestamp startTime, @Nullable Timestamp endTime);
+
+    @Transactional
+    @Query("SELECT * FROM rooms r WHERE r.id NOT IN " +
+            "(SELECT res.room_id FROM reservations res " +
+            "WHERE (:startTime >= res.start_time AND :startTime < res.end_time) OR " +
+            "(:endTime > res.start_time AND :endTime <= res.end_time) OR " +
+            "(res.start_time >= :startTime AND res.start_time < :endTime)) AND r.building_name = :buildingName")
+    List<Room> findAvailableRooms(Timestamp startTime, @Nullable Timestamp endTime, String buildingName);
+
+    @Transactional
+    @Query("SELECT * FROM rooms r WHERE r.id NOT IN " +
+            "(SELECT res.room_id FROM reservations res " +
+            "WHERE (:startTime >= res.start_time AND :startTime < res.end_time) OR " +
+            "(:endTime > res.start_time AND :endTime <= res.end_time) OR " +
+            "(res.start_time >= :startTime AND res.start_time < :endTime)) AND r.building_name = :buildingName AND r.floor_number = :floorNumber")
+    List<Room> findAvailableRooms(Timestamp startTime, @Nullable Timestamp endTime, String buildingName, int floorNumber);
+
+    @Transactional
+    @Query("SELECT * FROM rooms r WHERE r.id NOT IN " +
+            "(SELECT res.room_id FROM reservations res " +
+            "WHERE (:startTime >= res.start_time AND :startTime < res.end_time) OR " +
+            "(:endTime > res.start_time AND :endTime <= res.end_time) OR " +
+            "(res.start_time >= :startTime AND res.start_time < :endTime)) AND r.floor_number = :floorNumber")
+    List<Room> findAvailableRooms(Timestamp startTime, @Nullable Timestamp endTime, int floorNumber);
 }

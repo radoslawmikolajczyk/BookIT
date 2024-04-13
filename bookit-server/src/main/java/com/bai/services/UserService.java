@@ -12,7 +12,7 @@ import io.micronaut.http.annotation.Post;
 import jakarta.inject.Inject;
 
 @Controller("/api/users")
-public class UserService {
+public class UserService extends Service {
 
     protected final UserRepository userRepository;
 

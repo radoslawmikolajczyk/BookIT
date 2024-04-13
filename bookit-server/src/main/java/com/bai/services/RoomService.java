@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller("/api/rooms")
-public class RoomService {
+public class RoomService extends Service {
 
     protected final RoomRepository roomRepository;
     protected final ReservationRepository reservationRepository;
@@ -65,7 +65,7 @@ public class RoomService {
     public RequestResponse getAvailableRooms(@Body RoomRequest request) {
         RequestResponse requestResponse = new RequestResponse();
         try {
-            requestResponse.setRooms(roomRepository.findAvailableRooms(getParsedDate(request.getStartTime()), getParsedDate(request.getEndTime())));
+            requestResponse.setRooms(getRooms(request));
             requestResponse.setIsSuccess(true);
         } catch (Exception ex) {
             return new RequestResponse("Exception occurred: " + ex.toString(), false);
@@ -73,13 +73,18 @@ public class RoomService {
         return requestResponse;
     }
 
-    private Timestamp getParsedDate(String dateToParse) {
-        if (dateToParse == null) {
-            return null;
+    private List<Room> getRooms(RoomRequest request) {
+        boolean isBuilding = request.getBuildingName() != null;
+        boolean isFloor = request.getFloorNumber() != null;
+        if (isBuilding && !isFloor) {
+            return roomRepository.findAvailableRooms(getParsedDate(request.getStartTime()), getParsedDate(request.getEndTime()), request.getBuildingName());
+        } else if (!isBuilding && isFloor) {
+            return roomRepository.findAvailableRooms(getParsedDate(request.getStartTime()), getParsedDate(request.getEndTime()), request.getFloorNumber());
+        } else if (!isBuilding && !isFloor) {
+            return roomRepository.findAvailableRooms(getParsedDate(request.getStartTime()), getParsedDate(request.getEndTime()));
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(config.getDateFormat());
-        LocalDateTime dateTime = LocalDateTime.parse(dateToParse, formatter);
-        return Timestamp.valueOf(dateTime);
+        return roomRepository.findAvailableRooms(getParsedDate(request.getStartTime()),
+                getParsedDate(request.getEndTime()), request.getBuildingName(), request.getFloorNumber());
     }
 
     @Getter
@@ -91,7 +96,6 @@ public class RoomService {
         String startTime;
         String endTime;
         String buildingName;
-        int floorNumber;
-        int range;
+        Integer floorNumber;
     }
 }
