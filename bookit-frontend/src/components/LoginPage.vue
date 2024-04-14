@@ -12,7 +12,7 @@
       Login
     </button>
   </form>
-  <p> Need an account?<a v-bind:href="'/register'">SIGN UP</a></p>
+  <p> Need an account? <router-link to="/register">SIGN UP</router-link></p>
   <p>{{ message }}</p>
 </template>
 

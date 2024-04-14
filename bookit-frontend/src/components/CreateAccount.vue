@@ -3,8 +3,6 @@
     // email validation
     // email exists in db
     // strong password validation 
-    // ref to term and conditions
-    // ref to sign in
     // redirect to login page after register
 
     import { ref } from 'vue'
@@ -12,6 +10,7 @@
     import { User } from '../model/User.ts'
 
     const service = new UserService()
+    
     const firstName = ref("")
     const lastName = ref("")
     const email = ref("")
@@ -37,9 +36,13 @@
             <p>Email: <input type="text" required v-model="email"></p>
             <p>Password: <input type="text" required v-model="password"></p>
             <p>Repeat password: <input type="text" required v-model="rpassword"></p>
-            <p>By creating an account you agree to our <a v-bind:href="'/terms'">TERMS & CONDITIONS</a></p>
+            <p>By creating an account you agree to our 
+                <router-link to="/terms">TERMS & CONDITIONS</router-link>
+            </p>
             <button type="submit">SIGN UP</button>
-            <p>Already have an account? <a v-bind:href="'/login'">SIGN IN</a></p>
+            <p>Already have an account?
+                <router-link to="/login">SIGN IN</router-link>
+            </p>
         </form>
     </div>
 </template>

@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "build": "^0.1.4",
+    "pinia": "^2.1.7",
     "run": "^1.5.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "vite": "^5.1.6",
     "vite-plugin-mkcert": "^1.17.4"
-  }
+  },
+  "exports": { ".": { "module": "./dist/vuex.esm-bundler.js", "require": "./dist/vuex.cjs.js", "import": "./dist/vuex.mjs" } }
 }

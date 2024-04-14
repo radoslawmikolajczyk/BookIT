@@ -1,35 +1,12 @@
-<script setup>
-
-</script>
-
-<template >
-    <div>
-        <div class="nav-menu"> 
-            <div class="nav-content" >
-                <ul class="nav-items">
-                    <li><router-link to="/">BookIT</router-link></li>
-                    <li><router-link to="/my_bookings">My bookings</router-link></li>
-                    <li><router-link to="/add_booking">Add booking</router-link></li>
-                    <li><router-link to="/help">Help</router-link></li>
-                    <li><router-link to="/login">Log out</router-link></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</template>
-
-<style lang="css" scoped>
-    .nav-menu {
-    background-color: rgb(206, 84, 84);
+.nav-menu {
+    background-color: white;
     }
-
     .nav-content {
     display: flex;
     justify-content: space-between;
     padding: 10px 30px;
     align-items: center;
     }
-    
     .nav-items {
     display: flex;
     justify-content: center;
@@ -53,7 +30,7 @@
     }
     .open-menu {
     opacity: 1;
-    height: 105px;
+    height: 150px;
     }
     .closed-menu {
     opacity: 0;
@@ -75,4 +52,3 @@
     padding: 0 10px 10px 0;
     }
     }
-</style>
