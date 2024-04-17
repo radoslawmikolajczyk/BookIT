@@ -21,11 +21,14 @@
 import { ref } from 'vue'
 import { UserService } from '../services/UserService';
 import { User } from '../model/User.ts'
+import { useRouter } from 'vue-router';
 
 const message = ref("")
 const password = ref("")
 const email = ref("")
 const service = new UserService()
+
+const router = useRouter()
 
 function login() {
   const user = new User("", "", email.value, password.value)
@@ -33,7 +36,7 @@ function login() {
     .then( result =>{
       if(result.isSuccess){
         localStorage.setItem('token', email.value)
-        message.value = ""
+        router.push("/")
       } else {
         message.value = "Wrong email or password!"
       }

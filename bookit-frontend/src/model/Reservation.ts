@@ -1,12 +1,15 @@
+import { Room } from "./Room"
+import { User } from "./User"
+
 export class Reservation {
-    roomId: number
-    userId: number
+    room: Room
+    user: User
     startTime: string
     endTime: string
 
-    constructor(roomId: number, userId: number, startTime: string, endTime: string) {
-        this.roomId = roomId
-        this.userId = userId
+    constructor(room: Room, user: User, startTime: string, endTime: string) {
+        this.room = room
+        this.user = user
         this.startTime = startTime
         this.endTime = endTime
     }

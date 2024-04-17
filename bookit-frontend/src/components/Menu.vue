@@ -1,5 +1,18 @@
 <script setup>
+import useAuthorize from '../composables/authorize';
+import { useRouter } from 'vue-router';
 
+    const router = useRouter()
+
+    const {
+        unauthorize
+    } = useAuthorize()
+
+    function wrapNavigate(navigate, event) {
+        localStorage.removeItem('token')
+        unauthorize()
+        router.back()
+    }
 </script>
 
 <template >
@@ -11,7 +24,11 @@
                     <li><router-link to="/my_bookings">My bookings</router-link></li>
                     <li><router-link to="/add_booking">Add booking</router-link></li>
                     <li><router-link to="/help">Help</router-link></li>
-                    <li><router-link to="/login">Log out</router-link></li>
+                    <li>
+                        <router-link to="/login" custom v-slot="{ href, navigate}">
+                            <a :href="href" @click="wrapNavigate(navigate, $event)">Log out</a>
+                        </router-link>
+                    </li>
                 </ul>
             </div>
         </div>

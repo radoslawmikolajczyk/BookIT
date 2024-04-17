@@ -1,11 +1,16 @@
 <script setup>
 
+// 
+
 import { ref } from 'vue'
 import { GroupsService } from '../services/GroupsService.ts'
 import { Group } from '../model/Group.ts';
+import { UserGroupRequest } from '../model/UserGroupRequest.ts';
 
-    const groups = ref("")
-    const group = ref<InstanceType<typeof Group>>("")
+    const groups = ref([""])
+    let group = ref("")
+    
+
     const services = new GroupsService()
 
     function getAllGroups() {
@@ -16,8 +21,29 @@ import { Group } from '../model/Group.ts';
         )
     }
 
+    function getGroupById(id) {
+        services.getGroupById(id)
+        .then( result => {
+                group.value = result
+            }
+        )
+    }
 
+    function createGroups() {
+        services.createGroups()
+        .then( result => {
+                group.value = result
+            }
+        )
+    }
 
+    function addUserToGroup() {
+        services.addUserToGroup()
+        .then( result => {
+                group.value = result
+            }
+        )
+    }
 
 </script>
 
@@ -31,7 +57,17 @@ import { Group } from '../model/Group.ts';
 
     <p>Get group</p>
 
-    <button @click="getAllGroups()">Click Me!</button>
+    <button @click="getGroupById(1)">Click Me!</button>
+    <a> {{ group }}</a>
+
+    <p>Get group</p>
+
+    <button @click="getGroupById(1)">Click Me!</button>
+    <a> {{ group }}</a>
+
+    <p>Get group</p>
+
+    <button @click="getGroupById(1)">Click Me!</button>
     <a> {{ group }}</a>
 </template>
 

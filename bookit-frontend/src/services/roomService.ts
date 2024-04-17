@@ -1,7 +1,8 @@
 import { RoomRequest } from "../model/RoomRequest";
+import { RoomResponse } from "../model/RoomResponse";
 
 export class RoomService {
-    async getAllRooms() : Promise<string>{
+    async getAllRooms() : Promise<RoomResponse>{
         const response = await fetch('http://localhost:7777/api/rooms/getAllRooms');
         return await response.json();
     }
