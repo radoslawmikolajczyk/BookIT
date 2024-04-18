@@ -79,5 +79,7 @@ Project is created with:
 * Java version: 17
 * Micronaut Framework version: 4.3.6
 * PostgreSQL 
-	
+
+## API Documentation
+* [Documentation](https://github.com/radoslawmikolajczyk/BookIT/blob/main/bookit-server/README.md)
 ## Setup
