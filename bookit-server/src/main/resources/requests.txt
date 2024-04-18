@@ -3,14 +3,14 @@ http://localhost:7777/api/rooms/createRooms
     {
         "buildingName": "Pawilon A",
         "floorNumber": 1,
-        "roomName": "101",
+        "roomName": "111",
         "description": "Sala wyposażona w 30 wygodnych krzeseł ustawionych w amfiteatralny układ.\nPosiada rzutnik, ekran oraz tablicę do pisania na marker. \nDostęp do Wi-Fi dla uczestników.\nMaksymalna liczba osób: 30.",
         "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20210.jpg"
     },
     {
         "buildingName": "Pawilon B",
         "floorNumber": 2,
-        "roomName": "201",
+        "roomName": "222",
         "description": "Przestronna sala z 50 miejscami siedzącymi, idealna do wykładów i prezentacji.\nWyposażona w system nagłośnienia oraz projektor multimedialny.\nZapewniony dostęp do tablicy białej oraz zestawu markerów.\nMaksymalna liczba osób: 50.",
         "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20011%201.jpg?1635336028424"
     },
@@ -24,7 +24,7 @@ http://localhost:7777/api/rooms/createRooms
     {
         "buildingName": "Pawilon D",
         "floorNumber": 3,
-        "roomName": "301",
+        "roomName": "323",
         "description": "Klasyczna sala lekcyjna z ławkami i pulpitem prowadzącego.\nWyposażona w tablicę magnetyczną oraz zestaw kredek i gąbek.\nZapewniony dostęp do projektoru multimedialnego.\nMaksymalna liczba osób: 25.",
         "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20012%201.jpg?1635336420118"
     },
@@ -52,10 +52,262 @@ http://localhost:7777/api/rooms/createRooms
     {
         "buildingName": "Pawilon B",
         "floorNumber": 3,
-        "roomName": "301",
+        "roomName": "333",
         "description": "Przestronna sala z elastycznym układem mebli, umożliwiająca różne konfiguracje przestrzeni.\nWyposażona w system nagłośnienia, rzutnik oraz ekran projekcyjny.\nDostęp do tablicy flipchart i zestawu markerów.\nMaksymalna liczba osób: 45.",
         "imageUrl": "https://bg.uek.krakow.pl/sites/default/files/inline-images/20231003_075929aa.jpg"
-    }
+    },
+    {
+            "buildingName": "Pawilon A",
+            "floorNumber": 0,
+            "roomName": "001",
+            "description": "Przytulna sala z wygodnymi fotelami.\nPosiada rzutnik oraz ekran projekcyjny.\nDostęp do Wi-Fi.\nMaksymalna liczba osób: 20.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20210.jpg"
+        },
+        {
+            "buildingName": "Pawilon B",
+            "floorNumber": 0,
+            "roomName": "002",
+            "description": "Nowoczesna sala konferencyjna z panoramicznym widokiem.\nWyposażona w system nagłośnienia i projektor multimedialny.\nMożliwość korzystania z tablicy flipchart.\nMaksymalna liczba osób: 30.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20011%201.jpg?1635336028424"
+        },
+        {
+            "buildingName": "Pawilon C",
+            "floorNumber": 0,
+            "roomName": "003",
+            "description": "Klasyczna sala wykładowa z ergonomicznymi krzesłami.\nPosiada rzutnik, ekran i system nagłośnienia.\nDostęp do tablicy białej.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%202.jpg"
+        },
+        {
+            "buildingName": "Pawilon D",
+            "floorNumber": 0,
+            "roomName": "004",
+            "description": "Przestronna sala seminaryjna z dużymi oknami.\nWyposażona w tablicę magnetyczną i zestaw kredek.\nZapewniony dostęp do projektoru multimedialnego.\nMaksymalna liczba osób: 25.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20012%201.jpg?1635336420118"
+        },
+        {
+            "buildingName": "Pawilon E",
+            "floorNumber": 0,
+            "roomName": "005",
+            "description": "Niewielka sala konferencyjna z intymną atmosferą.\nPosiada ekran projekcyjny i system nagłośnienia.\nMożliwość korzystania z tablicy flipchart.\nMaksymalna liczba osób: 15.",
+            "imageUrl": "https://bi.im-g.pl/im/cb/b0/11/z18550731IEG,Kampus-Uniwersytetu-Ekonomicznego---sala-wykladowa.jpg"
+        },
+        {
+            "buildingName": "Pawilon F",
+            "floorNumber": 0,
+            "roomName": "006",
+            "description": "Elegancka sala bankietowa z kryształowymi żyrandolami.\nPosiada system oświetlenia LED i klimatyzację.\nMaksymalna liczba osób: 50.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%201.jpg"
+        },
+        {
+            "buildingName": "Pawilon A",
+            "floorNumber": 1,
+            "roomName": "101",
+            "description": "Sala konferencyjna z widokiem na ogród.\nPosiada rzutnik i ekran multimedialny.\nDostęp do Wi-Fi.\nMaksymalna liczba osób: 30.",
+            "imageUrl": "https://skad2017.uek.krakow.pl/media/images/f8/94/4d0415ddfca6ff0aca0c6f192fbc.png"
+        },
+        {
+            "buildingName": "Pawilon B",
+            "floorNumber": 1,
+            "roomName": "102",
+            "description": "Elegancka sala bankietowa z panoramicznymi oknami.\nWyposażona w system nagłośnienia i oświetlenie LED.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://bg.uek.krakow.pl/sites/default/files/inline-images/20231003_075929aa.jpg"
+        },
+        {
+            "buildingName": "Pawilon C",
+            "floorNumber": 1,
+            "roomName": "103",
+            "description": "Przestronna sala wykładowa z ergonomicznymi krzesłami.\nPosiada rzutnik, ekran i system nagłośnienia.\nMożliwość korzystania z tablicy białej.\nMaksymalna liczba osób: 50.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%202.jpg"
+        },
+        {
+            "buildingName": "Pawilon D",
+            "floorNumber": 1,
+            "roomName": "104",
+            "description": "Klasyczna sala seminaryjna z dużymi oknami.\nWyposażona w tablicę magnetyczną i zestaw kredek.\nZapewniony dostęp do projektoru multimedialnego.\nMaksymalna liczba osób: 25.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20012%201.jpg?1635336420118"
+        },
+        {
+            "buildingName": "Pawilon E",
+            "floorNumber": 1,
+            "roomName": "105",
+            "description": "Niewielka sala konferencyjna z intymną atmosferą.\nPosiada ekran projekcyjny i system nagłośnienia.\nMożliwość korzystania z tablicy flipchart.\nMaksymalna liczba osób: 15.",
+            "imageUrl": "https://bi.im-g.pl/im/cb/b0/11/z18550731IEG,Kampus-Uniwersytetu-Ekonomicznego---sala-wykladowa.jpg"
+        },
+        {
+            "buildingName": "Pawilon F",
+            "floorNumber": 1,
+            "roomName": "106",
+            "description": "Elegancka sala bankietowa z kryształowymi żyrandolami.\nPosiada system oświetlenia LED i klimatyzację.\nMaksymalna liczba osób: 50.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%201.jpg"
+        },
+        {
+            "buildingName": "Pawilon A",
+            "floorNumber": 2,
+            "roomName": "201",
+            "description": "Sala wyposażona w 30 wygodnych krzeseł ustawionych w amfiteatralny układ.\nPosiada rzutnik, ekran oraz tablicę do pisania na marker.\nDostęp do Wi-Fi dla uczestników.\nMaksymalna liczba osób: 30.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20210.jpg"
+        },
+        {
+            "buildingName": "Pawilon B",
+            "floorNumber": 2,
+            "roomName": "202",
+            "description": "Przestronna sala z 50 miejscami siedzącymi, idealna do wykładów i prezentacji.\nWyposażona w system nagłośnienia oraz projektor multimedialny.\nZapewniony dostęp do tablicy białej oraz zestawu markerów.\nMaksymalna liczba osób: 50.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20011%201.jpg?1635336028424"
+        },
+        {
+            "buildingName": "Pawilon C",
+            "floorNumber": 2,
+            "roomName": "203",
+            "description": "Sala o modularnym układzie, pozwalająca na różne konfiguracje mebli w zależności od potrzeb.\nPosiada rzutnik, ekran oraz system nagłośnienia.\nMożliwość korzystania z tablicy do pisania na marker.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%202.jpg"
+        },
+        {
+            "buildingName": "Pawilon D",
+            "floorNumber": 2,
+            "roomName": "204",
+            "description": "Klasyczna sala lekcyjna z ławkami i pulpitem prowadzącego.\nWyposażona w tablicę magnetyczną oraz zestaw kredek i gąbek.\nZapewniony dostęp do projektoru multimedialnego.\nMaksymalna liczba osób: 25.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20012%201.jpg?1635336420118"
+        },
+        {
+            "buildingName": "Pawilon E",
+            "floorNumber": 2,
+            "roomName": "205",
+            "description": "Sala z modułowymi ławkami umożliwiającymi elastyczne ustawienie przestrzeni.\nPosiada ekran projekcyjny oraz system nagłośnienia.\nMożliwość korzystania z tablicy flipchart.\nMaksymalna liczba osób: 135.",
+            "imageUrl": "https://bi.im-g.pl/im/cb/b0/11/z18550731IEG,Kampus-Uniwersytetu-Ekonomicznego---sala-wykladowa.jpg"
+        },
+        {
+            "buildingName": "Pawilon F",
+            "floorNumber": 2,
+            "roomName": "206",
+            "description": "Niewielka sala lekcyjna z 20 miejscami siedzącymi.\nWyposażona w tablicę do pisania na marker oraz projektor multimedialny.\nDostęp do Wi-Fi dla uczestników.\nMaksymalna liczba osób: 20.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%201.jpg"
+        },
+        {
+            "buildingName": "Pawilon A",
+            "floorNumber": 3,
+            "roomName": "301",
+            "description": "Sala z ładnym widokiem, wyposażona w 40 krzeseł.\nPosiada rzutnik, ekran oraz system nagłośnienia.\nMożliwość korzystania z tablicy białej i zestawu markerów.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://skad2017.uek.krakow.pl/media/images/f8/94/4d0415ddfca6ff0aca0c6f192fbc.png"
+        },
+        {
+            "buildingName": "Pawilon B",
+            "floorNumber": 3,
+            "roomName": "302",
+            "description": "Przestronna sala z elastycznym układem mebli, umożliwiająca różne konfiguracje przestrzeni.\nWyposażona w system nagłośnienia, rzutnik oraz ekran projekcyjny.\nDostęp do tablicy flipchart i zestawu markerów.\nMaksymalna liczba osób: 45.",
+            "imageUrl": "https://bg.uek.krakow.pl/sites/default/files/inline-images/20231003_075929aa.jpg"
+        },
+        {
+            "buildingName": "Pawilon C",
+            "floorNumber": 3,
+            "roomName": "303",
+            "description": "Sala z modułowymi ławkami umożliwiającymi elastyczne ustawienie przestrzeni.\nPosiada ekran projekcyjny oraz system nagłośnienia.\nMożliwość korzystania z tablicy flipchart.\nMaksymalna liczba osób: 135.",
+            "imageUrl": "https://bi.im-g.pl/im/cb/b0/11/z18550731IEG,Kampus-Uniwersytetu-Ekonomicznego---sala-wykladowa.jpg"
+        },
+        {
+            "buildingName": "Pawilon D",
+            "floorNumber": 3,
+            "roomName": "304",
+            "description": "Niewielka sala lekcyjna z 20 miejscami siedzącymi.\nWyposażona w tablicę do pisania na marker oraz projektor multimedialny.\nDostęp do Wi-Fi dla uczestników.\nMaksymalna liczba osób: 20.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%201.jpg"
+        },
+        {
+            "buildingName": "Pawilon E",
+            "floorNumber": 3,
+            "roomName": "305",
+            "description": "Sala z ładnym widokiem, wyposażona w 40 krzeseł.\nPosiada rzutnik, ekran oraz system nagłośnienia.\nMożliwość korzystania z tablicy białej i zestawu markerów.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://skad2017.uek.krakow.pl/media/images/f8/94/4d0415ddfca6ff0aca0c6f192fbc.png"
+        },
+        {
+            "buildingName": "Pawilon F",
+            "floorNumber": 3,
+            "roomName": "306",
+            "description": "Przestronna sala z elastycznym układem mebli, umożliwiająca różne konfiguracje przestrzeni.\nWyposażona w system nagłośnienia, rzutnik oraz ekran projekcyjny.\nDostęp do tablicy flipchart i zestawu markerów.\nMaksymalna liczba osób: 45.",
+            "imageUrl": "https://bg.uek.krakow.pl/sites/default/files/inline-images/20231003_075929aa.jpg"
+        },
+        {
+            "buildingName": "Pawilon A",
+            "floorNumber": 4,
+            "roomName": "401",
+            "description": "Sala wyposażona w 30 wygodnych krzeseł ustawionych w amfiteatralny układ.\nPosiada rzutnik, ekran oraz tablicę do pisania na marker.\nDostęp do Wi-Fi dla uczestników.\nMaksymalna liczba osób: 30.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20210.jpg"
+        },
+        {
+            "buildingName": "Pawilon B",
+            "floorNumber": 4,
+            "roomName": "402",
+            "description": "Przestronna sala z 50 miejscami siedzącymi, idealna do wykładów i prezentacji.\nWyposażona w system nagłośnienia oraz projektor multimedialny.\nZapewniony dostęp do tablicy białej oraz zestawu markerów.\nMaksymalna liczba osób: 50.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20011%201.jpg?1635336028424"
+        },
+        {
+            "buildingName": "Pawilon C",
+            "floorNumber": 4,
+            "roomName": "403",
+            "description": "Sala o modularnym układzie, pozwalająca na różne konfiguracje mebli w zależności od potrzeb.\nPosiada rzutnik, ekran oraz system nagłośnienia.\nMożliwość korzystania z tablicy do pisania na marker.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%202.jpg"
+        },
+        {
+            "buildingName": "Pawilon D",
+            "floorNumber": 4,
+            "roomName": "404",
+            "description": "Klasyczna sala lekcyjna z ławkami i pulpitem prowadzącego.\nWyposażona w tablicę magnetyczną oraz zestaw kredek i gąbek.\nZapewniony dostęp do projektoru multimedialnego.\nMaksymalna liczba osób: 25.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20012%201.jpg?1635336420118"
+        },
+        {
+            "buildingName": "Pawilon E",
+            "floorNumber": 4,
+            "roomName": "405",
+            "description": "Sala z modułowymi ławkami umożliwiającymi elastyczne ustawienie przestrzeni.\nPosiada ekran projekcyjny oraz system nagłośnienia.\nMożliwość korzystania z tablicy flipchart.\nMaksymalna liczba osób: 135.",
+            "imageUrl": "https://bi.im-g.pl/im/cb/b0/11/z18550731IEG,Kampus-Uniwersytetu-Ekonomicznego---sala-wykladowa.jpg"
+        },
+        {
+            "buildingName": "Pawilon F",
+            "floorNumber": 4,
+            "roomName": "406",
+            "description": "Niewielka sala lekcyjna z 20 miejscami siedzącymi.\nWyposażona w tablicę do pisania na marker oraz projektor multimedialny.\nDostęp do Wi-Fi dla uczestników.\nMaksymalna liczba osób: 20.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%201.jpg"
+        },
+        {
+            "buildingName": "Pawilon A",
+            "floorNumber": 5,
+            "roomName": "501",
+            "description": "Sala z ładnym widokiem, wyposażona w 40 krzeseł.\nPosiada rzutnik, ekran oraz system nagłośnienia.\nMożliwość korzystania z tablicy białej i zestawu markerów.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://skad2017.uek.krakow.pl/media/images/f8/94/4d0415ddfca6ff0aca0c6f192fbc.png"
+        },
+        {
+            "buildingName": "Pawilon B",
+            "floorNumber": 5,
+            "roomName": "502",
+            "description": "Przestronna sala z elastycznym układem mebli, umożliwiająca różne konfiguracje przestrzeni.\nWyposażona w system nagłośnienia, rzutnik oraz ekran projekcyjny.\nDostęp do tablicy flipchart i zestawu markerów.\nMaksymalna liczba osób: 45.",
+            "imageUrl": "https://bg.uek.krakow.pl/sites/default/files/inline-images/20231003_075929aa.jpg"
+        },
+        {
+            "buildingName": "Pawilon C",
+            "floorNumber": 5,
+            "roomName": "503",
+            "description": "Sala z modułowymi ławkami umożliwiającymi elastyczne ustawienie przestrzeni.\nPosiada ekran projekcyjny oraz system nagłośnienia.\nMożliwość korzystania z tablicy flipchart.\nMaksymalna liczba osób: 135.",
+            "imageUrl": "https://bi.im-g.pl/im/cb/b0/11/z18550731IEG,Kampus-Uniwersytetu-Ekonomicznego---sala-wykladowa.jpg"
+        },
+        {
+            "buildingName": "Pawilon D",
+            "floorNumber": 5,
+            "roomName": "504",
+            "description": "Niewielka sala lekcyjna z 20 miejscami siedzącymi.\nWyposażona w tablicę do pisania na marker oraz projektor multimedialny.\nDostęp do Wi-Fi dla uczestników.\nMaksymalna liczba osób: 20.",
+            "imageUrl": "https://cj.uek.krakow.pl/files/Zdj%C4%99cia%20sal%20CJ/Sala%20312%201.jpg"
+        },
+        {
+            "buildingName": "Pawilon E",
+            "floorNumber": 5,
+            "roomName": "505",
+            "description": "Sala z ładnym widokiem, wyposażona w 40 krzeseł.\nPosiada rzutnik, ekran oraz system nagłośnienia.\nMożliwość korzystania z tablicy białej i zestawu markerów.\nMaksymalna liczba osób: 40.",
+            "imageUrl": "https://skad2017.uek.krakow.pl/media/images/f8/94/4d0415ddfca6ff0aca0c6f192fbc.png"
+        },
+        {
+            "buildingName": "Pawilon F",
+            "floorNumber": 5,
+            "roomName": "506",
+            "description": "Przestronna sala z elastycznym układem mebli, umożliwiająca różne konfiguracje przestrzeni.\nWyposażona w system nagłośnienia, rzutnik oraz ekran projekcyjny.\nDostęp do tablicy flipchart i zestawu markerów.\nMaksymalna liczba osób: 45.",
+            "imageUrl": "https://bg.uek.krakow.pl/sites/default/files/inline-images/20231003_075929aa.jpg"
+        }
 ]
 
 
