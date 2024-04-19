@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/app.css'
+import './assets/css/app.css'
 import { createRouter, createWebHistory } from 'vue-router'
 import CreateAccount from './components/CreateAccount.vue'
 import MainPage from './components/MainPage.vue'

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import ConfirmationDialog from './ConfirmationDialog.vue';
+import { ref } from 'vue' 
+
 
     interface Props {
         date: string,
@@ -9,7 +12,39 @@
         delete: boolean
     }
 
+    interface FunTrigger {
+        functionToTrigger: () => void
+    }
+
     const props = defineProps<Props>()
+    const confirmationVisible = ref(false)
+    const functionToInvoke = ref<FunTrigger | null>(null)
+
+    function showConfirmation(fun: () => void) {
+        confirmationVisible.value = true
+        functionToInvoke.value = fun
+    }
+
+    function hideConfirmation() {
+        confirmationVisible.value = false
+        functionToInvoke.value = null
+    }
+
+    function reserve() {
+        console.log("reserve")
+    }
+
+    function remove() {
+        console.log("remove")
+    }
+
+    function handleEmit(decision: boolean) {
+        if(confirm){
+            functionToInvoke.value()
+        } else {
+            
+        }
+    }
 
 </script>
 
@@ -22,8 +57,14 @@
             <div>{{ props.buildingName }}</div>
             <div>{{ props.roomName }}</div>
             <div>{{ props.startTime }} - {{ props.endTime }}</div>
-            <div v-if="delete"><button>Delete</button></div>
-            <div v-else><button>Reserve</button></div>
+            <div v-if="delete">
+                <button v-if="!confirmationVisible" @click="showConfirmation(remove)">Delete</button>
+                <ConfirmationDialog @event="handleEmit" v-if="confirmationVisible"></ConfirmationDialog>
+            </div>
+            <div v-else>
+                <button v-if="!confirmationVisible" @click="showConfirmation(reserve)">Reserve</button>
+                <ConfirmationDialog @event="handleEmit" v-if="confirmationVisible"></ConfirmationDialog>
+            </div>
         </div>
     </div>
 </template>

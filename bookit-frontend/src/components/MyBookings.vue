@@ -60,6 +60,28 @@ import { Room } from '../model/Room.ts';
             })
         })
     })
+    /**
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+    */
+    // DODAĆ EMITA ABY PRZEKAZAC, ŻE CHCEMY USUWAC Z LISTY 
+    /**
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+    */
 </script>
 
 <template>

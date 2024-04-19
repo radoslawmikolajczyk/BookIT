@@ -49,26 +49,6 @@ import { UserGroupRequest } from '../model/UserGroupRequest.ts';
 
 <template>
     <h1>Add booking</h1>
-
-    <p>Get all groups</p>
-
-    <button @click="getAllGroups()">Click Me!</button>
-    <a> {{ groups }}</a>
-
-    <p>Get group</p>
-
-    <button @click="getGroupById(1)">Click Me!</button>
-    <a> {{ group }}</a>
-
-    <p>Get group</p>
-
-    <button @click="getGroupById(1)">Click Me!</button>
-    <a> {{ group }}</a>
-
-    <p>Get group</p>
-
-    <button @click="getGroupById(1)">Click Me!</button>
-    <a> {{ group }}</a>
 </template>
 
 <style scoped>
