@@ -1,9 +1,13 @@
 <script setup>
 
-    const emit = defineEmits(['event'])
+    const emit = defineEmits(['decision'])
 
     function confirm() {
-        emit("event")
+        emit("decision", true)
+    }
+
+    function decline() {
+        emit("decision", false)
     }
 
 </script>
@@ -16,7 +20,7 @@
     </div>
 
     <div>
-        <button v-on:click.prevent = "confirm()">
+        <button v-on:click.prevent = "decline()">
             Decline
         </button>
     </div>

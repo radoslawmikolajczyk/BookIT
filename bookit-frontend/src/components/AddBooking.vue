@@ -1,7 +1,4 @@
 <script setup>
-
-// 
-
 import { ref } from 'vue'
 import { GroupsService } from '../services/GroupsService.ts'
 import { Group } from '../model/Group.ts';
@@ -24,7 +21,7 @@ import { UserGroupRequest } from '../model/UserGroupRequest.ts';
     function getGroupById(id) {
         services.getGroupById(id)
         .then( result => {
-                group.value = result
+                console.log(result)
             }
         )
     }
@@ -49,6 +46,10 @@ import { UserGroupRequest } from '../model/UserGroupRequest.ts';
 
 <template>
     <h1>Add booking</h1>
+
+    <button v-on:click.prevent = "getGroupById(1)">
+            add
+    </button>
 </template>
 
 <style scoped>

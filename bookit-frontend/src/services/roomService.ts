@@ -1,13 +1,13 @@
+import { RequestResponse } from "../model/RequestResponse";
 import { RoomRequest } from "../model/RoomRequest";
-import { RoomResponse } from "../model/RoomResponse";
 
 export class RoomService {
-    async getAllRooms() : Promise<RoomResponse>{
+    async getAllRooms() : Promise<RequestResponse>{
         const response = await fetch('http://localhost:7777/api/rooms/getAllRooms');
         return await response.json();
     }
 
-    async createRooms(user: RoomRequest) : Promise<string>{
+    async createRooms(user: RoomRequest) : Promise<RequestResponse>{
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -17,7 +17,7 @@ export class RoomService {
         return await response.json();
     }
 
-    async getAvailableRooms(user: RoomRequest) : Promise<string>{
+    async getAvailableRooms(user: RoomRequest) : Promise<RequestResponse>{
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },

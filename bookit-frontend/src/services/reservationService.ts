@@ -1,9 +1,9 @@
 import { ReservationRequest } from "../model/ReservationRequest";
 import { Reservation } from "../model/Reservation";
-import { ReservationResponse } from "../model/ReservationResponse";
+import { RequestResponse } from "../model/RequestResponse";
 
 export class ReservationService {
-    async getAllUserReservations(email: string) : Promise<ReservationResponse>{
+    async getAllUserReservations(email: string) : Promise<RequestResponse>{
         const response = await fetch('http://localhost:7777/api/reservations/getAllUserReservations/' + email);
         return await response.json();
     }
@@ -13,23 +13,23 @@ export class ReservationService {
         return await response.json();
     }
 
-    async createReservation(request: ReservationRequest) : Promise<{status: string}>{
+    async createReservation(request: ReservationRequest) : Promise<RequestResponse>{
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(request)
         };
-        const response = await fetch('http://localhost:7777/api/reservations/createReservation',requestOptions);
+        const response = await fetch('http://localhost:7777/api/reservations/createReservation', requestOptions);
         return await response.json();
     }
 
-    async deleteReservation(request: ReservationRequest) : Promise<{status: string}>{
+    async deleteReservation(request: ReservationRequest) : Promise<RequestResponse>{
         const requestOptions = {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(request)
         };
-        const response = await fetch('http://localhost:7777/api/reservations/deleteReservation',requestOptions);
+        const response = await fetch('http://localhost:7777/api/reservations/deleteReservation', requestOptions);
         return await response.json();
     }
 }

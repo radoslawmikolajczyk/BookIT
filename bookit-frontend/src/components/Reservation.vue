@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ReservationRequest } from '../model/ReservationRequest';
 import ConfirmationDialog from './ConfirmationDialog.vue';
-import { ref } from 'vue' 
+import { ref } from 'vue'
 
+    const emit = defineEmits(['remove','reserve'])
 
     interface Props {
         date: string,
@@ -9,20 +11,21 @@ import { ref } from 'vue'
         roomName: number,
         startTime: string,
         endTime: string,
-        delete: boolean
+        delete: boolean,
+        roomId: number
     }
 
-    interface FunTrigger {
+    interface FuncTrigger {
         functionToTrigger: () => void
     }
 
     const props = defineProps<Props>()
     const confirmationVisible = ref(false)
-    const functionToInvoke = ref<FunTrigger | null>(null)
+    const functionToInvoke = ref<FuncTrigger | null>(null)
 
     function showConfirmation(fun: () => void) {
         confirmationVisible.value = true
-        functionToInvoke.value = fun
+        functionToInvoke.value = { functionToTrigger: fun }
     }
 
     function hideConfirmation() {
@@ -31,18 +34,19 @@ import { ref } from 'vue'
     }
 
     function reserve() {
-        console.log("reserve")
+        emit("reserve")
     }
 
     function remove() {
-        console.log("remove")
+        console.log(localStorage.getItem('token'))
+        emit("remove", new ReservationRequest(localStorage.getItem('token') ?? "", props.roomId, props.startTime, props.endTime))
     }
 
-    function handleEmit(decision: boolean) {
-        if(confirm){
-            functionToInvoke.value()
+    function handleDecision(decision: boolean) {
+        if(decision){
+           functionToInvoke.value?.functionToTrigger()
         } else {
-            
+            hideConfirmation()
         }
     }
 
@@ -59,11 +63,11 @@ import { ref } from 'vue'
             <div>{{ props.startTime }} - {{ props.endTime }}</div>
             <div v-if="delete">
                 <button v-if="!confirmationVisible" @click="showConfirmation(remove)">Delete</button>
-                <ConfirmationDialog @event="handleEmit" v-if="confirmationVisible"></ConfirmationDialog>
+                <ConfirmationDialog @decision="handleDecision" v-if="confirmationVisible"></ConfirmationDialog>
             </div>
             <div v-else>
                 <button v-if="!confirmationVisible" @click="showConfirmation(reserve)">Reserve</button>
-                <ConfirmationDialog @event="handleEmit" v-if="confirmationVisible"></ConfirmationDialog>
+                <ConfirmationDialog @decision="handleDecision" v-if="confirmationVisible"></ConfirmationDialog>
             </div>
         </div>
     </div>

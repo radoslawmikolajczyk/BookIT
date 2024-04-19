@@ -7,7 +7,7 @@
         <img src="../assets/img/main.png">
     </div>
     <div class="greetings">
-
+        
     </div>
     <div class="reservation">
 
