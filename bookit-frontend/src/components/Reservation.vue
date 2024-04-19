@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RequestResponse } from '../model/RequestResponse';
+import { Reservation } from '../model/Reservation';
 import { ReservationRequest } from '../model/ReservationRequest';
 import ConfirmationDialog from './ConfirmationDialog.vue';
 import { ref } from 'vue'
@@ -6,13 +8,8 @@ import { ref } from 'vue'
     const emit = defineEmits(['remove','reserve'])
 
     interface Props {
-        date: string,
-        buildingName : string,
-        roomName: number,
-        startTime: string,
-        endTime: string,
-        delete: boolean,
-        roomId: number
+        reservation: Reservation,
+        delete: boolean
     }
 
     interface FuncTrigger {
@@ -38,8 +35,7 @@ import { ref } from 'vue'
     }
 
     function remove() {
-        console.log(localStorage.getItem('token'))
-        emit("remove", new ReservationRequest(localStorage.getItem('token') ?? "", props.roomId, props.startTime, props.endTime))
+        emit("remove", new ReservationRequest(props.reservation.user.email, props.reservation.room.id, props.reservation.startTime, props.reservation.endTime))
     }
 
     function handleDecision(decision: boolean) {
@@ -55,12 +51,12 @@ import { ref } from 'vue'
 <template>
     <div class="container">
         <div class="date">
-            <div> {{ props.date }}</div>
+            <div> {{ props.reservation.endTime }}</div>
         </div>
         <div class="info">
-            <div>{{ props.buildingName }}</div>
-            <div>{{ props.roomName }}</div>
-            <div>{{ props.startTime }} - {{ props.endTime }}</div>
+            <div>{{ props.reservation.room.buildingName }}</div>
+            <div>{{ props.reservation.room.roomName }}</div>
+            <div>{{ props.reservation.endTime }} - {{ props.reservation.endTime }}</div>
             <div v-if="delete">
                 <button v-if="!confirmationVisible" @click="showConfirmation(remove)">Delete</button>
                 <ConfirmationDialog @decision="handleDecision" v-if="confirmationVisible"></ConfirmationDialog>

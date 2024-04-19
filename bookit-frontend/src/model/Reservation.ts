@@ -6,11 +6,4 @@ export class Reservation {
     user: User
     startTime: string
     endTime: string
-
-    constructor(room: Room, user: User, startTime: string, endTime: string) {
-        this.room = room
-        this.user = user
-        this.startTime = startTime
-        this.endTime = endTime
-    }
 }
