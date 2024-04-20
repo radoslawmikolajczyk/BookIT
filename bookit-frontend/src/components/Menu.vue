@@ -1,16 +1,13 @@
 <script setup>
-import useAuthorize from '../composables/authorize';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
     const router = useRouter()
-
-    const {
-        unauthorize
-    } = useAuthorize()
+    const store = useStore()
 
     function wrapNavigate(navigate, event) {
         localStorage.removeItem('token')
-        unauthorize()
+        store.state.authorized = false
         router.back()
     }
 </script>

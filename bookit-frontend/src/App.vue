@@ -1,15 +1,11 @@
 <script setup>
     import Menu from './components/Menu.vue';
-    import useAuthorize from './composables/authorize';
-
-    const {
-        authorized
-    } = useAuthorize()
-
+    import { useStore } from 'vuex';
+    const store = useStore()
 </script>
 
 <template>
-    <Menu v-if="authorized"></Menu>
+    <Menu v-if="store.state.authorized"></Menu>
     <router-view></router-view>
     
 </template>

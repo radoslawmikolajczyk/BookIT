@@ -9,7 +9,7 @@ import TermsConditions from './components/TermsConditions.vue'
 import MyBookings from './components/MyBookings.vue'
 import AddBooking from './components/AddBooking.vue'
 import Help from './components/Help.vue'
-import useAuthorize from './composables/authorize'
+import store from './store/store.ts'
 
 const routes = [
   { path: '/', component: MainPage, meta: { requiresAuth: true } },
@@ -26,33 +26,29 @@ const router = createRouter({
   routes,
 })
 
-const {
-  authorize,
-  unauthorize
-} = useAuthorize()
-
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
 
   if (to.matched.some((route) => route.meta.requiresAuth)) {
     if (token) {
       next();
-      authorize()
+      store.state.authorized = true
     } else {
       next('/login');
-      unauthorize()
+      store.state.authorized = false
     }
   } else {
     if (token) {
       next('/');
-      authorize()
+      store.state.authorized = true
     } else {
       next();
-      unauthorize()
+      store.state.authorized = false
     }
   }
 });
 
 createApp(App)
 .use(router)
+.use(store)
 .mount('#app')

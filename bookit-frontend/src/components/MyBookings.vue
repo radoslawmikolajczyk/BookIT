@@ -2,15 +2,14 @@
 import Reservation from './Reservation.vue';
 import { ReservationService } from '../services/ReservationService.ts'
 import { ref, onMounted } from 'vue'
-import { RoomService } from '../services/RoomService.ts'
 import { ReservationRequest } from '../model/ReservationRequest.ts';
 import { DateParser } from '../utils/dateParser.ts';
 import { Reservation as ReservationModel } from '../model/Reservation.ts';
+import { useStore } from 'vuex';
 
     const reservations = ref<[ReservationModel] | null>(null)
     const reservationService = new ReservationService()
-    const roomService = new RoomService()
-    const empty = ref(true)
+    const store = useStore()
 
     function initValues() {
         reservations.value = [new ReservationModel()]
@@ -18,8 +17,7 @@ import { Reservation as ReservationModel } from '../model/Reservation.ts';
 
         reservationService.getAllUserReservations(localStorage.getItem('token') ?? "")
         .then( result => {
-            empty.value = !(result.reservations.length > 0)
-
+            store.state.myBookingsEmpty = !(result.reservations.length > 0)
             result.reservations.forEach((r) => {
                 reservations.value?.push(r)
             })           
@@ -45,7 +43,7 @@ import { Reservation as ReservationModel } from '../model/Reservation.ts';
 
 <template>
     <h1>My Reservations</h1>
-    <div v-if="empty">
+    <div v-if="store.state.myBookingsEmpty">
         <p>You don't have any reservations. Make your first reservation.</p>
         <!-- TUTAJ DODAĆ PRZYCISK DODAWANIA BOOKINGU-->
     </div>
