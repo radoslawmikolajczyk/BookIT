@@ -1,52 +1,92 @@
-<script setup>
-    import { useStore } from 'vuex';
+<script setup lang="ts">
     import Slider from '../components/Slider.vue'
-    import { ref } from 'vue'
+    import { onBeforeMount, ref } from 'vue'
+    import { computed } from 'vue';
+    import { DateParser } from '../utils/dateParser';
+    import { RoomService } from '../services/RoomService';
+    import  stateManager from '../composables/stateManager';
 import { RoomRequest } from '../model/RoomRequest';
-    
+
     const sliderMin = ref(65);
     const sliderMax = ref(150);
-    const store = useStore()
-    const roomRequest = ref<RoomRequest | null>(null)
-    
-    const dateMax = computed({
-        get: () => count.value + 1,
-        set: (val) => {
-            count.value = val - 1
+    const selectedBuilding = ref("")
+    const selectedFloor = ref(0)
+    const roomService = new RoomService()
+    var buildingNameOptions:[string]
+    var floorsOptions:[string]
+
+    const { roomsFloorsNumbers, roomsBuldings, roomsRequest } = stateManager()
+
+    onBeforeMount(() => {
+        buildingNameOptions = [""]
+        floorsOptions = [""]
+
+        roomsFloorsNumbers.value?.forEach((value: number) => {
+            floorsOptions.push(value+"")
+        });
+
+        roomsBuldings.value?.forEach((value: string) => {
+            buildingNameOptions.push(value)
+        });
+
+        if(roomsRequest.value == null) {
+            roomsRequest.value = new RoomRequest("","","",1)
+            console.log("123123")
         }
+    })
+
+
+
+    const dateMax = computed({
+        set: (val) => {
+            // var parsed = DateParser.setOnlyDate(val)
+            // if(store.state.roomRequest != null){
+            //     store.state.roomRequest.endTime = val
+            // }
+        },
+        get: () => {}
     })
 
     const dateMin = computed({
-        get: () => count.value + 1,
         set: (val) => {
-            count.value = val - 1
-        }
+           
+        },
+        get: () => {}
     })
 
     const timeMax = computed({
-        get: () => count.value + 1,
         set: (val) => {
-            count.value = val - 1
-        }
+            
+        },
+        get: () => {}
     })
 
     const timeMin = computed({
-        get: () => count.value + 1,
         set: (val) => {
-            count.value = val - 1
-        }
+            
+        },
+        get: () => {}
     })
+
+    function getMaxDaysForSelectedMonth() : number {
+        return 0
+    }
 
 </script>
 
 <template>
     <div>
         <div class="building">
-            <p>Building</p>
+            <select v-model="selectedBuilding">
+                <option v-for="option in buildingNameOptions" :value="option">{{ option }}</option>
+            </select>
         </div>
         <div class="floor">
-            <p>Floor</p>
+            <select v-model="selectedFloor">
+                <option v-for="option in floorsOptions" :value="option">{{ option }}</option>
+            </select>
         </div>
+
         <div class="hour">
             <Slider
                 :min="8"

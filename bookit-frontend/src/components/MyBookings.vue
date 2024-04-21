@@ -5,14 +5,14 @@
     import { ReservationRequest } from '../model/ReservationRequest.ts';
     import { DateParser } from '../utils/dateParser.ts';
     import { Reservation as ReservationModel } from '../model/Reservation.ts';
-    import { useStore } from 'vuex';
     import { Tabs } from '../enums/tabs.ts';
+import stateManager from '../composables/stateManager.ts';
 
     const currentReservations = ref<[ReservationModel] | null>(null)
     const historyReservations = ref<[ReservationModel] | null>(null)
     const reservationService = new ReservationService()
 
-    const store = useStore()
+    const { myCurrentBookingsEmpty, myHistoryBookingsEmpty, openTab } = stateManager()
 
     function initCurrentReservations() {
         currentReservations.value = [new ReservationModel()]
@@ -21,7 +21,7 @@
         reservationService.getCurrentReservations(localStorage.getItem('token') ?? "")
         .then( result => {
             console.log(result)
-            store.state.myCurrentBookingsEmpty = !(result.reservations?.length ?? 0 > 0)
+            myCurrentBookingsEmpty.value = !(result.reservations?.length ?? 0 > 0)
             result.reservations?.forEach((r) => {
                 currentReservations.value?.push(r)
             })
@@ -34,7 +34,7 @@
 
         reservationService.getHistoryReservations(localStorage.getItem('token') ?? "")
         .then( result => {
-            store.state.myHistoryBookingsEmpty = !(result.reservations.length > 0)
+            myHistoryBookingsEmpty.value = !(result.reservations.length > 0)
             result.reservations.forEach((r) => {
                 historyReservations.value?.push(r)
             })
@@ -58,7 +58,7 @@
     }
 
     function showTab(tab: Tabs) {
-        store.state.openTab = tab
+        openTab.value = tab
     }
 </script>
 
@@ -69,8 +69,8 @@
         <button @click="showTab(Tabs.CURRENT)">My curent bookings</button>
         <button @click="showTab(Tabs.HISTORY)">My history bookings</button>
     </div>
-    <div v-if="store.state.openTab == Tabs.HISTORY">
-        <div v-if="store.state.myHistoryBookingsEmpty">
+    <div v-if="openTab == Tabs.HISTORY">
+        <div v-if="myHistoryBookingsEmpty.value">
             <p>You don't have any past reservations.</p>
         </div>
         <div v-else>
@@ -79,8 +79,8 @@
             </div>
         </div>
     </div>
-    <div v-if="store.state.openTab == Tabs.CURRENT">
-        <div v-if="store.state.myCurrentBookingsEmpty">
+    <div v-if="openTab == Tabs.CURRENT">
+        <div v-if="myCurrentBookingsEmpty.value">
             <p>You don't have any current reservations.</p>
         </div>
         <div v-else>

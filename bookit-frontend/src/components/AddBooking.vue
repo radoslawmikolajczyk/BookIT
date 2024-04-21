@@ -3,23 +3,28 @@ import { ref } from 'vue'
 import { RoomService } from '../services/RoomService.ts';
 import Filters from './Filters.vue';
 import { Reservation } from '../model/Reservation.ts';
-import { useStore } from 'vuex';
 import { Room } from '../model/Room.ts';
 import { RoomRequest } from '../model/RoomRequest.ts';
+import { DateParser } from '../utils/dateParser.ts';
+import { ReservationRequest } from '../model/ReservationRequest.ts';
+import stateManager from '../composables/stateManager.ts';
 
 const rooms = ref<[Room] | null>(null)
 const reservations = ref<[Reservation] | null>(null)
-const store = useStore()
 const roomService = new RoomService()
 
+const { roomsRequest } = stateManager()
+
 function filterRooms() {
+    // initialization purpose only
     rooms.value = [new Room()]
     rooms.value.pop()
+    // initialization purpose only
     reservations.value = [new Reservation()]
     reservations.value.pop()
 
-    if(store.state.roomsRequest != null && store.state.roomsRequest.endTime != null && store.state.roomsRequest.startTime != null){
-        roomService.getAvailableRooms(store.state.roomsRequest)
+    if(roomsRequest.value != null && roomsRequest.value.endTime != null && roomsRequest.value.startTime != null){
+        roomService.getAvailableRooms(roomsRequest.value)
         .then( result => {
             console.log(result)
 
@@ -31,8 +36,15 @@ function filterRooms() {
     }
 }
 
-function reserve() {
-
+function reserve(request: ReservationRequest) {
+    // var startTime = DateParser.parseDate(request.startTime)
+    //     var endTime = DateParser.parseDate(request.endTime)
+    //     const token = localStorage.getItem('token') ?? ""
+    //     reservationService.deleteReservation(new ReservationRequest(token, request.roomId, startTime, endTime))
+    //     .then( result => {
+    //         console.log(result)
+    //         initCurrentReservations()
+    //     })
 }
 
 </script>

@@ -1,3 +1,5 @@
+import { DateParser } from "../utils/dateParser"
+
 export class RoomRequest {
     startTime: string
     endTime: string
@@ -12,19 +14,20 @@ export class RoomRequest {
     }
 
     setTimeMax(time: string) {
-        // dodać parsowanie
+        this.endTime = time
     }
 
     setTimeMin(time: string) {
-        // dodać parsowanie
+        this.startTime = time
+        //DateParser.parseDate
     }
 
     setDateMax(date: string) {
-        // dodać parsowanie
+        this.endTime = date
     }
 
     setDateMin(date: string) {
-        // dodać parsowanie
+        this.startTime = date
     }
 
     setFloorNumber(number: number) {
@@ -34,4 +37,6 @@ export class RoomRequest {
     setBuildingName(name: string) {
         this.buildingName = name
     }
+
+
 }

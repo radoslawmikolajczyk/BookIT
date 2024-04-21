@@ -10,8 +10,11 @@ import TermsConditions from './components/TermsConditions.vue'
 import MyBookings from './components/MyBookings.vue'
 import AddBooking from './components/AddBooking.vue'
 import Help from './components/Help.vue'
-import store from './store/store.ts'
 import Groups from './components/Groups.vue'
+import stateManager from './composables/stateManager'
+import { UserService } from './services/UserService'
+
+const service = new UserService()
 
 const routes = [
   { path: '/', component: MainPage, meta: { requiresAuth: true } },
@@ -29,29 +32,45 @@ const router = createRouter({
   routes,
 })
 
+const { authorizedUser } = stateManager()
+
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
 
+
   if (to.matched.some((route) => route.meta.requiresAuth)) {
     if (token) {
-      next();
-      store.state.authorized = true
+      if(authorizedUser.value == null) {
+        service.getUserByEmail(token)
+        .then( result =>{
+            authorizedUser.value = result.user
+            next()
+        })
+      } else {
+        next();
+      }
     } else {
       next('/login');
-      store.state.authorized = false
+      authorizedUser.value = null
     }
   } else {
     if (token) {
-      next('/');
-      store.state.authorized = true
+      if(authorizedUser.value == null) {
+        service.getUserByEmail(token)
+        .then( result =>{
+            authorizedUser.value = result.user
+            next('/');
+        })
+      } else {
+        next('/');
+      }
     } else {
       next();
-      store.state.authorized = false
+      authorizedUser.value = null
     }
   }
 });
 
 createApp(App)
 .use(router)
-.use(store)
 .mount('#app')
