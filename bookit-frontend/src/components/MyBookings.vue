@@ -1,17 +1,19 @@
-<script setup lang="ts">
-import Reservation from './Reservation.vue';
-import { ReservationService } from '../services/ReservationService.ts'
-import { ref, onMounted } from 'vue'
-import { ReservationRequest } from '../model/ReservationRequest.ts';
-import { DateParser } from '../utils/dateParser.ts';
-import { Reservation as ReservationModel } from '../model/Reservation.ts';
-import { useStore } from 'vuex';
-import { Tabs } from '../enums/tabs.ts';
+    <script setup lang="ts">
+    import Reservation from './Reservation.vue';
+    import { ReservationService } from '../services/ReservationService.ts'
+    import { ref, onMounted } from 'vue'
+    import { ReservationRequest } from '../model/ReservationRequest.ts';
+    import { DateParser } from '../utils/dateParser.ts';
+    import { Reservation as ReservationModel } from '../model/Reservation.ts';
+    import { useStore } from 'vuex';
+    import { Tabs } from '../enums/tabs.ts';
 
     const currentReservations = ref<[ReservationModel] | null>(null)
     const historyReservations = ref<[ReservationModel] | null>(null)
     const reservationService = new ReservationService()
-    const store = useStore()    
+
+    const store = useStore()
+
     function initCurrentReservations() {
         currentReservations.value = [new ReservationModel()]
         currentReservations.value.pop()

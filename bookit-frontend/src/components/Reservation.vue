@@ -2,12 +2,8 @@
 import { Reservation } from '../model/Reservation';
 import { ReservationRequest } from '../model/ReservationRequest';
 import ConfirmationDialog from './ConfirmationDialog.vue';
-import { onBeforeMount, onMounted,ref } from 'vue'
-import { Room } from '../model/Room';
-import { RoomService } from '../services/RoomService.ts'
-import Vue3EasyDataTable from 'vue3-easy-data-table';
-import type { Header, Item } from "vue3-easy-data-table";
-import 'vue3-easy-data-table/dist/style.css';
+import { onMounted,ref } from 'vue'
+import { RoomService } from '../services/RoomService.ts';
 
     interface Props {
         reservation: Reservation,
@@ -45,7 +41,7 @@ import 'vue3-easy-data-table/dist/style.css';
     }
 
     function reserve() {
-        emit("reserve")
+        emit("reserve", new ReservationRequest(props.reservation.user.email, props.reservation.room.id, props.reservation.startTime, props.reservation.endTime))
     }
 
     function remove() {
@@ -59,9 +55,6 @@ import 'vue3-easy-data-table/dist/style.css';
             hideConfirmation()
         }
     }
-
-
-
 </script>
 
 <template>

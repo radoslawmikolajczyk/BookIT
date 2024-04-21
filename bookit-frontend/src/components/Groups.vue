@@ -1,10 +1,48 @@
 <script setup>
 
+
+    // const groups = ref([""])
+    // let group = ref("")
+    
+    // const services = new GroupsService()
+
+    // function getAllGroups() {
+    //     services.getAllGroups()
+    //     .then( result => {
+    //             groups.value = result
+    //         }
+    //     )
+    // }
+
+    // function getGroupById(id) {
+    //     services.getGroupById(id)
+    //     .then( result => {
+    //             console.log(result)
+    //         }
+    //     )
+    // }
+
+    // function createGroups() {
+    //     services.createGroups()
+    //     .then( result => {
+    //             group.value = result
+    //         }
+    //     )
+    // }
+
+    // function addUserToGroup() {
+    //     services.addUserToGroup()
+    //     .then( result => {
+    //             group.value = result
+    //         }
+    //     )
+    // }
+
 </script>
 
 <template>
     <div class="image">
-        <img src="../assets/img/main.png">
+        
     </div>
     <div class="greetings">
         

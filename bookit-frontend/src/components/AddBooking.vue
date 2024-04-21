@@ -1,56 +1,57 @@
-<script setup>
+<script setup  lang="ts">
 import { ref } from 'vue'
-import { GroupsService } from '../services/GroupsService.ts'
-import { Group } from '../model/Group.ts';
-import { UserGroupRequest } from '../model/UserGroupRequest.ts';
-import MakeReservation from './MakeReservation.vue';
+import { RoomService } from '../services/RoomService.ts';
 import Filters from './Filters.vue';
+import { Reservation } from '../model/Reservation.ts';
+import { useStore } from 'vuex';
+import { Room } from '../model/Room.ts';
+import { RoomRequest } from '../model/RoomRequest.ts';
 
-    // const groups = ref([""])
-    // let group = ref("")
-    
-    // const services = new GroupsService()
+const rooms = ref<[Room] | null>(null)
+const reservations = ref<[Reservation] | null>(null)
+const store = useStore()
+const roomService = new RoomService()
 
-    // function getAllGroups() {
-    //     services.getAllGroups()
-    //     .then( result => {
-    //             groups.value = result
-    //         }
-    //     )
-    // }
+function filterRooms() {
+    rooms.value = [new Room()]
+    rooms.value.pop()
+    reservations.value = [new Reservation()]
+    reservations.value.pop()
 
-    // function getGroupById(id) {
-    //     services.getGroupById(id)
-    //     .then( result => {
-    //             console.log(result)
-    //         }
-    //     )
-    // }
+    if(store.state.roomsRequest != null && store.state.roomsRequest.endTime != null && store.state.roomsRequest.startTime != null){
+        roomService.getAvailableRooms(store.state.roomsRequest)
+        .then( result => {
+            console.log(result)
 
-    // function createGroups() {
-    //     services.createGroups()
-    //     .then( result => {
-    //             group.value = result
-    //         }
-    //     )
-    // }
+            // result.rooms?.forEach((r) => {
+            //     rooms.value?.push(r)
+            //     // tutaj przerobić room na reservation i wepchnąć do komponentu
+            // })
+        })
+    }
+}
 
-    // function addUserToGroup() {
-    //     services.addUserToGroup()
-    //     .then( result => {
-    //             group.value = result
-    //         }
-    //     )
-    // }
+function reserve() {
+
+}
 
 </script>
 
 <template>
     <h1>Add booking</h1>
-    <Filters></Filters>
-    <!-- <button v-on:click.prevent = "getGroupById(1)">
-            add
-    </button> -->
+    <div>
+        <div>
+            <Filters></Filters>
+        </div>
+        <div>
+            <button v-on:click.prevent = "filterRooms()">
+                Confirm
+            </button>
+        </div>
+        <div v-for="item in reservations">
+            <Reservation @reserve="reserve" :reservation="item" :delete="false"/>
+        </div>
+    </div>
 </template>
 
 <style scoped>

@@ -10,4 +10,28 @@ export class RoomRequest {
         this.endTime = endTime
         this.startTime = startTime
     }
+
+    setTimeMax(time: string) {
+        // dodać parsowanie
+    }
+
+    setTimeMin(time: string) {
+        // dodać parsowanie
+    }
+
+    setDateMax(date: string) {
+        // dodać parsowanie
+    }
+
+    setDateMin(date: string) {
+        // dodać parsowanie
+    }
+
+    setFloorNumber(number: number) {
+        this.floorNumber = number
+    }
+
+    setBuildingName(name: string) {
+        this.buildingName = name
+    }
 }
