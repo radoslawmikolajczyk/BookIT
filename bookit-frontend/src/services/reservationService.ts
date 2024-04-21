@@ -8,7 +8,12 @@ export class ReservationService {
         return await response.json();
     }
 
-    async getHistoryReservations(email: string) : Promise<{status: string, reservations:[Reservation]}>{
+    async getCurrentReservations(email: string) : Promise<RequestResponse>{
+        const response = await fetch('http://localhost:7777/api/reservations/getCurrentReservations/' + email);
+        return await response.json();
+    }
+
+    async getHistoryReservations(email: string) : Promise<RequestResponse>{
         const response = await fetch('http://localhost:7777/api/reservations/getHistoryReservations/' + email);
         return await response.json();
     }

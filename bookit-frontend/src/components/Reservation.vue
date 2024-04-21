@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { RequestResponse } from '../model/RequestResponse';
 import { Reservation } from '../model/Reservation';
 import { ReservationRequest } from '../model/ReservationRequest';
 import ConfirmationDialog from './ConfirmationDialog.vue';
-import { ref } from 'vue'
-
-    const emit = defineEmits(['remove','reserve'])
+import { onBeforeMount, onMounted,ref } from 'vue'
+import { Room } from '../model/Room';
+import { RoomService } from '../services/RoomService.ts'
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import type { Header, Item } from "vue3-easy-data-table";
+import 'vue3-easy-data-table/dist/style.css';
 
     interface Props {
         reservation: Reservation,
@@ -16,9 +18,21 @@ import { ref } from 'vue'
         functionToTrigger: () => void
     }
 
+    const emit = defineEmits(['remove','reserve'])
     const props = defineProps<Props>()
     const confirmationVisible = ref(false)
     const functionToInvoke = ref<FuncTrigger | null>(null)
+    const roomService = new RoomService()
+
+    onMounted (() => {
+        roomService.getAllRooms()
+            .then( result => {
+                var rooms = result.rooms.filter( (room) => { return room.id == props.reservation.room.id})
+                if (rooms.length > 0) {
+                    props.reservation.room = rooms[0]
+                }
+            })
+    })
 
     function showConfirmation(fun: () => void) {
         confirmationVisible.value = true
@@ -46,6 +60,8 @@ import { ref } from 'vue'
         }
     }
 
+
+
 </script>
 
 <template>
@@ -55,15 +71,19 @@ import { ref } from 'vue'
         </div>
         <div class="info">
             <div>{{ props.reservation.room.buildingName }}</div>
+            <div>{{ props.reservation.room.floorNumber }}</div>
             <div>{{ props.reservation.room.roomName }}</div>
-            <div>{{ props.reservation.endTime }} - {{ props.reservation.endTime }}</div>
+            <div>{{ props.reservation.startTime }} - {{ props.reservation.endTime }}</div>
+            <div>{{ props.reservation.room.description }}</div>
+            <div class="image"><img :src=props.reservation.room.imageUrl></div>
+
             <div v-if="delete">
                 <button v-if="!confirmationVisible" @click="showConfirmation(remove)">Delete</button>
-                <ConfirmationDialog @decision="handleDecision" v-if="confirmationVisible"></ConfirmationDialog>
+                <ConfirmationDialog @decision="handleDecision" v-else></ConfirmationDialog>
             </div>
             <div v-else>
                 <button v-if="!confirmationVisible" @click="showConfirmation(reserve)">Reserve</button>
-                <ConfirmationDialog @decision="handleDecision" v-if="confirmationVisible"></ConfirmationDialog>
+                <ConfirmationDialog @decision="handleDecision" v-else></ConfirmationDialog>
             </div>
         </div>
     </div>
@@ -75,21 +95,24 @@ import { ref } from 'vue'
     }
 
     .date {
-    background-color: rgb(238, 229, 229);
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 30px;
-    align-items: center;
+        background-color: rgb(238, 229, 229);
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 30px;
+        align-items: center;
     }
 
     .info {
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 30px;
-    align-items: center;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 30px;
+        align-items: center;
     }
 
+    .image {
+        object-fit: fill;
+    }
     /* .nav-content {
     display: flex;
     justify-content: space-between;

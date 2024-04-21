@@ -1,15 +1,19 @@
 import { createStore } from 'vuex'
 import { Reservation } from '../model/Reservation'
+import { Tabs } from '../enums/tabs'
 
 export default createStore({
   state: {
-    reservationSearched: [Reservation],
-    myBookingsEmpty: Boolean,
-    authorized: Boolean
+    reservationsSearched: [Reservation],
+    reservationsOwned: [Reservation],
+    myCurrentBookingsEmpty: Boolean,
+    myHistoryBookingsEmpty: Boolean,
+    authorized: Boolean,
+    openTab: Tabs.CURRENT
   },
   mutations: {
     increment() {
-      this.state.reservationSearched
+      //this.state.reservationSearched
     }
   }
 })

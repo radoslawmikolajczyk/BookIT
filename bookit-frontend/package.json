@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "build": "^0.1.4",
+    "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "run": "^1.5.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
+    "vue3-easy-data-table": "^1.5.47",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
@@ -21,5 +23,11 @@
     "vite": "^5.1.6",
     "vite-plugin-mkcert": "^1.17.4"
   },
-  "exports": { ".": { "module": "./dist/vuex.esm-bundler.js", "require": "./dist/vuex.cjs.js", "import": "./dist/vuex.mjs" } }
+  "exports": {
+    ".": {
+      "module": "./dist/vuex.esm-bundler.js",
+      "require": "./dist/vuex.cjs.js",
+      "import": "./dist/vuex.mjs"
+    }
+  }
 }

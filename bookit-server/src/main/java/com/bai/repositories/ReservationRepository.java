@@ -20,6 +20,10 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     List<Reservation> getPastReservations(Long userId, Timestamp today);
 
     @Transactional
+    @Query("SELECT * FROM reservations r WHERE r.user_id = :userId AND r.end_time >= :today")
+    List<Reservation> getCurrentReservations(Long userId, Timestamp today);
+
+    @Transactional
     @Query("SELECT * FROM reservations r WHERE r.user_id = :userId AND r.room_id = :roomId AND r.start_time = :startTime AND r.end_time = :endTime")
     List<Reservation> getReservation(Long userId, Long roomId, Timestamp startTime, Timestamp endTime);
 }

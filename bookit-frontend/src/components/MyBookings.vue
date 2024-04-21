@@ -6,26 +6,42 @@ import { ReservationRequest } from '../model/ReservationRequest.ts';
 import { DateParser } from '../utils/dateParser.ts';
 import { Reservation as ReservationModel } from '../model/Reservation.ts';
 import { useStore } from 'vuex';
+import { Tabs } from '../enums/tabs.ts';
 
-    const reservations = ref<[ReservationModel] | null>(null)
+    const currentReservations = ref<[ReservationModel] | null>(null)
+    const historyReservations = ref<[ReservationModel] | null>(null)
     const reservationService = new ReservationService()
-    const store = useStore()
+    const store = useStore()    
+    function initCurrentReservations() {
+        currentReservations.value = [new ReservationModel()]
+        currentReservations.value.pop()
 
-    function initValues() {
-        reservations.value = [new ReservationModel()]
-        reservations.value.pop()
-
-        reservationService.getAllUserReservations(localStorage.getItem('token') ?? "")
+        reservationService.getCurrentReservations(localStorage.getItem('token') ?? "")
         .then( result => {
-            store.state.myBookingsEmpty = !(result.reservations.length > 0)
+            console.log(result)
+            store.state.myCurrentBookingsEmpty = !(result.reservations?.length ?? 0 > 0)
+            result.reservations?.forEach((r) => {
+                currentReservations.value?.push(r)
+            })
+        })
+    }
+
+    function initHistoryReservations() {
+        historyReservations.value = [new ReservationModel()]
+        historyReservations.value.pop()
+
+        reservationService.getHistoryReservations(localStorage.getItem('token') ?? "")
+        .then( result => {
+            store.state.myHistoryBookingsEmpty = !(result.reservations.length > 0)
             result.reservations.forEach((r) => {
-                reservations.value?.push(r)
-            })           
+                historyReservations.value?.push(r)
+            })
         })
     }
 
     onMounted (() => {
-        initValues()
+        initCurrentReservations()
+        initHistoryReservations()
     })
 
     function remove(request: ReservationRequest) {
@@ -35,26 +51,40 @@ import { useStore } from 'vuex';
         reservationService.deleteReservation(new ReservationRequest(token, request.roomId, startTime, endTime))
             .then( result => {
                 console.log(result)
-                initValues()
+                initCurrentReservations()
             })
     }
 
+    function showTab(tab: Tabs) {
+        store.state.openTab = tab
+    }
 </script>
 
 <template>
     <h1>My Reservations</h1>
-    <div v-if="store.state.myBookingsEmpty">
-        <p>You don't have any reservations. Make your first reservation.</p>
-        <!-- TUTAJ DODAĆ PRZYCISK DODAWANIA BOOKINGU-->
+    <p>Know when and where you will be at University.</p>
+    <div>
+        <button @click="showTab(Tabs.CURRENT)">My curent bookings</button>
+        <button @click="showTab(Tabs.HISTORY)">My history bookings</button>
     </div>
-    <div v-else>
-        <p>Know when and where you will be at University.</p>
-        <div v-for="item in reservations">
-            <Reservation 
-            @remove="remove"
-            :reservation="item"
-            :delete="true"
-            />
+    <div v-if="store.state.openTab == Tabs.HISTORY">
+        <div v-if="store.state.myHistoryBookingsEmpty">
+            <p>You don't have any past reservations.</p>
+        </div>
+        <div v-else>
+            <div v-for="item in historyReservations">
+                <Reservation @remove="remove" :reservation="item" :delete="true"/>
+            </div>
+        </div>
+    </div>
+    <div v-if="store.state.openTab == Tabs.CURRENT">
+        <div v-if="store.state.myCurrentBookingsEmpty">
+            <p>You don't have any current reservations.</p>
+        </div>
+        <div v-else>
+            <div v-for="item in currentReservations">
+                <Reservation @remove="remove" :reservation="item" :delete="true"/>
+            </div>
         </div>
     </div>
 </template>

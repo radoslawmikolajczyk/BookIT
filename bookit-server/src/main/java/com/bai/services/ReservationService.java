@@ -60,6 +60,19 @@ public class ReservationService extends Service {
         return requestResponse;
     }
 
+    @Get("/getCurrentReservations/{email}")
+    public RequestResponse getCurrentReservations(String email) {
+        RequestResponse requestResponse = new RequestResponse();
+        try {
+            Timestamp now = new Timestamp(System.currentTimeMillis());
+            requestResponse.setReservations(this.reservationRepository.getCurrentReservations(this.userRepository.findByEmail(email).getId(), now));
+            requestResponse.setIsSuccess(true);
+        } catch (Exception ex) {
+            return new RequestResponse("Exception occurred: " + ex.getMessage(), false);
+        }
+        return requestResponse;
+    }
+
     @Post(value = "/createReservation", consumes = MediaType.APPLICATION_JSON)
     public RequestResponse createReservation(@Body ReservationRequest request) {
         RequestResponse requestResponse = new RequestResponse();
