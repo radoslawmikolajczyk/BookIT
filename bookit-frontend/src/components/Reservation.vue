@@ -104,7 +104,7 @@ import { RoomService } from '../services/RoomService.ts';
     }
 
     .image {
-        object-fit: fill;
+        /* object-fit: ; */
     }
     /* .nav-content {
     display: flex;

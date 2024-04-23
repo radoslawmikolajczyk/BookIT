@@ -39,10 +39,10 @@ const sliderDifference = computed(() => {
   return Math.abs(sliderMaxValue.value - sliderMinValue.value);
 });
 
-const setCSSProps = (left, right) => {
-  slider.value.style.setProperty("--progressLeft", `${left}%`);
-  slider.value.style.setProperty("--progressRight", `${right}%`);
-};
+// const setCSSProps = (left, right) => {
+//   slider.value.style.setProperty("--progressLeft", `${left}%`);
+//   slider.value.style.setProperty("--progressRight", `${right}%`);
+// };
 
 watchEffect(() => {
   if (slider.value) {
@@ -52,21 +52,17 @@ watchEffect(() => {
     const leftPercent = getPercent(sliderMinValue.value, min, max);
     const rightPercent = 100 - getPercent(sliderMaxValue.value, min, max);
 
-    setCSSProps(leftPercent, rightPercent);
+    //setCSSProps(leftPercent, rightPercent);
   }
 });
 
 const onInput = ({ target }) => {
   if (target.name === 'min') {
-    target.value > sliderMaxValue.value
-      ? target.value = sliderMaxValue.value
-      : sliderMinValue.value = parseFloat(target.value);
+    target.value > sliderMaxValue.value ? target.value = sliderMaxValue.value : sliderMinValue.value = parseFloat(target.value);
   }
 
   if (target.name === 'max') {
-    target.value < sliderMinValue.value
-      ? target.value = sliderMinValue.value
-      : sliderMaxValue.value = parseFloat(target.value);
+    target.value < sliderMinValue.value ? target.value = sliderMinValue.value : sliderMaxValue.value = parseFloat(target.value);
   }
 };
 
@@ -98,7 +94,7 @@ const onInput = ({ target }) => {
     />
   </div>
   <div class="minmax-inputs">
-    <input type="number" :step="step" v-model="sliderMinValue" />
-    <input type="number" :step="step" v-model="sliderMaxValue" />
+    <input type="string" :step="step" v-model="sliderMinValue" />
+    <input type="string" :step="step" v-model="sliderMaxValue" />
   </div>
 </template>

@@ -13,6 +13,7 @@ const myCurrentBookingsEmpty = ref(true)
 const myHistoryBookingsEmpty = ref(true)
 const authorizedUser = ref<User | null>(null)
 const openTab = ref(Tabs.CURRENT)
+const openCreateGroupSection = ref(false)
 
 const stateManager = () => {
   return {
@@ -24,7 +25,8 @@ const stateManager = () => {
     myCurrentBookingsEmpty,
     myHistoryBookingsEmpty,
     authorizedUser,
-    openTab
+    openTab,
+    openCreateGroupSection
   };
 };
  

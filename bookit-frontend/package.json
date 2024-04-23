@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/components": "^10.9.0",
+    "@vueuse/core": "^10.9.0",
     "build": "^0.1.4",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",

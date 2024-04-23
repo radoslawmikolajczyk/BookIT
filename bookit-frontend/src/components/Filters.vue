@@ -1,17 +1,13 @@
 <script setup lang="ts">
     import Slider from '../components/Slider.vue'
-    import { onBeforeMount, ref } from 'vue'
+    import { WritableComputedRef, onBeforeMount, ref } from 'vue'
     import { computed } from 'vue';
     import { DateParser } from '../utils/dateParser';
-    import { RoomService } from '../services/RoomService';
     import  stateManager from '../composables/stateManager';
-import { RoomRequest } from '../model/RoomRequest';
+    import { RoomRequest } from '../model/RoomRequest';
+    import SliderNew from '../components/SliderNew.vue'
 
-    const sliderMin = ref(65);
-    const sliderMax = ref(150);
-    const selectedBuilding = ref("")
-    const selectedFloor = ref(0)
-    const roomService = new RoomService()
+    const emit = defineEmits(['filter'])
     var buildingNameOptions:[string]
     var floorsOptions:[string]
 
@@ -31,81 +27,113 @@ import { RoomRequest } from '../model/RoomRequest';
 
         if(roomsRequest.value == null) {
             roomsRequest.value = new RoomRequest("","","",1)
-            console.log("123123")
+        } 
+    })
+
+    function daysInMonth(month:number, year:number) {
+        return new Date(year, month, 0).getDate();
+    }
+
+    const building: WritableComputedRef<string> = computed({
+        set: (val) => {
+            roomsRequest.value?.setBuildingName(val)
+            //emit("filter")
+        },
+        get: () => {
+            return ""
         }
     })
 
-
-
-    const dateMax = computed({
+    const floor: WritableComputedRef<number> = computed({
         set: (val) => {
-            // var parsed = DateParser.setOnlyDate(val)
-            // if(store.state.roomRequest != null){
-            //     store.state.roomRequest.endTime = val
-            // }
+            roomsRequest.value?.setFloorNumber(val)
+            //emit("filter")
         },
-        get: () => {}
+        get: () => {
+            return 0
+        }
     })
 
-    const dateMin = computed({
+    const dateMax: WritableComputedRef<string> = computed({
         set: (val) => {
-           
+            roomsRequest.value?.setDateMax(val)
+            //emit("filter")
         },
-        get: () => {}
+        get: () => {
+            return ""
+        }
     })
 
-    const timeMax = computed({
+    const dateMin: WritableComputedRef<string> = computed({
         set: (val) => {
-            
+            roomsRequest.value?.setDateMin(val)
+            //emit("filter")
         },
-        get: () => {}
+        get: () => {
+            return ""
+        }
     })
 
-    const timeMin = computed({
+    const timeMax: WritableComputedRef<string> = computed({
         set: (val) => {
-            
+            roomsRequest.value?.setTimeMax(val)
+            //emit("filter")
         },
-        get: () => {}
+        get: () => {
+            return ""
+        }
     })
 
-    function getMaxDaysForSelectedMonth() : number {
-        return 0
-    }
+    const timeMin: WritableComputedRef<string> = computed({
+        set: (val) => {
+            roomsRequest.value?.setTimeMin(val)
+            //emit("filter")
+        },
+        get: () => {
+            return ""
+        }
+    })
 
 </script>
 
 <template>
-    <div>
-        <div class="building">
-            <select v-model="selectedBuilding">
+    <div class="container">
+        <div class="filter">
+            <select v-model="building">
                 <option v-for="option in buildingNameOptions" :value="option">{{ option }}</option>
             </select>
         </div>
-        <div class="floor">
-            <select v-model="selectedFloor">
+        <div class="filter">
+            <select v-model="floor">
                 <option v-for="option in floorsOptions" :value="option">{{ option }}</option>
             </select>
         </div>
 
-        <div class="hour">
-            <Slider
-                :min="8"
-                :max="20"
-                v-model:min-value="sliderMin"
-                v-model:max-value="sliderMax"
-            />
+        <div class="filter">
+            <p>hour</p>
+            <Slider :min="8" :max="20" v-model:min-value="timeMin" v-model:max-value="timeMax"/>
         </div>
-        <div class="date">
-            <Slider
-                :min="8"
-                :max="20"
-                v-model:min-value="sliderMin"
-                v-model:max-value="sliderMax"
-            />
+        <div class="filter">
+            <p>day</p>
+            <Slider :min="8" :max="20" v-model:min-value="dateMin" v-model:max-value="dateMax"/>
+            <SliderNew :min="0" :max="100"></SliderNew>
         </div>
     </div>
 </template>
 
 <style scoped>
-    
+    .container {
+        overflow: auto;
+        /* width: 100%; */
+    }
+
+    .filter {
+        /* text-align:center; */
+         padding: 20px 20px 20px 20px; 
+        /* border: 1px solid rgb(0,0,0); */
+        /* width:20px; */
+        /* height:20px;               */
+        /* float: left; */
+    }
+
 </style>

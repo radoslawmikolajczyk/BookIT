@@ -1,6 +1,10 @@
-<script setup>
-
-
+<script setup lang="ts">
+    import stateManager from '../composables/stateManager';
+import Group from './Group.vue';
+    import GroupFilter from './GroupFilter.vue';
+    import ClosableSection from './ClosableSection.vue';
+    import GroupCreation from './GroupCreation.vue';
+    const { openCreateGroupSection } = stateManager()
     // const groups = ref([""])
     // let group = ref("")
     
@@ -38,29 +42,29 @@
     //     )
     // }
 
+function closeSection() {
+    openCreateGroupSection.value = false
+}
+
 </script>
 
 <template>
-    <div class="image">
-        
+    <div>
+        <GroupFilter></GroupFilter>
     </div>
-    <div class="greetings">
-        
+    <div v-if="openCreateGroupSection">
+        <ClosableSection @close="closeSection">
+            <GroupCreation></GroupCreation>
+        </ClosableSection>
     </div>
-    <div class="reservation">
-
+    <div style="overflow: auto; max-height: 80vh;">
+        <Group></Group>
+        <Group></Group>
+        <Group></Group>
+        <Group></Group>
     </div>
 </template>
 
 <style scoped>
-    img {
-        border-radius: 8px;
-        max-width: 100%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
-        padding: 20px 0px;
-    }
-
+    
 </style>
