@@ -19,8 +19,8 @@
 <script setup>
 
 import { ref } from 'vue'
-import { UserService } from '../services/UserService';
-import { User } from '../model/User.ts'
+import { UserService } from '../../services/UserService.ts';
+import { User } from '../../model/User.ts'
 import { useRouter } from 'vue-router';
 
 const message = ref("")

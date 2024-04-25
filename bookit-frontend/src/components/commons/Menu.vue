@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import stateManager from '../composables/stateManager';
+import stateManager from '../../composables/stateManager';
     const router = useRouter()
 
     const { authorizedUser } = stateManager()

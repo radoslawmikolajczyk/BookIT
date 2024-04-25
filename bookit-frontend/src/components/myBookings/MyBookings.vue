@@ -1,12 +1,12 @@
     <script setup lang="ts">
-    import Reservation from './Reservation.vue';
-    import { ReservationService } from '../services/ReservationService.ts'
+    import Reservation from '../commons/Reservation.vue';
+    import { ReservationService } from '../../services/ReservationService.ts'
     import { ref, onMounted } from 'vue'
-    import { ReservationRequest } from '../model/ReservationRequest.ts';
-    import { DateParser } from '../utils/dateParser.ts';
-    import { Reservation as ReservationModel } from '../model/Reservation.ts';
-    import { Tabs } from '../enums/tabs.ts';
-import stateManager from '../composables/stateManager.ts';
+    import { ReservationRequest } from '../../model/ReservationRequest.ts';
+    import { DateParser } from '../../utils/dateParser.ts';
+    import { Reservation as ReservationModel } from '../../model/Reservation.ts';
+    import { Tabs } from '../../enums/tabs.ts';
+import stateManager from '../../composables/stateManager.ts';
 
     const currentReservations = ref<[ReservationModel] | null>(null)
     const historyReservations = ref<[ReservationModel] | null>(null)

@@ -1,14 +1,14 @@
 <script setup  lang="ts">
 import { ref } from 'vue'
-import { RoomService } from '../services/RoomService.ts';
+import { RoomService } from '../../services/RoomService.ts';
 import Filters from './Filters.vue';
-import { Reservation } from '../model/Reservation.ts';
-import { Room } from '../model/Room.ts';
-import { RoomRequest } from '../model/RoomRequest.ts';
-import { DateParser } from '../utils/dateParser.ts';
-import { ReservationRequest } from '../model/ReservationRequest.ts';
-import stateManager from '../composables/stateManager.ts';
-import { ReservationService } from '../services/ReservationService.ts';
+import { Reservation } from '../../model/Reservation.ts';
+import { Room } from '../../model/Room.ts';
+import { RoomRequest } from '../../model/RoomRequest.ts';
+import { DateParser } from '../../utils/dateParser.ts';
+import { ReservationRequest } from '../../model/ReservationRequest.ts';
+import stateManager from '../../composables/stateManager.ts';
+import { ReservationService } from '../../services/ReservationService.ts';
 
 const rooms = ref<[Room] | null>(null)
 const reservations = ref<[Reservation] | null>(null)

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-    import stateManager from '../composables/stateManager';
-import Group from './Group.vue';
+    import stateManager from '../../composables/stateManager';
+    import Group from './Group.vue';
     import GroupFilter from './GroupFilter.vue';
-    import ClosableSection from './ClosableSection.vue';
+    import ClosableSection from '../commons/ClosableSection.vue';
     import GroupCreation from './GroupCreation.vue';
     const { openCreateGroupSection } = stateManager()
     // const groups = ref([""])

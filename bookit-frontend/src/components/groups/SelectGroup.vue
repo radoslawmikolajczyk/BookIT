@@ -1,8 +1,8 @@
 <script setup>
     import { ref } from 'vue'
-    import { GroupsService } from '../services/GroupsService.ts'
-    import { Group } from '../model/Group.ts'
-import { UserGroupRequest } from '../model/UserGroupRequest.ts';
+    import { GroupsService } from '../../services/GroupsService.ts'
+    import { Group } from '../../model/Group.ts'
+import { UserGroupRequest } from '../../model/UserGroupRequest.ts';
 
     const service = new GroupsService()
     

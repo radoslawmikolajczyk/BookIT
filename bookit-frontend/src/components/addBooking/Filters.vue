@@ -1,11 +1,11 @@
 <script setup lang="ts">
-    import Slider from '../components/Slider.vue'
+    import Slider from '../commons/Slider.vue'
     import { WritableComputedRef, onBeforeMount, ref } from 'vue'
     import { computed } from 'vue';
-    import { DateParser } from '../utils/dateParser';
-    import  stateManager from '../composables/stateManager';
-    import { RoomRequest } from '../model/RoomRequest';
-    import SliderNew from '../components/SliderNew.vue'
+    import { DateParser } from '../../utils/dateParser';
+    import  stateManager from '../../composables/stateManager';
+    import { RoomRequest } from '../../model/RoomRequest';
+    import SliderNew from '../commons/SliderNew.vue'
 
     const emit = defineEmits(['filter'])
     var buildingNameOptions:[string]

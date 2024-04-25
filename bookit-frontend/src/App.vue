@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { onBeforeMount } from 'vue';
-    import Menu from './components/Menu.vue';
+    import Menu from './components/commons/Menu.vue';
     import { RoomService } from './services/RoomService';
     import stateManager from './composables/stateManager';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { ref } from 'vue';
-    import  stateManager from '../composables/stateManager';
+    import  stateManager from '../../composables/stateManager';
 
     const { openCreateGroupSection } = stateManager()
     const searchText = ref("")

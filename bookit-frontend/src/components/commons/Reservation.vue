@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Reservation } from '../model/Reservation';
-import { ReservationRequest } from '../model/ReservationRequest';
+import { Reservation } from '../../model/Reservation.ts';
+import { ReservationRequest } from '../../model/ReservationRequest.ts';
 import ConfirmationDialog from './ConfirmationDialog.vue';
 import { onMounted,ref } from 'vue'
-import { RoomService } from '../services/RoomService.ts';
+import { RoomService } from '../../services/RoomService.ts';
 
     interface Props {
         reservation: Reservation,
