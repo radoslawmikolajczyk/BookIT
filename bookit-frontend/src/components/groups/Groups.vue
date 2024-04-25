@@ -1,67 +1,75 @@
 <script setup lang="ts">
     import stateManager from '../../composables/stateManager';
     import Group from './Group.vue';
-    import GroupFilter from './GroupFilter.vue';
+    import { Group as GroupModel } from '../../model/Group';
+    import GroupSearch from './GroupSearch.vue';
     import ClosableSection from '../commons/ClosableSection.vue';
-    import GroupCreation from './GroupCreation.vue';
-    const { openCreateGroupSection } = stateManager()
-    // const groups = ref([""])
-    // let group = ref("")
-    
-    // const services = new GroupsService()
+    import { onBeforeMount, ref, watch } from 'vue';
+    import { GroupsService } from '../../services/GroupsService';
+    import GroupAddButton from './GroupAddButton.vue';
+    import GroupAddForm from './GroupAddForm.vue';
 
-    // function getAllGroups() {
-    //     services.getAllGroups()
-    //     .then( result => {
-    //             groups.value = result
-    //         }
-    //     )
-    // }
+    const { openCreateGroupSection, searchField } = stateManager()
+    const groupModels = ref<[GroupModel] | null>(null)
+    const groupModelsBackup = ref<[GroupModel] | null>(null)
+    const groupsService = new GroupsService()
 
-    // function getGroupById(id) {
-    //     services.getGroupById(id)
-    //     .then( result => {
-    //             console.log(result)
-    //         }
-    //     )
-    // }
+    function closeSection() {
+        openCreateGroupSection.value = false
+    }
 
-    // function createGroups() {
-    //     services.createGroups()
-    //     .then( result => {
-    //             group.value = result
-    //         }
-    //     )
-    // }
+    watch(searchField, () => {
+        filterGroups()
+    })
 
-    // function addUserToGroup() {
-    //     services.addUserToGroup()
-    //     .then( result => {
-    //             group.value = result
-    //         }
-    //     )
-    // }
+    onBeforeMount(() => {
+       getAllGroups()
+       filterGroups()
+    })
 
-function closeSection() {
-    openCreateGroupSection.value = false
-}
+    function getAllGroups() {
+        groupsService
+        .getAllGroups()
+        .then( result =>{
+
+            groupModelsBackup.value = result.groups
+            groupModels.value = result.groups
+
+            if (searchField != null && searchField.value != "") {
+                filterGroups()
+            }
+        })
+    }
+
+    function filterGroups() {
+        groupModels.value = groupModelsBackup.value
+        var temp = groupModels.value?.filter((g) => { 
+            return g.name.includes(searchField.value) 
+        })
+
+        // workaround
+        groupModels.value = [new GroupModel(1,"","")]
+        groupModels.value.pop()
+
+        temp?.forEach((g) => {
+            groupModels.value?.push(g)
+        })
+    }
 
 </script>
 
 <template>
     <div>
-        <GroupFilter></GroupFilter>
+        <GroupSearch></GroupSearch>
+        <GroupAddButton></GroupAddButton>
     </div>
     <div v-if="openCreateGroupSection">
         <ClosableSection @close="closeSection">
-            <GroupCreation></GroupCreation>
+            <GroupAddForm></GroupAddForm>
         </ClosableSection>
     </div>
     <div style="overflow: auto; max-height: 80vh;">
-        <Group></Group>
-        <Group></Group>
-        <Group></Group>
-        <Group></Group>
+        <Group v-for="group in groupModels" :group="group"></Group>
     </div>
 </template>
 

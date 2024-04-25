@@ -1,17 +1,14 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { vOnClickOutside } from '@vueuse/components'
-    //  interface Props {
-    //     reservation: Reservation,
-    //     delete: boolean
-    // }
+    import { Group } from '../../model/Group';
 
-    // const emit = defineEmits(['remove','reserve'])
-    // const props = defineProps<Props>()
+     interface Props {
+        group: Group
+    }
 
-    // function addGroup() {
-
-    // }
+    const emit = defineEmits(['remove','reserve'])
+    const props = defineProps<Props>()
 
     const isOpen = ref(false)
     const password = ref("")
@@ -34,7 +31,7 @@
     <div @click="open()" v-on-click-outside="close" class="container">
         <div>
             <p>
-                Group name: grupa 1
+                 {{ props.group.name }}
             </p>
         </div>
         <div v-if="isOpen">

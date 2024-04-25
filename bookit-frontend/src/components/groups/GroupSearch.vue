@@ -1,29 +1,13 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import  stateManager from '../../composables/stateManager';
-
-    const { openCreateGroupSection } = stateManager()
-    const searchText = ref("")
+    import stateManager from '../../composables/stateManager';
+    const { searchField } = stateManager()
     
-    function addGroup() {
-        openCreateGroupSection.value = true
-    }
-
-    function closeSection() {
-        
-    }
-
 </script>
 
 <template>
 <div class="topnav">
     <div class="search-container">
-        <form>
-            <input type="text" placeholder="Search.." name="search" v-model="searchText">
-        </form>
-    </div>
-    <div>
-        <button class="btn btn-outline-dark" v-on:click.prevent="addGroup()">+</button>
+          <input type="text" placeholder="Search.." name="search" v-model="searchField">
     </div>
 </div>
 </template>
