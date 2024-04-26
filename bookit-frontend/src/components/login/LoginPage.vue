@@ -31,7 +31,7 @@ const service = new UserService()
 const router = useRouter()
 
 function login() {
-  const user = new User("", "", email.value, password.value)
+  const user = new User().create("", "", email.value, password.value)
     service.login(user)
     .then( result =>{
       if(result.isSuccess){

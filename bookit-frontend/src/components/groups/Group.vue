@@ -1,10 +1,10 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import { vOnClickOutside } from '@vueuse/components'
+    import { onBeforeMount, ref } from 'vue';
     import { Group } from '../../model/Group';
 
      interface Props {
-        group: Group
+        group: Group,
+        open: boolean
     }
 
     const props = defineProps<Props>()
@@ -16,6 +16,10 @@
         // jak się udało to wyświetlić w tabeli, że użytkownik należy już do tej grupy
     }
 
+    onBeforeMount(() => {
+        // zaznaczyć, że ktoś należy do jakiejś grupy i wyświetlić wtedy komunikat
+    })
+
 </script>
 
 <template>
@@ -25,10 +29,10 @@
                  {{ props.group.name }}
             </p>
         </div>
-        <div>
+        <div v-if="props.open">
             <input type="password" v-model="password" />
         </div>
-        <div>
+        <div v-if="props.open">
             <button v-on:click.prevent="joinGroup()">Join</button>
         </div>
     </div>

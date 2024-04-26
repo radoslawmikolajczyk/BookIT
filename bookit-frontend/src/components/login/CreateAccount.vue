@@ -19,7 +19,7 @@
     const requestResult = ref("")
 
     function register() {
-        const userRequest = new User(firstName.value, lastName.value, email.value, password.value)
+        const userRequest = new User().create(firstName.value, lastName.value, email.value, password.value)
         service.createUser(userRequest)
         .then( result => requestResult.value = result)
     }

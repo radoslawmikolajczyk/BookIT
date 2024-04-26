@@ -21,7 +21,6 @@
 
             roomsFloorsNumbers.value = new Set<number>(numbers)
             roomsBuldings.value = new Set<string>(names)
-
         })
     })
 

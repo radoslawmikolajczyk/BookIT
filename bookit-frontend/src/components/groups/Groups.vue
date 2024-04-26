@@ -9,8 +9,9 @@
     import GroupAddButton from './GroupAddButton.vue';
     import GroupAddForm from './GroupAddForm.vue';
     import TableRow from '../commons/TableRow.vue';
+    import GroupAssigned from '../groups/GroupAssigned.vue';
 
-    const { openCreateGroupSection, searchField } = stateManager()
+    const { openCreateGroupSection, searchField, authorizedUser } = stateManager()
     const groupModels = ref<[GroupModel] | null>(null)
     const groupModelsBackup = ref<[GroupModel] | null>(null)
     const groupsService = new GroupsService()
@@ -66,6 +67,10 @@
 
 <template>
     <div>
+        <GroupAssigned></GroupAssigned>
+    </div>
+    
+    <div>
         <GroupSearch></GroupSearch>
         <GroupAddButton></GroupAddButton>
     </div>
@@ -75,14 +80,13 @@
         </ClosableSection>
     </div>
     <div style="overflow: auto; max-height: 80vh;">
-        <!-- <Group v-for="group in groupModels" :group="group"></Group> -->
         <TableRow v-for="group in groupModels">
             <template #closedContent>
-                <Group :group="group"></Group>
+                <Group :open="false" :group="group"></Group>
             </template>
-
+            
             <template #openContent>
-                <div>dupa 2</div>
+                <Group :open="true" :group="group"></Group>
             </template>
         </TableRow>
     </div>
