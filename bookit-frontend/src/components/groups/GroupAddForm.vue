@@ -5,6 +5,10 @@
     const name = ref("")
 
     function create() {
+        // dpisac tworzenie grupy
+        // jak się udało to dopisać do listy
+        // wyemitować do parenta, że się udało
+        // jak się nie udało to wyświetlić komunikat
         
     }
 
@@ -13,10 +17,10 @@
 <template>
     <div class="container">
         <div>
-            <input type="text" id="name" v-model="name" />
+            <input type="text" id="name" v-model="name"/>
         </div>
         <div >
-            <input type="password" id="password" v-model="password" />
+            <input type="password" id="password" v-model="password"/>
         </div>
         <div >
             <button v-on:click.prevent="create()">Create</button>

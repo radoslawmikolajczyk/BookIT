@@ -8,6 +8,7 @@
     import { GroupsService } from '../../services/GroupsService';
     import GroupAddButton from './GroupAddButton.vue';
     import GroupAddForm from './GroupAddForm.vue';
+    import TableRow from '../commons/TableRow.vue';
 
     const { openCreateGroupSection, searchField } = stateManager()
     const groupModels = ref<[GroupModel] | null>(null)
@@ -44,7 +45,7 @@
     function filterGroups() {
         groupModels.value = groupModelsBackup.value
         var temp = groupModels.value?.filter((g) => { 
-            return g.name.includes(searchField.value) 
+            return g.name.includes(searchField.value)
         })
 
         // workaround
@@ -56,6 +57,11 @@
         })
     }
 
+    function groupCreated() {
+        closeSection()
+        searchField.value = ""
+    }
+
 </script>
 
 <template>
@@ -65,11 +71,20 @@
     </div>
     <div v-if="openCreateGroupSection">
         <ClosableSection @close="closeSection">
-            <GroupAddForm></GroupAddForm>
+            <GroupAddForm @add="groupCreated"></GroupAddForm>
         </ClosableSection>
     </div>
     <div style="overflow: auto; max-height: 80vh;">
-        <Group v-for="group in groupModels" :group="group"></Group>
+        <!-- <Group v-for="group in groupModels" :group="group"></Group> -->
+        <TableRow v-for="group in groupModels">
+            <template #closedContent>
+                <Group :group="group"></Group>
+            </template>
+
+            <template #openContent>
+                <div>dupa 2</div>
+            </template>
+        </TableRow>
     </div>
 </template>
 

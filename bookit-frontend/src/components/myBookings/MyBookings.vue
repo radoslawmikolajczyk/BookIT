@@ -6,7 +6,7 @@
     import { DateParser } from '../../utils/dateParser.ts';
     import { Reservation as ReservationModel } from '../../model/Reservation.ts';
     import { Tabs } from '../../enums/tabs.ts';
-import stateManager from '../../composables/stateManager.ts';
+    import stateManager from '../../composables/stateManager.ts';
 
     const currentReservations = ref<[ReservationModel] | null>(null)
     const historyReservations = ref<[ReservationModel] | null>(null)
@@ -65,30 +65,44 @@ import stateManager from '../../composables/stateManager.ts';
 <template>
     <h1>My Reservations</h1>
     <p>Know when and where you will be at University.</p>
+
     <div>
         <button @click="showTab(Tabs.CURRENT)">My curent bookings</button>
         <button @click="showTab(Tabs.HISTORY)">My history bookings</button>
     </div>
+
     <div v-if="openTab == Tabs.HISTORY">
+
         <div v-if="myHistoryBookingsEmpty.value">
             <p>You don't have any past reservations.</p>
         </div>
+
         <div v-else>
+            
             <div v-for="item in historyReservations">
                 <Reservation @remove="remove" :reservation="item" :delete="true"/>
             </div>
+
         </div>
+
     </div>
+
     <div v-if="openTab == Tabs.CURRENT">
+
         <div v-if="myCurrentBookingsEmpty.value">
             <p>You don't have any current reservations.</p>
         </div>
+
         <div v-else>
+
             <div v-for="item in currentReservations">
                 <Reservation @remove="remove" :reservation="item" :delete="true"/>
             </div>
+
         </div>
+
     </div>
+
 </template>
 
 <style scoped>
