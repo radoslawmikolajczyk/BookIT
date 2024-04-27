@@ -24,7 +24,7 @@
             <slot name="openContent"></slot>
         </div>
         <div class="arrow" v-if="!isOpen">
-            <p>▼</p>
+            <slot name="arrow"></slot>
         </div>
     </div>
 </template>
@@ -39,6 +39,6 @@
 
     .container {
         border-style: solid;
-        border-width: 2px;
+        border-width: 1px;
     }
 </style>

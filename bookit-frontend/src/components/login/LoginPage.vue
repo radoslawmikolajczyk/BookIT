@@ -16,7 +16,7 @@
   <p>{{ message }}</p>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 import { ref } from 'vue'
 import { UserService } from '../../services/UserService.ts';
@@ -27,7 +27,6 @@ const message = ref("")
 const password = ref("")
 const email = ref("")
 const service = new UserService()
-
 const router = useRouter()
 
 function login() {
@@ -38,6 +37,8 @@ function login() {
         localStorage.setItem('token', email.value)
         router.push("/")
       } else {
+        console.log(result)
+        console.log(user)
         message.value = "Wrong email or password!"
       }
     })

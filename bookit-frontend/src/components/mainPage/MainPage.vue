@@ -1,16 +1,19 @@
 <script setup>
+import GroupAssigned from '../groups/GroupAssigned.vue';
+import CurrentBookings from '../myBookings/CurrentBookings.vue';
+
 
 </script>
 
 <template>
     <div class="image">
-        <img src="../assets/img/main.png">
+        <img src="../../assets/img/main.png">
     </div>
-    <div class="greetings">
-        
+    <div class="group">
+        <GroupAssigned></GroupAssigned>
     </div>
     <div class="reservation">
-
+        <CurrentBookings></CurrentBookings>
     </div>
 </template>
 

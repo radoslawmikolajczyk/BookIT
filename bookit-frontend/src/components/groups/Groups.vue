@@ -10,6 +10,7 @@
     import GroupAddForm from './GroupAddForm.vue';
     import TableRow from '../commons/TableRow.vue';
     import GroupAssigned from '../groups/GroupAssigned.vue';
+    import GroupClosed from './GroupClosed.vue';
 
     const { openCreateGroupSection, searchField, authorizedUser } = stateManager()
     const groupModels = ref<[GroupModel] | null>(null)
@@ -50,7 +51,7 @@
         })
 
         // workaround
-        groupModels.value = [new GroupModel(1,"","")]
+        groupModels.value = [new GroupModel("","")]
         groupModels.value.pop()
 
         temp?.forEach((g) => {
@@ -72,22 +73,38 @@
     
     <div>
         <GroupSearch></GroupSearch>
-        <GroupAddButton></GroupAddButton>
     </div>
-    <div v-if="openCreateGroupSection">
+    <!-- <div v-if="openCreateGroupSection">
         <ClosableSection @close="closeSection">
             <GroupAddForm @add="groupCreated"></GroupAddForm>
         </ClosableSection>
-    </div>
-    <div style="overflow: auto; max-height: 80vh;">
-        <TableRow v-for="group in groupModels">
+    </div> -->
+    <div>
+        <TableRow>
+
             <template #closedContent>
-                <Group :open="false" :group="group"></Group>
+                <GroupAddButton></GroupAddButton>
+            </template>
+
+            <template #openContent>
+                <GroupAddForm @add="groupCreated"></GroupAddForm>
+            </template>
+
+        </TableRow>
+        <TableRow v-for="group in groupModels">
+            
+            <template #closedContent>
+                <GroupClosed :group="group"></GroupClosed>
             </template>
             
             <template #openContent>
-                <Group :open="true" :group="group"></Group>
+                <Group :group="group"></Group>
             </template>
+
+            <template #arrow>
+                <p>▼</p>
+            </template>
+
         </TableRow>
     </div>
 </template>

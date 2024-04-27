@@ -1,24 +1,29 @@
 <script setup lang="ts">
     import { onBeforeMount, ref } from 'vue';
     import { Group } from '../../model/Group';
+    import { GroupsService } from '../../services/GroupsService';
+import { UserGroupRequest } from '../../model/UserGroupRequest';
+import stateManager from '../../composables/stateManager';
 
      interface Props {
-        group: Group,
-        open: boolean
+        group: Group
     }
 
+    const { authorizedUser } = stateManager()
+    const service = new GroupsService()
     const props = defineProps<Props>()
     const password = ref("")
+    const message = ref("")
 
     function joinGroup() {
-        // dopisać dołączenie do grupy
-        // wyświetlić komunikat, że się udało lub, że się nie udało
-        // jak się udało to wyświetlić w tabeli, że użytkownik należy już do tej grupy
+        service.addUserToGroup(new UserGroupRequest(authorizedUser.value?.email ?? "", props.group.name, password.value)).then((result) => {
+            if(result.isSuccess) {
+                message.value = "You have been added to the group!"
+            } else {
+                message.value = "Error occured while adding to the group!"
+            }
+        })
     }
-
-    onBeforeMount(() => {
-        // zaznaczyć, że ktoś należy do jakiejś grupy i wyświetlić wtedy komunikat
-    })
 
 </script>
 
@@ -29,11 +34,15 @@
                  {{ props.group.name }}
             </p>
         </div>
-        <div v-if="props.open">
+
+        <div>
             <input type="password" v-model="password" />
         </div>
-        <div v-if="props.open">
+        <div>
             <button v-on:click.prevent="joinGroup()">Join</button>
+        </div>
+        <div>
+            {{ message }}
         </div>
     </div>
 </template>

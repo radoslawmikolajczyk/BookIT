@@ -3,7 +3,7 @@ import { RequestResponse } from '../model/RequestResponse.ts';
 import { UserGroupRequest } from '../model/UserGroupRequest.ts';
 
 export class GroupsService {
-    async getGroupById(id: string) : Promise<RequestResponse>{
+    async getGroupById(id: Number) : Promise<RequestResponse>{
         const response = await fetch('http://localhost:7777/api/groups/get/'+id);
         return await response.json();
     }
@@ -13,11 +13,11 @@ export class GroupsService {
         return await response.json();
     }
 
-    async createGroups(group: [Group]) {
+    async createGroups(groups: [Group]) : Promise<RequestResponse> {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(group)
+            body: JSON.stringify(groups)
         };
         const response = await fetch('http://localhost:7777/api/groups/createGroups', requestOptions);
         return await response.json();

@@ -3,8 +3,7 @@ export class Group {
     name: string;
     password: string;
 
-    constructor(id: number, name: string, password: string) {
-        this.id = id
+    constructor(name: string, password: string) {
         this.name = name
         this.password = password
     }
