@@ -6,6 +6,8 @@ import { ReservationRequest } from '../../model/ReservationRequest.ts';
 import { DateParser } from '../../utils/dateParser.ts';
 import { Reservation as ReservationModel } from '../../model/Reservation.ts';
 import stateManager from '../../composables/stateManager.ts';
+import ReservationClosed from '../commons/ReservationClosed.vue';
+import TableRow from '../commons/TableRow.vue';
 
 const currentReservations = ref<[ReservationModel] | null>(null)
 const reservationService = new ReservationService()
@@ -17,7 +19,6 @@ function initCurrentReservations() {
 
     reservationService.getCurrentReservations(localStorage.getItem('token') ?? "")
     .then( result => {
-        console.log(result)
         myCurrentBookingsEmpty.value = !(result.reservations?.length ?? 0 > 0)
         result.reservations?.forEach((r) => {
             currentReservations.value?.push(r)
@@ -35,7 +36,6 @@ function remove(request: ReservationRequest) {
     const token = localStorage.getItem('token') ?? ""
     reservationService.deleteReservation(new ReservationRequest(token, request.roomId, startTime, endTime))
         .then( result => {
-            console.log(result)
             initCurrentReservations()
         })
 }
@@ -48,9 +48,21 @@ function remove(request: ReservationRequest) {
     </div>
 
     <div v-else>
-        <div v-for="item in currentReservations">
-            <Reservation @remove="remove" :reservation="item" :delete="true"/>
-        </div>
+        <TableRow v-for="item in currentReservations">
+            
+            <template #closedContent>
+                <ReservationClosed :reservation="item" />
+            </template>
+            
+            <template #openContent>
+                <Reservation @remove="remove" :reservation="item" :delete="true"/>
+            </template>
+    
+            <template #arrow>
+                <p>▼</p>
+            </template>
+    
+        </TableRow>
     </div>
 </template>
 

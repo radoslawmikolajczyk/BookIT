@@ -2,7 +2,7 @@
   <form name="login-form" >
     <div class="mb-3">
       <label for="email">Email: </label>
-      <input type="text" id="email" v-model="email" />
+      <input type="email" id="email" v-model="email" />
     </div>
   <div class="mb-3">
      <label for="password">Password: </label>
@@ -37,8 +37,6 @@ function login() {
         localStorage.setItem('token', email.value)
         router.push("/")
       } else {
-        console.log(result)
-        console.log(user)
         message.value = "Wrong email or password!"
       }
     })

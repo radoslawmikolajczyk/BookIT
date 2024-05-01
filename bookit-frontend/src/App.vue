@@ -13,7 +13,6 @@
     } = stateManager()
 
     onBeforeMount(() => {
-        console.log("how many times?")
         roomService.getAllRooms()
         .then( result => {
             var numbers = result.rooms?.map((r) => { return r.floorNumber })

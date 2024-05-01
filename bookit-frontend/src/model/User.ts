@@ -6,6 +6,8 @@ export class User {
     lastName: string
     email: string
     password: string
+    group: Group
+    reservations: [Reservation]
     
     create(firstName: string, lastName: string, email: string, password: string) : User {
         this.firstName = firstName

@@ -68,8 +68,13 @@ import { RoomService } from '../../services/RoomService.ts';
             <div>{{ props.reservation.room.roomName }}</div>
             <div>{{ props.reservation.startTime }} - {{ props.reservation.endTime }}</div>
             <div>{{ props.reservation.room.description }}</div>
-            <div class="image"><img :src=props.reservation.room.imageUrl></div>
-
+            <div class="image">
+                <picture class="picture">
+                    <source :srcset=props.reservation.room.imageUrl media="(max-width: 400px)">
+                    <source :srcset=props.reservation.room.imageUrl>
+                    <img :src=props.reservation.room.imageUrl>
+                </picture>
+            </div>
             <div v-if="delete">
                 <button v-if="!confirmationVisible" @click="showConfirmation(remove)">Delete</button>
                 <ConfirmationDialog @decision="handleDecision" v-else></ConfirmationDialog>
@@ -83,6 +88,12 @@ import { RoomService } from '../../services/RoomService.ts';
 </template>
 
 <style scoped>
+
+    .image img {
+        width: auto;
+        height: 100px;
+    }
+
     .container {
         padding: 10px 30px;
     }

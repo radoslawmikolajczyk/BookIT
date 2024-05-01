@@ -4,12 +4,13 @@
     function close() {
         emit('close')
     }
+    
 </script>
 
 <template>
-    <div class="ShowHide" id="Bar">
+    <div class="ShowHide" id="Bar" >
         <div id="right">
-            <button class="btn btn-outline-dark" v-on:click.prevent = "close()">X</button>
+            <button class="btn btn-outline-dark" v-on:click.prevent="close">X</button>
         </div>
         <div id="left">
             <slot></slot>

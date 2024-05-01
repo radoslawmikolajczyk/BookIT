@@ -1,10 +1,9 @@
 <script setup  lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { RoomService } from '../../services/RoomService.ts';
 import Filters from './Filters.vue';
 import { Reservation } from '../../model/Reservation.ts';
 import { Room } from '../../model/Room.ts';
-import { RoomRequest } from '../../model/RoomRequest.ts';
 import { DateParser } from '../../utils/dateParser.ts';
 import { ReservationRequest } from '../../model/ReservationRequest.ts';
 import stateManager from '../../composables/stateManager.ts';
@@ -17,6 +16,12 @@ const reservationService = new ReservationService()
 
 const { roomsRequest } = stateManager()
 
+watch(roomsRequest, () => {
+    filterRooms()
+    },
+    { deep: true }
+)
+
 function filterRooms() {
     // initialization purpose only
     rooms.value = [new Room()]
@@ -25,11 +30,12 @@ function filterRooms() {
     reservations.value = [new Reservation()]
     reservations.value.pop()
 
+    console.log(roomsRequest)
+
     if(roomsRequest.value != null && roomsRequest.value.endTime != null && roomsRequest.value.startTime != null){
         roomService.getAvailableRooms(roomsRequest.value)
         .then( result => {
-            console.log(result) // zobaczy co dostaje
-
+            console.log(result)
             result.rooms?.forEach((r) => {
                 rooms.value?.push(r)
             })
@@ -49,7 +55,7 @@ function reserve(request: ReservationRequest) {
 
     reservationService.createReservation(new ReservationRequest(token, request.roomId, startTime, endTime))
     .then( result => {
-        console.log(result)
+        //console.log(result)
     })
 }
 
@@ -57,9 +63,11 @@ function reserve(request: ReservationRequest) {
 
 <template>
     <h1>Add booking</h1>
-    <div>
-        <div>
-            <Filters @filter="filterRooms"></Filters>
+    <div class="container">
+        <div class="filter">
+            <div>
+                <Filters></Filters>
+            </div>
         </div>
         <div v-for="item in reservations">
             <Reservation @reserve="reserve" :reservation="item" :delete="false"/>
@@ -68,4 +76,17 @@ function reserve(request: ReservationRequest) {
 </template>
 
 <style scoped>
+.filter {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    color: green;
+    padding: 5px;
+}
+ 
+.main div {
+    border: 2px solid red;
+    margin: 10px 20px;
+    width: 100px;
+}
 </style>

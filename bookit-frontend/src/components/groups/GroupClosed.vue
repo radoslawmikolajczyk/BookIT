@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { Group } from '../../model/Group';
 
-     interface Props {
+    interface Props {
         group: Group
     }
 

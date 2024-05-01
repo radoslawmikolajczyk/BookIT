@@ -16,7 +16,7 @@
 </script>
 
 <template>
-    <div @click="open()" v-on-click-outside="close" class="container">
+    <div @click="open" v-on-click-outside="close" class="container">
         <div v-if="!isOpen">
             <slot name="closedContent"></slot>
         </div>

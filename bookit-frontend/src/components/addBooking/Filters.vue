@@ -1,17 +1,46 @@
 <script setup lang="ts">
-    import Slider from '../commons/Slider.vue'
-    import { WritableComputedRef, onBeforeMount, ref } from 'vue'
+    import { WritableComputedRef, onBeforeMount, ref, watch } from 'vue'
     import { computed } from 'vue';
-    import { DateParser } from '../../utils/dateParser';
     import  stateManager from '../../composables/stateManager';
     import { RoomRequest } from '../../model/RoomRequest';
-    import SliderNew from '../commons/SliderNew.vue'
+    import { DateParser } from '../../utils/dateParser';
 
-    const emit = defineEmits(['filter'])
     var buildingNameOptions:[string]
     var floorsOptions:[string]
 
     const { roomsFloorsNumbers, roomsBuldings, roomsRequest } = stateManager()
+
+    const [buildingName] = defineModel('buildingName', {
+        set(value: string) {
+            if(roomsRequest.value != null) {
+                roomsRequest.value.buildingName = value
+            }
+        }
+    })
+
+    const [floor] = defineModel('floor', {
+        set(value: number) {
+            if(roomsRequest.value != null) {
+                roomsRequest.value.floorNumber = value
+            }
+        }
+    })
+
+    const [dateMin] = defineModel('dateMin',{
+        set(value: string) {
+            if(roomsRequest.value != null) {
+                roomsRequest.value.startTime = value.split(/T|Z/)[0]+ " " + value.split(/T|Z/)[1]
+            }
+        }
+    })
+
+    const [dateMax] = defineModel('dateMax',{
+        set(value: string) {
+            if(roomsRequest.value != null) {
+                roomsRequest.value.endTime = value.split(/T|Z/)[0]+ " " + value.split(/T|Z/)[1]
+            }
+        }
+    })
 
     onBeforeMount(() => {
         buildingNameOptions = [""]
@@ -27,70 +56,6 @@
 
         if(roomsRequest.value == null) {
             roomsRequest.value = new RoomRequest("","","",1)
-        } 
-    })
-
-    function daysInMonth(month:number, year:number) {
-        return new Date(year, month, 0).getDate();
-    }
-
-    const building: WritableComputedRef<string> = computed({
-        set: (val) => {
-            roomsRequest.value?.setBuildingName(val)
-            //emit("filter")
-        },
-        get: () => {
-            return ""
-        }
-    })
-
-    const floor: WritableComputedRef<number> = computed({
-        set: (val) => {
-            roomsRequest.value?.setFloorNumber(val)
-            //emit("filter")
-        },
-        get: () => {
-            return 0
-        }
-    })
-
-    const dateMax: WritableComputedRef<string> = computed({
-        set: (val) => {
-            roomsRequest.value?.setDateMax(val)
-            //emit("filter")
-        },
-        get: () => {
-            return ""
-        }
-    })
-
-    const dateMin: WritableComputedRef<string> = computed({
-        set: (val) => {
-            roomsRequest.value?.setDateMin(val)
-            //emit("filter")
-        },
-        get: () => {
-            return ""
-        }
-    })
-
-    const timeMax: WritableComputedRef<string> = computed({
-        set: (val) => {
-            roomsRequest.value?.setTimeMax(val)
-            //emit("filter")
-        },
-        get: () => {
-            return ""
-        }
-    })
-
-    const timeMin: WritableComputedRef<string> = computed({
-        set: (val) => {
-            roomsRequest.value?.setTimeMin(val)
-            //emit("filter")
-        },
-        get: () => {
-            return ""
         }
     })
 
@@ -99,41 +64,48 @@
 <template>
     <div class="container">
         <div class="filter">
-            <select v-model="building">
+            <label for="building">Building</label>
+            <select id="building" v-model="buildingName">
                 <option v-for="option in buildingNameOptions" :value="option">{{ option }}</option>
             </select>
         </div>
         <div class="filter">
-            <select v-model="floor">
+            <label for="floor">Floor</label>
+            <select id="floor" v-model="floor">
                 <option v-for="option in floorsOptions" :value="option">{{ option }}</option>
             </select>
         </div>
 
         <div class="filter">
-            <p>hour</p>
-            <Slider :min="8" :max="20" v-model:min-value="timeMin" v-model:max-value="timeMax"/>
+            <label for="dateMin">Date min</label>
+            <input type="datetime-local" id="dateMin" v-model="dateMin" />
         </div>
+
         <div class="filter">
-            <p>day</p>
-            <Slider :min="8" :max="20" v-model:min-value="dateMin" v-model:max-value="dateMax"/>
-            <SliderNew :min="0" :max="100"></SliderNew>
+            <label for="dateMax">Date max</label>
+            <input type="datetime-local" id="dateMax" v-model="dateMax"/>           
         </div>
     </div>
 </template>
 
 <style scoped>
     .container {
+        display: flex;
+        flex-direction: row;
+        font-size: 30px;
+        color: green;
+        padding: 5px;
         overflow: auto;
-        /* width: 100%; */
+    }
+    
+    .main div {
+        border: 2px solid red;
+        margin: 10px 20px;
+        width: 100px;
     }
 
     .filter {
-        /* text-align:center; */
          padding: 20px 20px 20px 20px; 
-        /* border: 1px solid rgb(0,0,0); */
-        /* width:20px; */
-        /* height:20px;               */
-        /* float: left; */
     }
 
 </style>

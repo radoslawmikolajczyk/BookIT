@@ -74,11 +74,7 @@
     <div>
         <GroupSearch></GroupSearch>
     </div>
-    <!-- <div v-if="openCreateGroupSection">
-        <ClosableSection @close="closeSection">
-            <GroupAddForm @add="groupCreated"></GroupAddForm>
-        </ClosableSection>
-    </div> -->
+
     <div>
         <TableRow>
 
@@ -87,10 +83,11 @@
             </template>
 
             <template #openContent>
-                <GroupAddForm @add="groupCreated"></GroupAddForm>
+                <GroupAddForm @add="groupCreated"></GroupAddForm>  
             </template>
 
         </TableRow>
+        
         <TableRow v-for="group in groupModels">
             
             <template #closedContent>

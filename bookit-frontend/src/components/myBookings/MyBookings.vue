@@ -17,7 +17,7 @@
     <p>Know when and where you will be at University.</p>
 
     <div>
-        <button @click="showTab(Tabs.CURRENT)">My curent bookings</button>
+        <button @click="showTab(Tabs.CURRENT)">My current bookings</button>
         <button @click="showTab(Tabs.HISTORY)">My history bookings</button>
     </div>
 

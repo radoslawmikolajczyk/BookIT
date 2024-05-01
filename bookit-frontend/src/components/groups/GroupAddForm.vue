@@ -6,7 +6,7 @@
     const password = ref("")
     const name = ref("")
     const groupsService = new GroupsService()
-    const message = ref("sdfs")
+    const message = ref("")
 
     function create() {
         if(name.value.length == 0){

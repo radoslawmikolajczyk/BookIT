@@ -25,6 +25,7 @@
 <template>
     <div v-if="assigned" id="app">
         <p class="assigned">Your are assigned to: {{ groupName }} </p>
+        <button></button>
     </div>
     <div v-else>
         <p class="not-assigned">Your are not assigned to any group. Please select a group!</p>
