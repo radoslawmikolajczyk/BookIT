@@ -8,6 +8,7 @@ import { DateParser } from '../../utils/dateParser.ts';
 import { ReservationRequest } from '../../model/ReservationRequest.ts';
 import stateManager from '../../composables/stateManager.ts';
 import { ReservationService } from '../../services/ReservationService.ts';
+import CalendarMonth from '../calendar/CalendarMonth.vue';
 
 const rooms = ref<[Room] | null>(null)
 const reservations = ref<[Reservation] | null>(null)
@@ -66,7 +67,8 @@ function reserve(request: ReservationRequest) {
     <div class="container">
         <div class="filter">
             <div>
-                <Filters></Filters>
+                <CalendarMonth/>
+                <!-- <Filters></Filters> -->
             </div>
         </div>
         <div v-for="item in reservations">
