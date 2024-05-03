@@ -26,4 +26,8 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     @Transactional
     @Query("SELECT * FROM reservations r WHERE r.user_id = :userId AND r.room_id = :roomId AND r.start_time = :startTime AND r.end_time = :endTime")
     List<Reservation> getReservation(Long userId, Long roomId, Timestamp startTime, Timestamp endTime);
+
+    @Transactional
+    @Query("SELECT * FROM reservations r WHERE r.start_time >= :startDay AND r.end_time <= :endDay")
+    List<Reservation> getAllReservationsFromPeriod(Timestamp startDay, Timestamp endDay);
 }

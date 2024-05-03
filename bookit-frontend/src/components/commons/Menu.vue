@@ -18,8 +18,9 @@ import stateManager from '../../composables/stateManager';
             <div class="nav-content" >
                 <ul class="nav-items">
                     <li><router-link to="/">BookIT</router-link></li>
-                    <li><router-link to="/my_bookings">My bookings</router-link></li>
-                    <li><router-link to="/add_booking">Add booking</router-link></li>
+                    <li><router-link to="/bookings">Bookings</router-link></li>
+                    <!-- <li><router-link to="/my_bookings">My bookings</router-link></li>
+                    <li><router-link to="/add_booking">Add booking</router-link></li> -->
                     <li><router-link to="/groups">Groups</router-link></li>
                     <li><router-link to="/help">Help</router-link></li>
                     <li>

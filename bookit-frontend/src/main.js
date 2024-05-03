@@ -13,11 +13,13 @@ import Help from './components/help/Help.vue'
 import Groups from './components/groups/Groups.vue'
 import stateManager from './composables/stateManager'
 import { UserService } from './services/UserService'
+import Bookings from './components/bookings/Bookings.vue'
 
 const service = new UserService()
 
 const routes = [
   { path: '/', component: MainPage, meta: { requiresAuth: true } },
+  { path: '/bookings', component: Bookings, meta: { requiresAuth: true } },
   { path: '/my_bookings', component: MyBookings, meta: { requiresAuth: true } },
   { path: '/add_booking', component: AddBooking, meta: { requiresAuth: true } },
   { path: '/groups', component: Groups, meta: { requiresAuth: true } },

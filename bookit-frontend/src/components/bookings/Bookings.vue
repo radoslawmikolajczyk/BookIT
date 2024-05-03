@@ -1,7 +1,6 @@
 <script setup  lang="ts">
 import { ref, watch } from 'vue'
 import { RoomService } from '../../services/RoomService.ts';
-import Filters from './Filters.vue';
 import { Reservation } from '../../model/Reservation.ts';
 import { Room } from '../../model/Room.ts';
 import { DateParser } from '../../utils/dateParser.ts';
@@ -66,18 +65,14 @@ function reserve(request: ReservationRequest) {
         <div class="filter">
             <div>
                 <CalendarMonth/>
-                <!-- <Filters></Filters> -->
             </div>
-        </div>
-        <div v-for="item in reservations">
-            <Reservation @reserve="reserve" :reservation="item" :delete="false"/>
         </div>
     </div>
 </template>
 
 <style scoped>
 .filter {
-    display: flex;
+    display: inline;
     flex-direction: row;
     font-size: 30px;
     color: green;

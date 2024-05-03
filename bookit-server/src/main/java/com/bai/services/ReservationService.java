@@ -1,5 +1,6 @@
 package com.bai.services;
 
+import com.bai.configuration.Config;
 import com.bai.entities.Reservation;
 import com.bai.entities.Room;
 import com.bai.entities.User;
@@ -27,6 +28,9 @@ public class ReservationService extends Service {
     protected final ReservationRepository reservationRepository;
     protected final UserRepository userRepository;
     protected final RoomRepository roomRepository;
+
+    @Inject
+    private Config config;
 
     @Inject
     public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, RoomRepository roomRepository) {
@@ -66,6 +70,21 @@ public class ReservationService extends Service {
         try {
             Timestamp now = new Timestamp(System.currentTimeMillis());
             requestResponse.setReservations(this.reservationRepository.getCurrentReservations(this.userRepository.findByEmail(email).getId(), now));
+            requestResponse.setIsSuccess(true);
+        } catch (Exception ex) {
+            return new RequestResponse("Exception occurred: " + ex.getMessage(), false);
+        }
+        return requestResponse;
+    }
+
+    @Post(value = "/getAllReservationsFromPeriod", consumes = MediaType.APPLICATION_JSON)
+    public RequestResponse getAllReservationsFromPeriod(@Body ReservationRequest request) {
+        RequestResponse requestResponse = new RequestResponse();
+        try {
+            Timestamp startDay = getParsedDate(request.getStartTime());
+            Timestamp endDay = getParsedDate(request.getEndTime());
+
+            requestResponse.setReservations(this.reservationRepository.getAllReservationsFromPeriod(startDay, endDay));
             requestResponse.setIsSuccess(true);
         } catch (Exception ex) {
             return new RequestResponse("Exception occurred: " + ex.getMessage(), false);

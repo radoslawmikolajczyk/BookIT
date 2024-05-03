@@ -1,26 +1,26 @@
-  <template>
-    <ol class="day-of-week">
-      <li v-for="weekday in weekdays" :key="weekday">{{ weekday }}</li>
-    </ol>
-  </template>
-  
-  <style scoped>
-  .day-of-week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
-  
-  .day-of-week > * {
-    text-align: right;
-    padding-right: 5px;
-  }
-  </style>
-  
-  <script setup>
-  import { ref } from 'vue';
+<script setup>
+import { ref } from 'vue';
 
-  const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+const weekdays = ref(WEEKDAYS);
+</script>
+
+<template>
+  <ol class="day-of-week">
+    <li v-for="weekday in weekdays" :key="weekday">{{ weekday }}</li>
+  </ol>
+</template>
   
-  const weekdays = ref(WEEKDAYS);
-  </script>
+<style scoped>
+.day-of-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day-of-week > * {
+  text-align: right;
+  padding-right: 5px;
+}
+</style>
   

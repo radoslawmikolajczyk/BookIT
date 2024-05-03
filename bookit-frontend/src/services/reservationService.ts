@@ -18,6 +18,16 @@ export class ReservationService {
         return await response.json();
     }
 
+    async getAllReservationsFromPeriod(request: ReservationRequest) : Promise<RequestResponse>{
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(request)
+        };
+        const response = await fetch('http://localhost:7777/api/reservations/getAllReservationsFromPeriod', requestOptions);
+        return await response.json();
+    }
+
     async createReservation(request: ReservationRequest) : Promise<RequestResponse>{
         const requestOptions = {
             method: "POST",
