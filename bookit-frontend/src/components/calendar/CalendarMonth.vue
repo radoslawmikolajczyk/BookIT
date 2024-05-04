@@ -10,13 +10,9 @@ import CalendarWeekdays from "./CalendarWeekdays.vue";
 import { Reservation } from "../../model/Reservation";
 import { ReservationService } from "../../services/ReservationService.ts"
 import { ReservationRequest } from "../../model/ReservationRequest.ts";
-import stateManager from "../../composables/stateManager.ts";
-import CalendarMonthDaySchedule from "./CalendarMonthDaySchedule.vue";
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
-
-const { calendarDisplayed, scheduleDisplayed } = stateManager()
 
 interface ComputedDays {
   date: string, 
@@ -28,8 +24,6 @@ const selectedDate = ref(dayjs());
 const today = ref(dayjs().format("YYYY-MM-DD"));
 const reservationService = new ReservationService()
 const computedDays = ref<[ComputedDays] | null>(null)
-const todayComputedDays = ref<ComputedDays | null>(null)
-
 
 const days = computed(() => {
   computedDays.value = null
@@ -145,19 +139,10 @@ function clicked(day) {
   console.log(day.reservations)
 }
 
-function showCalendar() {
-  calendarDisplayed.value = true
-  scheduleDisplayed.value = false
-}
-
-function showSchedule() {
-  calendarDisplayed.value = false
-  scheduleDisplayed.value = true
-}
-
 </script>
 
 <template>
+    <div v-if="days"></div>
     <div class="calendar-month">
       <div class="calendar-month-header">
         <CalendarDateIndicator :selected-date="selectedDate" class="calendar-month-header-selected-month"/>
@@ -165,17 +150,11 @@ function showSchedule() {
       </div>
       <CalendarWeekdays/>
 
-      <div v-if="calendarDisplayed">
+      <div>
         <ol class="days-grid">
-          <div v-if="days"></div>
           <CalendarMonthDayItem v-for="day in computedDays" @click="clicked(day)" :date="day.date" :is-current-month="day.isCurrentMonth" :is-today="day.date === today" :reservations="day.reservations"/>
         </ol>
       </div>
-
-      <div v-if="scheduleDisplayed">
-        <CalendarMonthDaySchedule></CalendarMonthDaySchedule>
-      </div>
-
     </div>
 </template>
   

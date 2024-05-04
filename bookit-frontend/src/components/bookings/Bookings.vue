@@ -8,12 +8,14 @@ import { ReservationRequest } from '../../model/ReservationRequest.ts';
 import stateManager from '../../composables/stateManager.ts';
 import { ReservationService } from '../../services/ReservationService.ts';
 import CalendarMonth from '../calendar/CalendarMonth.vue';
+import Schedule from '../schedule/Schedule.vue';
 
 const rooms = ref<[Room] | null>(null)
 const reservations = ref<[Reservation] | null>(null)
 const roomService = new RoomService()
 const reservationService = new ReservationService()
 const { roomsRequest } = stateManager()
+const { calendarDisplayed, scheduleDisplayed } = stateManager()
 
 watch(roomsRequest, () => {
     filterRooms()
@@ -58,13 +60,30 @@ function reserve(request: ReservationRequest) {
     })
 }
 
+function showCalendar() {
+  calendarDisplayed.value = true
+  scheduleDisplayed.value = false
+}
+
+function showSchedule() {
+  calendarDisplayed.value = false
+  scheduleDisplayed.value = true
+}
+
 </script>
 
 <template>
     <div class="container">
+        <div>
+            <button v-on:click.prevent = "showCalendar()">Calendar</button>
+            <button v-on:click.prevent = "showSchedule()">Schedule</button>
+        </div>
         <div class="filter">
-            <div>
+            <div v-if="calendarDisplayed">
                 <CalendarMonth/>
+            </div>
+            <div v-if="scheduleDisplayed">
+                <Schedule/>
             </div>
         </div>
     </div>
