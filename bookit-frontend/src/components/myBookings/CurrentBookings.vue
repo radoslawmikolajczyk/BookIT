@@ -43,28 +43,46 @@ function remove(request: ReservationRequest) {
 </script>
 
 <template>
-    <div v-if="myCurrentBookingsEmpty">
-        <p>You don't have any current reservations.</p>
-    </div>
+    <div class="current-reservations-container">
+        <div v-if="myCurrentBookingsEmpty" class="no-reservations">
+            <p>You don't have any current reservations.</p>
+        </div>
 
-    <div v-else>
-        <TableRow v-for="item in currentReservations">
-            
-            <template #closedContent>
-                <ReservationClosed :reservation="item" />
-            </template>
-            
-            <template #openContent>
-                <Reservation @remove="remove" :reservation="item" :delete="true"/>
-            </template>
-    
-            <template #arrow>
-                <p>▼</p>
-            </template>
-    
-        </TableRow>
+        <div v-else>
+            <TableRow v-for="item in currentReservations" :key="item.id">
+                
+                <template #closedContent>
+                    <ReservationClosed :reservation="item" />
+                </template>
+                
+                <template #openContent>
+                    <Reservation @remove="remove" :reservation="item" :delete="true"/>
+                </template>
+        
+                <template #arrow>
+                    <p>▼</p>
+                </template>
+        
+            </TableRow>
+        </div>
     </div>
 </template>
 
 <style scoped>
+.current-reservations-container {
+    margin: 0 auto;
+}
+
+.no-reservations {
+    text-align: center;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.no-reservations p {
+    color: red;
+    font-style: italic;
+}
 </style>

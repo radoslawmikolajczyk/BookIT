@@ -9,11 +9,14 @@ import { ReservationRequest } from "../../model/ReservationRequest.ts";
 import ScheduleDateIndicator from "../../components/schedule/ScheduleDateIndicator.vue"
 import ScheduleDateSelector from "../../components/schedule/ScheduleDateSelector.vue"
 import ScheduleDay from "../../components/schedule/ScheduleDay.vue"
-import ScheduleDayTest from "../../components/schedule/ScheduleDayTest.vue"
+import ScheduleSelectArea from "../../components/schedule/ScheduleSelectArea.vue"
+import ScheduleTimeline from "./ScheduleTimeline.vue";
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
 const selectedDate = ref(dayjs());
+
 const reservationService = new ReservationService()
 const reservations = ref<[Reservation] | null | undefined>(null)
 const today = ref(dayjs().format("YYYY-MM-DD"));
@@ -41,50 +44,56 @@ function selectDate(newSelectedDate) {
 </script>
 
 <template>
-    <div class="calendar-month">
-      <div class="calendar-month-header">
-        <ScheduleDateIndicator :selected-date="selectedDate" class="calendar-month-header-selected-month"/>
-        <ScheduleDateSelector :selected-date="selectedDate" :current-date="today" @dateSelected="selectDate"/>
-      </div>
-      <div>
-        <!-- <ScheduleDay :date="selectedDate" :reservations="reservations"></ScheduleDay> -->
-        <ScheduleDayTest :date="selectedDate" :reservations="reservations"></ScheduleDayTest>
-      </div>
+  <div class="calendar-month">
+    <div class="calendar-sidebar">
+      <ScheduleDateIndicator :selected-date="selectedDate" />
+      <ScheduleDateSelector :selected-date="selectedDate" :current-date="today" @dateSelected="selectDate" />
     </div>
+
+    <div class="calendar-content">
+      <ScheduleTimeline>
+        <template #selectedArea>
+          <ScheduleSelectArea/>
+        </template>
+        <template #scheduleDay>
+          <ScheduleDay :date="selectedDate" :reservations="reservations" />
+        </template>
+      </ScheduleTimeline>
+    </div>
+  </div>
 </template>
   
 <style scoped>
 .calendar-month {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   background-color: var(--grey-200);
   border: solid 1px var(--grey-300);
+  height: 80vh;
 }
 
-.day-of-week {
-  color: var(--grey-800);
-  font-size: 18px;
-  background-color: #fff;
-  padding-bottom: 5px;
-  padding-top: 10px;
+.calendar-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 20px;
 }
 
-.day-of-week,
-.days-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+.calendar-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
 }
 
-.day-of-week > * {
-  text-align: right;
-  padding-right: 5px;
+.schedule-select-area {
+  flex: 1;
+  padding: 20px;
 }
 
-.days-grid {
-  height: 100%;
-  position: relative;
-  grid-column-gap: var(--grid-gap);
-  grid-row-gap: var(--grid-gap);
-  border-top: solid 1px var(--grey-200);
+.schedule-day {
+  flex: 2;
+  padding: 20px;
 }
 </style>
-  

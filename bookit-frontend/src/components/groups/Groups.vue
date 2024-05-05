@@ -1,111 +1,134 @@
 <script setup lang="ts">
     import stateManager from '../../composables/stateManager';
-    import Group from './Group.vue';
-    import { Group as GroupModel } from '../../model/Group';
-    import GroupSearch from './GroupSearch.vue';
-    import ClosableSection from '../commons/ClosableSection.vue';
     import { onBeforeMount, ref, watch } from 'vue';
     import { GroupsService } from '../../services/GroupsService';
+    import { Group as GroupModel } from '../../model/Group';
+    import GroupAssigned from '../groups/GroupAssigned.vue';
+    import GroupSearch from './GroupSearch.vue';
     import GroupAddButton from './GroupAddButton.vue';
     import GroupAddForm from './GroupAddForm.vue';
     import TableRow from '../commons/TableRow.vue';
-    import GroupAssigned from '../groups/GroupAssigned.vue';
     import GroupClosed from './GroupClosed.vue';
+    import Group from './Group.vue';
 
-    const { openCreateGroupSection, searchField, authorizedUser } = stateManager()
-    const groupModels = ref<[GroupModel] | null>(null)
-    const groupModelsBackup = ref<[GroupModel] | null>(null)
-    const groupsService = new GroupsService()
+    const { openCreateGroupSection, searchField } = stateManager();
+    const groupModels = ref<[GroupModel] | null>(null);
+    const groupModelsBackup = ref<[GroupModel] | null>(null);
+    const groupsService = new GroupsService();
 
     function closeSection() {
-        openCreateGroupSection.value = false
+        openCreateGroupSection.value = false;
     }
 
     watch(searchField, () => {
-        filterGroups()
-    })
+        filterGroups();
+    });
 
     onBeforeMount(() => {
-       getAllGroups()
-       filterGroups()
-    })
+        getAllGroups();
+        filterGroups();
+    });
 
     function getAllGroups() {
-        groupsService
-        .getAllGroups()
-        .then( result =>{
-
-            groupModelsBackup.value = result.groups
-            groupModels.value = result.groups
+        groupsService.getAllGroups().then((result) => {
+            groupModelsBackup.value = result.groups;
+            groupModels.value = result.groups;
 
             if (searchField != null && searchField.value != "") {
-                filterGroups()
+                filterGroups();
             }
-        })
+        });
     }
 
     function filterGroups() {
-        groupModels.value = groupModelsBackup.value
-        var temp = groupModels.value?.filter((g) => { 
-            return g.name.includes(searchField.value)
-        })
+        groupModels.value = groupModelsBackup.value;
+        const temp = groupModels.value?.filter((g) => {
+            return g.name.toLowerCase().includes(searchField.value.toLowerCase());
+        });
 
         // workaround
-        groupModels.value = [new GroupModel("","")]
-        groupModels.value.pop()
+        groupModels.value = [new GroupModel("", "")];
+        groupModels.value.pop();
 
         temp?.forEach((g) => {
-            groupModels.value?.push(g)
-        })
+            groupModels.value?.push(g);
+        });
     }
 
     function groupCreated() {
-        closeSection()
-        searchField.value = ""
+        closeSection();
+        searchField.value = "";
     }
-
 </script>
 
 <template>
-    <div>
-        <GroupAssigned></GroupAssigned>
-    </div>
-    
-    <div>
-        <GroupSearch></GroupSearch>
-    </div>
+    <div class="group-management">
+        <div class="group-management-content">
+            <div class="group-info">
+                <GroupAssigned></GroupAssigned>
+            </div>
 
-    <div>
-        <TableRow>
+            <GroupSearch></GroupSearch>
 
-            <template #closedContent>
-                <GroupAddButton></GroupAddButton>
-            </template>
+            <div class="table-row-scroll">
+                <TableRow v-for="group in groupModels" :key="group.id">
+                    <template #closedContent>
+                        <GroupClosed :group="group"></GroupClosed>
+                    </template>
+                    
+                    <template #openContent>
+                        <Group :group="group"></Group>
+                    </template>
 
-            <template #openContent>
-                <GroupAddForm @add="groupCreated"></GroupAddForm>  
-            </template>
-
-        </TableRow>
-        
-        <TableRow v-for="group in groupModels">
-            
-            <template #closedContent>
-                <GroupClosed :group="group"></GroupClosed>
-            </template>
-            
-            <template #openContent>
-                <Group :group="group"></Group>
-            </template>
-
-            <template #arrow>
-                <p>▼</p>
-            </template>
-
-        </TableRow>
+                    <template #arrow>
+                        <p>▼</p>
+                    </template>
+                </TableRow>
+            </div>
+        </div>
     </div>
 </template>
 
 <style scoped>
-    
+.group-management {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.group-management-content {
+    width: 100%;
+    padding: 20px;
+}
+
+.group-info {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table-row-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.table-row-scroll {
+    width: 100%;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    display: flex;
+}
+
+.table-row-scroll::-webkit-scrollbar {
+    height: 80px;
+}
+
+.table-row-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.table-row-scroll::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 </style>

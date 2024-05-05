@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { vOnClickOutside } from '@vueuse/components'
-    import { Group } from '../../model/Group';
 
     const isOpen = ref(false)
 
@@ -32,13 +31,22 @@
 <style scoped>
     .arrow {
         display: block;
-        color: black;
+        color: #555; /* Szary kolor */
         text-align: center;
         font-size: 17px;
+        margin-bottom: 5px; /* Dodatkowy margines na dół */
     }
 
     .container {
-        border-style: solid;
-        border-width: 1px;
+        border: 1px solid #ddd; /* Jasnoszary kolor obramowania */
+        padding: 10px; /* Dodatkowy wypełnienie */
+        background-color: #f9f9f9; /* Bardziej wyrazisty kolor tła */
+        border-radius: 10px; /* Zaokrąglenie rogów */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .container:hover {
+        background-color: #e9e9e9; /* Zmiana koloru tła po najechaniu myszą */
     }
 </style>

@@ -2,8 +2,8 @@
     import { onBeforeMount, ref } from 'vue';
     import { Group } from '../../model/Group';
     import { GroupsService } from '../../services/GroupsService';
-import { UserGroupRequest } from '../../model/UserGroupRequest';
-import stateManager from '../../composables/stateManager';
+    import { UserGroupRequest } from '../../model/UserGroupRequest';
+    import stateManager from '../../composables/stateManager';
 
      interface Props {
         group: Group

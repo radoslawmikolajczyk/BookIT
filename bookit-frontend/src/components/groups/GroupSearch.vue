@@ -1,84 +1,70 @@
 <script setup lang="ts">
     import stateManager from '../../composables/stateManager';
-    const { searchField } = stateManager()
-    
+    const { searchField } = stateManager();
+
+    function clearSearchField() {
+        searchField.value = ''; // Wyczyszczanie pola tekstowego
+    }
 </script>
 
 <template>
-<div class="topnav">
-    <div class="search-container">
-          <input type="text" placeholder="Search.." name="search" v-model="searchField">
+    <div class="topnav">
+        <div class="search-container">
+            <label for="search" class="search-label">Search:</label>
+            <input type="text" id="search" placeholder="Type to search..." v-model="searchField">
+            <button @click="clearSearchField" class="clear-button">&#x2715;</button>
+        </div>
     </div>
-</div>
 </template>
 
 <style scoped>
+    .topnav {
+        overflow: hidden;
+        background-color: #e9e9e9;
+        text-align: center; /* Dodano wyśrodkowanie tekstu */
+        padding: 10px; /* Dodano padding dla estetyki */
+    }
 
-.topnav {
-  overflow: hidden;
-  background-color: #e9e9e9;
-}
+    .search-container {
+        display: flex; /* Zmieniono na flex, aby elementy były w jednej linii */
+        align-items: center; /* Wyśrodkowanie elementów względem siebie */
+        justify-content: center; /* Wyśrodkowanie elementów względem osi x */
+    }
 
-.topnav a {
-  float: left;
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+    .search-label {
+        margin-right: 10px; /* Dodano odstęp między etykietą a polem tekstowym */
+    }
 
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
+    input[type=text] {
+        flex: 1; /* Rozszerz tekstowe do maksymalnej dostępnej szerokości */
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px; /* Dodano zaokrąglenie */
+    }
 
-.topnav a.active {
-  background-color: #2196F3;
-  color: white;
-}
+    input[type=text]:focus {
+        outline: none; /* Usunięto obramowanie przy focusie */
+    }
 
-.topnav .search-container {
-  float: right;
-}
+    .clear-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0 10px;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
 
-.topnav input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none;
-}
+    .clear-button:hover {
+        color: red; /* Zmieniono kolor na czerwony przy najechaniu */
+    }
 
-.topnav .search-container button {
-  float: none;
-  padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-}
-
-.topnav .search-container button:hover {
-  background: #ccc;
-}
-
-@media screen and (max-width: 600px) {
-  .topnav .search-container {
-    float: none;
-  }
-  .topnav a, .topnav input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;  
-  }
-}
+    /* Dodano responsywność dla małych ekranów */
+    @media screen and (max-width: 600px) {
+        input[type=text] {
+            width: 100%;
+            margin-top: 0; /* Usunięto margines */
+        }
+    }
 </style>
