@@ -1,32 +1,22 @@
 <script setup>
+  import stateManager from "../../composables/stateManager";  
   import dayjs from "dayjs";
-    
+
+  const { dateSelected, today } = stateManager()
   const emit = defineEmits(['dateSelected'])
 
-  const props = defineProps({
-    currentDate: {
-      type: String,
-      required: true
-    },
-
-    selectedDate: {
-      type: Object,
-      required: true
-    }
-  });
-
   const selectPrevious = () => {
-    const newSelectedDate = dayjs(props.selectedDate).subtract(1, "day");
+    const newSelectedDate = dateSelected.value.subtract(1, "day");
     emit("dateSelected", newSelectedDate);
   };
   
   const selectCurrent = () => {
-    const newSelectedDate = dayjs(props.currentDate);
+    const newSelectedDate = dayjs(today.value);
     emit("dateSelected", newSelectedDate);
   };
   
   const selectNext = () => {
-    const newSelectedDate = dayjs(props.selectedDate).add(1, "day");
+    const newSelectedDate = dateSelected.value.add(1, "day");
     emit("dateSelected", newSelectedDate);
   };
 </script>

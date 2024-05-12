@@ -1,16 +1,13 @@
-<script setup>
+<script setup lang="ts">
     import { computed } from 'vue';
-    
+    import stateManager from '../../composables/stateManager';
+
+    const { dateSelected } = stateManager()
+
     const selectedDay = computed(() => {
-      return props.selectedDate.format("YYYY MMMM DD");
+      return dateSelected.value.format("YYYY MMMM DD");
     });
     
-    const props = defineProps({
-      selectedDate: {
-        type: Object,
-        required: true
-      }
-    });
 </script>
 
 <template>

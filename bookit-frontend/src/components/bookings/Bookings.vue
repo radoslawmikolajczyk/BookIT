@@ -8,14 +8,14 @@ import { ReservationRequest } from '../../model/ReservationRequest.ts';
 import stateManager from '../../composables/stateManager.ts';
 import { ReservationService } from '../../services/ReservationService.ts';
 import CalendarMonth from '../calendar/CalendarMonth.vue';
-import Schedule from '../schedule/Schedule.vue';
+import { Section } from '../../enums/section.ts';
 
 const rooms = ref<[Room] | null>(null)
 const reservations = ref<[Reservation] | null>(null)
 const roomService = new RoomService()
 const reservationService = new ReservationService()
 const { roomsRequest } = stateManager()
-const { calendarDisplayed, scheduleDisplayed } = stateManager()
+const { openSection } = stateManager()
 
 watch(roomsRequest, () => {
     filterRooms()
@@ -61,13 +61,11 @@ function reserve(request: ReservationRequest) {
 }
 
 function showCalendar() {
-  calendarDisplayed.value = true
-  scheduleDisplayed.value = false
+    openSection.value = Section.BOOKINGS_CALENDAR
 }
 
 function showSchedule() {
-  calendarDisplayed.value = false
-  scheduleDisplayed.value = true
+    openSection.value = Section.BOOKINGS_SCHEDULE
 }
 
 </script>
@@ -78,11 +76,12 @@ function showSchedule() {
             <button v-on:click.prevent = "showCalendar()">Calendar</button>
             <button v-on:click.prevent = "showSchedule()">Schedule</button>
         </div>
+        
         <div class="filter">
-            <div v-if="calendarDisplayed">
+            <div v-if="openSection == Section.BOOKINGS_CALENDAR">
                 <CalendarMonth/>
             </div>
-            <div v-if="scheduleDisplayed">
+            <div v-if="openSection == Section.BOOKINGS_SCHEDULE">
                 <Schedule/>
             </div>
         </div>

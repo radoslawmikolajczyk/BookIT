@@ -57,15 +57,15 @@ const login = async () => {
 }
 
 .background-image {
-  position: absolute; /* Ustawienie pozycji absolutnej, aby tło z obrazkiem było na tyle */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../assets/img/background.jpg'); /* Dodanie tła z obrazkiem */
-  background-size: cover; /* Dopasowanie rozmiaru tła do kontenera */
-  border-radius: 10px; /* Zaokrąglenie rogów, aby pasowało do kontenera */
-  z-index: -1; /* Ustawienie niższego indeksu warstwy, aby tło było pod formularzem */
+  background-image: url('../../assets/img/background.jpg');
+  background-size: cover;
+  border-radius: 10px;
+  z-index: -1;
 }
 
 
@@ -89,7 +89,7 @@ const login = async () => {
 
 .btn {
   cursor: pointer;
-  padding: 0.5rem 0; /* Ustawienie paddingu poziomego na 0, aby dopasować szerokość */
+  padding: 0.5rem 0;
   font-size: 1rem;
   background-color: #007bff;
   color: #fff;
@@ -120,7 +120,7 @@ const login = async () => {
 }
 
 .input-label {
-  margin-bottom: 0.5rem; /* Dodanie odstępu między polem tekstowym a jego etykietą */
+  margin-bottom: 0.5rem;
 }
 
 </style>

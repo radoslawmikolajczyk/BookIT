@@ -2,69 +2,183 @@
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
-import { ref } from "vue";
-import { Reservation } from "../../model/Reservation.ts";
+import { ref, watch } from "vue";
 import { ReservationService } from "../../services/ReservationService.ts"
 import { ReservationRequest } from "../../model/ReservationRequest.ts";
 import ScheduleDateIndicator from "../../components/schedule/ScheduleDateIndicator.vue"
 import ScheduleDateSelector from "../../components/schedule/ScheduleDateSelector.vue"
-import ScheduleDay from "../../components/schedule/ScheduleDay.vue"
-import ScheduleSelectArea from "../../components/schedule/ScheduleSelectArea.vue"
 import ScheduleTimeline from "./ScheduleTimeline.vue";
+import stateManager from "../../composables/stateManager.ts";
+import Filters from "../bookings/Filters.vue";
+import { DateParser } from "../../utils/dateParser.ts";
+import Reservation from "../commons/Reservation.vue";
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
-const selectedDate = ref(dayjs());
-
+const { reservationsSchedule, 
+  reservationsScheduleBackup, 
+  dateSelected, 
+  roomNumberSelected, 
+  floorSelected, 
+  buildingSelected, 
+  rooms, 
+  userReservationsChecked,
+  authorizedUser,
+  reservationTimeMax,
+  reservationTimeMin,
+displayedReservation } = stateManager()
 const reservationService = new ReservationService()
-const reservations = ref<[Reservation] | null | undefined>(null)
-const today = ref(dayjs().format("YYYY-MM-DD"));
+
+watch(roomNumberSelected, () => {
+  filterSchedule()
+  }
+)
+
+watch(floorSelected, () => {
+  filterSchedule()
+  }
+)
+
+watch(buildingSelected, () => {
+  filterSchedule()
+  }
+)
+
+watch(userReservationsChecked, () => {
+  filterSchedule()
+  }
+)
+
+watch(reservationTimeMax, () => {
+  filterSchedule()
+  }
+)
+
+watch(reservationTimeMin, () => {
+  filterSchedule()
+  }
+)
+
+function filterSchedule() {
+
+  reservationsSchedule.value = reservationsScheduleBackup.value
+
+  if(reservationTimeMax.value != "") {
+    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
+    return new Date ('1/1/1999 ' + DateParser.getOnlyTime(reservation.endTime)) <= new Date ('1/1/1999 ' + reservationTimeMax.value) 
+  })
+  }
+
+  if(reservationTimeMin.value != "") {
+    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
+    return new Date ('1/1/1999 ' + DateParser.getOnlyTime(reservation.startTime)) >= new Date ('1/1/1999 ' + reservationTimeMin.value) 
+  })
+  }
+
+  if(userReservationsChecked.value) {
+    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
+    return reservation.user.id == authorizedUser.value?.id
+  })
+  }
+
+  if(buildingSelected.value != "") {
+    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
+    return reservation.room.buildingName == buildingSelected.value
+  })
+  }
+
+  if(floorSelected.value != 0) {
+    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
+    return reservation.room.floorNumber == floorSelected.value      
+  })
+  }
+
+  if(roomNumberSelected.value != "") {
+    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
+    return reservation.room.roomName == roomNumberSelected.value
+  })
+  }
+}
 
 function getReservations(date: string) {
-  console.log(date)
   var request = new ReservationRequest("",1,date + " 00:00",date + " 23:59")
 
   reservationService.getAllReservationsFromPeriod(request)
   .then((result) => {
     if(result.isSuccess) {
-      console.log(result.reservations)
-      reservations.value = result.reservations
+      result.reservations?.map((reservation) => { 
+        var room = rooms.value?.filter((room) => { return room.id == reservation.room.id })
+        if(room && room.length > 0) { reservation.room = room[0] }
+        return reservation
+      })
+      reservationsSchedule.value = result.reservations
+      reservationsScheduleBackup.value = result.reservations
+      filterSchedule()
     } else {
-      // wypisz dlaczego się nie udało
+      console.log("Error occured during fetching data from server.")
     }
   })
 }
 
 function selectDate(newSelectedDate) {
-  selectedDate.value = newSelectedDate;
-  getReservations(selectedDate.value.format("YYYY-MM-DD"))
+  console.log(newSelectedDate)
+  dateSelected.value = newSelectedDate;
+  getReservations(dateSelected.value.format("YYYY-MM-DD"))
+}
+
+function reserve() {
+    const startTime = DateParser.parseDate(reservationTimeMax.value)
+    const endTime = DateParser.parseDate(reservationTimeMin.value)
+    const token = localStorage.getItem('token') ?? ""
+    const room = rooms.value?.filter((room) => { return room.buildingName == buildingSelected.value 
+                                                  && room.floorNumber == floorSelected.value 
+                                                  && room.roomName == roomNumberSelected.value })
+
+    if(room && room.length > 0) {
+      reservationService.createReservation(new ReservationRequest(token, room[0].id, startTime, endTime))
+      .then( result => {
+          console.log(result)
+      })
+    }
+}
+
+function isDeletePossible() : Boolean {
+  return displayedReservation.value?.user.id == authorizedUser.value?.id
 }
 
 </script>
 
 <template>
-  <div class="calendar-month">
-    <div class="calendar-sidebar">
-      <ScheduleDateIndicator :selected-date="selectedDate" />
-      <ScheduleDateSelector :selected-date="selectedDate" :current-date="today" @dateSelected="selectDate" />
+  <div class="schedule-day">
+    <div class="schedule-sidebar">
+      <div>
+        <ScheduleDateIndicator/>
+        <ScheduleDateSelector @dateSelected="selectDate" />
+      </div>
+      <div class="details-section">
+        <Filters @makeReservation="reserve"></Filters>
+      </div>
     </div>
-
-    <div class="calendar-content">
-      <ScheduleTimeline>
-        <template #selectedArea>
-          <ScheduleSelectArea/>
-        </template>
-        <template #scheduleDay>
-          <ScheduleDay :date="selectedDate" :reservations="reservations" />
-        </template>
-      </ScheduleTimeline>
+    <div class="schedule-content">
+      <ScheduleTimeline/>
+    </div>
+    <div>
+      <Reservation v-if="displayedReservation" :reservation="displayedReservation" :delete="isDeletePossible()"></Reservation>
     </div>
   </div>
 </template>
   
 <style scoped>
-.calendar-month {
+.details-section {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(201, 179, 179);
+  height: 100px;
+  width: 100%
+}
+
+.schedule-day {
   display: flex;
   flex-direction: column;
   background-color: var(--grey-200);
@@ -72,28 +186,18 @@ function selectDate(newSelectedDate) {
   height: 80vh;
 }
 
-.calendar-sidebar {
+.schedule-sidebar {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 100%;
   padding: 20px;
 }
 
-.calendar-content {
+.schedule-content {
   display: flex;
   flex-direction: row;
-  flex: 1;
-  overflow: auto;
+  overflow: hidden;
   padding: 20px;
 }
 
-.schedule-select-area {
-  flex: 1;
-  padding: 20px;
-}
-
-.schedule-day {
-  flex: 2;
-  padding: 20px;
-}
 </style>

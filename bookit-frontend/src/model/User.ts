@@ -2,6 +2,7 @@ import { Group } from "./Group"
 import { Reservation } from "./Reservation"
 
 export class User {
+    id: number
     firstName: string
     lastName: string
     email: string

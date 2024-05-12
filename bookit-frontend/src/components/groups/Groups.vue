@@ -5,8 +5,6 @@
     import { Group as GroupModel } from '../../model/Group';
     import GroupAssigned from '../groups/GroupAssigned.vue';
     import GroupSearch from './GroupSearch.vue';
-    import GroupAddButton from './GroupAddButton.vue';
-    import GroupAddForm from './GroupAddForm.vue';
     import TableRow from '../commons/TableRow.vue';
     import GroupClosed from './GroupClosed.vue';
     import Group from './Group.vue';
@@ -15,10 +13,6 @@
     const groupModels = ref<[GroupModel] | null>(null);
     const groupModelsBackup = ref<[GroupModel] | null>(null);
     const groupsService = new GroupsService();
-
-    function closeSection() {
-        openCreateGroupSection.value = false;
-    }
 
     watch(searchField, () => {
         filterGroups();
@@ -55,10 +49,6 @@
         });
     }
 
-    function groupCreated() {
-        closeSection();
-        searchField.value = "";
-    }
 </script>
 
 <template>
@@ -91,7 +81,7 @@
 
 <style scoped>
 .group-management {
-    margin-top: 20px;
+    margin: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,16 +97,12 @@
     margin-bottom: 20px;
 }
 
-.table-row-wrapper {
-    width: 100%;
-    overflow: hidden;
-}
-
 .table-row-scroll {
     width: 100%;
     overflow-y: auto;
     padding-bottom: 20px;
-    display: flex;
+    height: 50vh;
+    margin-top: 10px;
 }
 
 .table-row-scroll::-webkit-scrollbar {

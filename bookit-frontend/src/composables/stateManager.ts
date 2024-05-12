@@ -1,45 +1,73 @@
 import { ref } from "vue";
 import { Reservation } from '../model/Reservation'
-import { Tabs } from '../enums/tabs'
+import { Section } from '../enums/section'
 import { User } from '../model/User'
 import { RoomRequest } from '../model/RoomRequest' 
+import dayjs from "dayjs";
+import { Room } from "../model/Room";
 
-const reservationsSearched = ref<[Reservation] | null>(null)
-const reservationsOwned = ref<[Reservation] | null>(null)
 const roomsRequest = ref<RoomRequest | null>(null)
+
+const rooms = ref<Room[] | null>(null)
 const roomsBuldings = ref<Set<string> | null>(null)
 const roomsFloorsNumbers = ref<Set<number> | null>(null)
+const roomsNumbers = ref<Set<string> | null>(null)
+
 const myCurrentBookingsEmpty = ref(true)
-const myHistoryBookingsEmpty = ref(true)
 const authorizedUser = ref<User | null>(null)
-const openTab = ref(Tabs.CURRENT)
+const openSection = ref(Section.MAINPAGE)
 const openCreateGroupSection = ref(false)
 const searchField = ref("")
-const calendarDisplayed = ref(true)
-const scheduleDisplayed = ref(false)
+
+const dateSelected = ref(dayjs());
+const reservationsSchedule = ref<Reservation[]>()
+const reservationsScheduleBackup = ref<Reservation[]>()
+const today = ref(dayjs().format("YYYY-MM-DD"));
+
+const floorSelected = ref(0)
+const buildingSelected = ref("")
+const roomNumberSelected = ref("")
+const userReservationsChecked = ref(false)
+const isCreateReservationBlocked = ref(true)
+const reservationTimeMax = ref("23:59")
+const reservationTimeMin = ref("00:01")
+const displayedReservation = ref<Reservation>()
 
 const stateManager = () => {
   return {
-    reservationsSearched,
-    reservationsOwned,
+    // Global
+
+    // MainPage
     roomsRequest,
 
+    // Filters
+    rooms,
+    roomsNumbers,
     roomsBuldings,
     roomsFloorsNumbers,
-
+    floorSelected, 
+    buildingSelected, 
+    roomNumberSelected, 
+    userReservationsChecked,
+    reservationTimeMin,
+    reservationTimeMax,
+    // Others
     myCurrentBookingsEmpty,
-    myHistoryBookingsEmpty,
-
     authorizedUser,
-
-    openTab,
+    openSection,
     openCreateGroupSection,
-
     searchField,
-    
-    calendarDisplayed,
-    scheduleDisplayed
+
+    // Schedule
+    dateSelected,
+    reservationsSchedule,
+    reservationsScheduleBackup,
+    isCreateReservationBlocked,
+    today,
+    displayedReservation
   };
 };
- 
+
+
+
 export default stateManager;

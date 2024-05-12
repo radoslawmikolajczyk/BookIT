@@ -76,15 +76,15 @@ const register = async () => {
 }
 
 .background-image {
-  position: absolute; /* Ustawienie pozycji absolutnej, aby tło z obrazkiem było na tyle */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../assets/img/background.jpg'); /* Dodanie tła z obrazkiem */
-  background-size: cover; /* Dopasowanie rozmiaru tła do kontenera */
-  border-radius: 10px; /* Zaokrąglenie rogów, aby pasowało do kontenera */
-  z-index: -1; /* Ustawienie niższego indeksu warstwy, aby tło było pod formularzem */
+  background-image: url('../../assets/img/background.jpg');
+  background-size: cover;
+  border-radius: 10px;
+  z-index: -1;
 }
 
 .register-form {

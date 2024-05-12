@@ -21,30 +21,30 @@
     .topnav {
         overflow: hidden;
         background-color: #e9e9e9;
-        text-align: center; /* Dodano wyśrodkowanie tekstu */
-        padding: 10px; /* Dodano padding dla estetyki */
+        text-align: center;
+        padding: 10px;
     }
 
     .search-container {
-        display: flex; /* Zmieniono na flex, aby elementy były w jednej linii */
-        align-items: center; /* Wyśrodkowanie elementów względem siebie */
-        justify-content: center; /* Wyśrodkowanie elementów względem osi x */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .search-label {
-        margin-right: 10px; /* Dodano odstęp między etykietą a polem tekstowym */
+        margin-right: 10px;
     }
 
     input[type=text] {
-        flex: 1; /* Rozszerz tekstowe do maksymalnej dostępnej szerokości */
+        flex: 1;
         padding: 8px;
         font-size: 16px;
         border: 1px solid #ccc;
-        border-radius: 5px; /* Dodano zaokrąglenie */
+        border-radius: 5px;
     }
 
     input[type=text]:focus {
-        outline: none; /* Usunięto obramowanie przy focusie */
+        outline: none;
     }
 
     .clear-button {
@@ -57,14 +57,14 @@
     }
 
     .clear-button:hover {
-        color: red; /* Zmieniono kolor na czerwony przy najechaniu */
+        color: red;
     }
 
     /* Dodano responsywność dla małych ekranów */
     @media screen and (max-width: 600px) {
         input[type=text] {
             width: 100%;
-            margin-top: 0; /* Usunięto margines */
+            margin-top: 0;
         }
     }
 </style>

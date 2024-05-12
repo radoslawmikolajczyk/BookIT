@@ -95,10 +95,6 @@ function handleDecision(decision: boolean) {
                 </button>
                 <ConfirmationDialog @decision="handleDecision" v-else></ConfirmationDialog>
             </div>
-            <div v-else>
-                <button v-if="!confirmationVisible" @click="showConfirmation(reserve)">Reserve</button>
-                <ConfirmationDialog @decision="handleDecision" v-else></ConfirmationDialog>
-            </div>
         </div>
     </div>
 </template>

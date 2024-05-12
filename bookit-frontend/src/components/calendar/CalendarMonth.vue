@@ -27,6 +27,8 @@ const computedDays = ref<[ComputedDays] | null>(null)
 
 const days = computed(() => {
   computedDays.value = null
+  
+  // workaround
   computedDays.value = [{date: "", isCurrentMonth: false, reservations: [new Reservation()]}]
   computedDays.value.pop()
 
@@ -142,25 +144,24 @@ function clicked(day) {
 </script>
 
 <template>
-    <div v-if="days"></div>
-    <div class="calendar-month">
-      <div class="calendar-month-header">
-        <CalendarDateIndicator :selected-date="selectedDate" class="calendar-month-header-selected-month"/>
-        <CalendarDateSelector :current-date="today" :selected-date="selectedDate" @dateSelected="selectDate"/>
-      </div>
-      <CalendarWeekdays/>
-
-      <div>
-        <ol class="days-grid">
-          <CalendarMonthDayItem v-for="day in computedDays" @click="clicked(day)" :date="day.date" :is-current-month="day.isCurrentMonth" :is-today="day.date === today" :reservations="day.reservations"/>
-        </ol>
-      </div>
+  <div v-if="days"></div>
+  <div class="calendar-month">
+    <div class="calendar-month-header">
+      <CalendarDateIndicator :selected-date="selectedDate" class="calendar-month-header-selected-month"/>
+      <CalendarDateSelector :current-date="today" :selected-date="selectedDate" @dateSelected="selectDate"/>
     </div>
+    <CalendarWeekdays/>
+
+    <div>
+      <ol class="days-grid">
+        <CalendarMonthDayItem v-for="day in computedDays" @click="clicked(day)" :date="day.date" :is-current-month="day.isCurrentMonth" :is-today="day.date === today" :reservations="day.reservations"/>
+      </ol>
+    </div>
+  </div>
 </template>
   
 <style scoped>
 .calendar-month {
-  position: relative;
   background-color: var(--grey-200);
   border: solid 1px var(--grey-300);
 }

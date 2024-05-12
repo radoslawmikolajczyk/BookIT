@@ -12,17 +12,17 @@ export class DateParser {
     }
 
     //HH:mm
-    static getOnlyTime(time: string, originalDate: string) : string {
+    static getOnlyTime(originalDate: string) : string {
         var parsedOriginal = this.parseDate(originalDate)
         var pieces = parsedOriginal.split(" ")
-        return pieces[0] + " " + time
+        return pieces[1]
     }
 
     //yyyy-MM-dd
-    static setOnlyDate(date: string, originalDate: string) : string {
+    static setOnlyDate(originalDate: string) : string {
         var parsedOriginal = this.parseDate(originalDate)
         var pieces = parsedOriginal.split(" ")
-        return date + " " + pieces[1]
+        return pieces[0]
     }
 
     //HH:mm

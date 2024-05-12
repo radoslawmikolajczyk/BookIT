@@ -2,39 +2,69 @@
     import { onBeforeMount, ref } from 'vue';
     import stateManager from '../../composables/stateManager.ts';
     import { GroupsService } from '../../services/GroupsService.ts';
+    import { useRouter } from 'vue-router';
+    import { Section } from '../../enums/section.ts';
 
-    const { authorizedUser } = stateManager()
+    enum GroupState {
+        ASSIGNED,
+        UNASSIGNED,
+        UNDEFINED,
+        ERROR
+    }
+
+    const { authorizedUser, openSection } = stateManager()
     const service = new GroupsService()
-    const assigned = ref(false)
+    const assigned = ref(GroupState.UNDEFINED)
     const groupName = ref("")
+    const router = useRouter()
 
     onBeforeMount(() => {
+        openSection.value = Section.GROUPS
         service.getGroupById(authorizedUser?.value?.group?.id ?? -1)
         .then((result) => {
             if(result.isSuccess){
-                assigned.value = true
-                groupName.value = result.group.name
+                if(result.group) {
+                    assigned.value = GroupState.ASSIGNED
+                    groupName.value = result.group.name
+                }else {
+                    assigned.value = GroupState.UNASSIGNED
+                }
             } else {
-                assigned.value = false
+                assigned.value = GroupState.ERROR
             }
         })
     })
 
+function goToGroups() {
+    router.push('/groups');
+}
+
 </script>
 
 <template>
-    <div>
-        <div v-if="assigned" class="assigned">
+    <div class="container">
+        <div v-if="assigned == GroupState.ASSIGNED" class="assigned">
             <p>Your are assigned to: <span class="group-name">{{ groupName }}</span></p>
-            <button class="action-button">Change Group</button>
+            <button v-if="openSection != Section.GROUPS" @click.prevent="goToGroups" class="action-button">Change Group</button>
         </div>
-        <div v-else class="not-assigned">
+
+        <div v-if="assigned == GroupState.UNASSIGNED" class="not-assigned">
             <p>Your are not assigned to any group. Please select a group!</p>
+            <button v-if="openSection != Section.GROUPS" @click.prevent="goToGroups" class="action-button">Select Group</button>
+        </div>
+
+        <div v-if="assigned == GroupState.ERROR" class="not-assigned">
+            <p>Error occured during data fetching!</p>
         </div>
     </div>
 </template>
 
 <style scoped>
+
+    .container {
+        
+    }
+
     .assigned {
         color: navy;
         text-align: center;

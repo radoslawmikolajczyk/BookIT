@@ -10,7 +10,7 @@
 </script>
 
 <template>
-    <div>
+    <div class="group-container">
         <p>
             {{ props.group.name }}
         </p>
@@ -18,5 +18,8 @@
 </template>
 
 <style scoped>
-   
+  .group-container {
+    width: 80px;
+    margin: 0 auto;
+  }
 </style>
