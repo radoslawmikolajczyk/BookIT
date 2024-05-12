@@ -45,46 +45,48 @@
 </template>
   
 <style scoped>
-  .calendar-date-selector {
+.calendar-date-selector {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
-    border-radius: 5px;
-  }
+    background-color: #b3e0ff; /* Light blue background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners for better appearance */
+    width: 100%; /* Full width for better responsiveness */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+}
 
-  .navigation-buttons {
+.navigation-buttons {
     display: flex;
-    justify-content:center;
-    width: 60%;
-  }
+    justify-content: space-between;
+    width: 100%; /* Full width to manage internal spacing */
+    margin-bottom: 10px; /* Space below the navigation buttons */
+}
 
-  .navigation-buttons .action-button {
+.navigation-buttons .action-button {
+    flex-grow: 1; /* Allows buttons to grow and fill the space */
+    margin: 0 10px; /* Spacing between buttons */
+}
+
+.today-button {
+    width: 100%; /* Full width to center the today button properly */
     display: flex;
-    justify-content:center;
-    width: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+    justify-content: center;
+}
 
-  .today-button {
-    margin-top: 10px;
-  }
-
-  .action-button {
+.action-button {
     padding: 10px 20px;
-    background-color: navy;
+    background-color: #007bff; /* Bootstrap primary blue for consistency */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: 16px; /* Increased font size for better readability */
+}
 
-    width: 110px;
-  }
-
-  .action-button:hover {
-    background-color: #001f3f;
-  }
+.action-button:hover {
+    background-color: #0056b3; /* Darker blue on hover for better interaction */
+}
 </style>
   

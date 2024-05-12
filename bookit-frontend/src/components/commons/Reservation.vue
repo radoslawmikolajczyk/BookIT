@@ -111,81 +111,76 @@ function getOnlyTime(date: string) {
 </template>
 
 <style scoped>
-.button-container {
-    display: flex;
-    justify-content: center; /* Wyśrodkowanie przycisku w poziomie */
-    align-items: center; /* Wyśrodkowanie przycisku w pionie */
-    margin-top: 10px; /* Dodatkowy margines na górę */
-    height: 100%; /* Ustawienie wysokości, aby przycisk był wyśrodkowany w pionie */
-}
-
-.delete-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #dc3545; /* Czerwony kolor tła */
-    color: #fff; /* Biały kolor tekstu */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-  .delete-button:hover {
-    filter: brightness(90%); /* Zmniejszenie jasności przycisku po najechaniu na niego */
-  }
-
 .reservation-container {
-    padding: 10px;
-    background-color: #f0f5ff; /* Niebieski kolor tła */
-    border-radius: 5px;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #b3e0ff; /* Light blue background */
+    border-radius: 8px; /* Rounded corners for a cleaner look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds depth with a subtle shadow */
+    margin-bottom: 20px; /* Space between this and any subsequent elements */
 }
 
-.date {
-    background-color: #c9d6ea; /* Jasny niebieski kolor dla pola daty */
+.date, .common-info, .description, .image {
+    background-color: #e0efff; /* A lighter shade of blue for internal components */
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Consistent spacing between sections */
 }
 
 .info {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between; /* Ensures that components within this flex container are spaced out nicely */
 }
 
 .common-info {
-    flex: 1 1 45%; /* Ustawienie szerokości na 45% szerokości kontenera */
-    padding: 10px;
-    background-color: #dbe5f1; /* Średni niebieski kolor dla pól informacyjnych */
-    border-radius: 5px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-.description {
-    flex: 1 1 100%; /* Zajmuje pełną szerokość kontenera */
-    padding: 10px;
-    background-color: #dbe5f1; /* Średni niebieski kolor dla pola opisu */
-    border-radius: 5px;
-    margin-bottom: 10px;
+    flex: 1 1 45%; /* Flex-basis at 45% allows for two items per row on wider screens */
+    margin-bottom: 10px; /* Vertical spacing between rows */
 }
 
 .image {
-    flex: 1 1 100%; /* Zajmuje pełną szerokość kontenera */
-    text-align: center; /* Wyśrodkowanie obrazka */
-    margin-bottom: 10px;
+    flex: 1 1 50%; /* Takes full width of the container to stand out */
+    text-align: center; /* Centers content within description and image blocks */
+}
+
+.description {
+    flex: 1 1 45%; /* Takes full width of the container to stand out */
+    text-align: center; /* Centers content within description and image blocks */
 }
 
 .image img {
     max-width: 100%;
     height: auto;
+    border-radius: 5px; /* Rounded corners for images */
 }
 
 .label {
-    font-weight: bold;
+    font-weight: bold; /* Makes labels bold */
 }
 
 .value {
-    margin-top: 5px;
+    margin-top: 5px; /* Spacing above value to separate it from label */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically */
+    padding: 10px 0;
+}
+
+.delete-button {
+    background-color: #dc3545; /* Red background for deletion to draw attention */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Slightly darker red on hover for interactive feedback */
 }
 </style>

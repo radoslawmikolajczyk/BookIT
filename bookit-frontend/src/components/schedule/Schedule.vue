@@ -9,10 +9,12 @@ import ScheduleDateIndicator from "../../components/schedule/ScheduleDateIndicat
 import ScheduleDateSelector from "../../components/schedule/ScheduleDateSelector.vue"
 import ScheduleTimeline from "./ScheduleTimeline.vue";
 import stateManager from "../../composables/stateManager.ts";
-import Filters from "../bookings/Filters.vue";
+import Filters from "./Filters.vue";
 import { DateParser } from "../../utils/dateParser.ts";
 import Reservation from "../commons/Reservation.vue";
 import GroupAssigned from "../groups/GroupAssigned.vue";
+import ReservationClosed from "../commons/ReservationClosed.vue";
+import TableRow from "../commons/TableRow.vue";
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -28,7 +30,8 @@ const { reservationsSchedule,
   authorizedUser,
   reservationTimeMax,
   reservationTimeMin,
-displayedReservation } = stateManager()
+  displayedReservation,
+  isCreateReservationButtonBlocked } = stateManager()
 const reservationService = new ReservationService()
 
 watch(roomNumberSelected, () => {
@@ -100,6 +103,19 @@ function filterSchedule() {
     return reservation.room.roomName == roomNumberSelected.value
   })
   }
+
+  isCreateReservationButtonBlocked.value = !checkIfReservationPossible()
+}
+
+function checkIfReservationPossible() : boolean {
+  if(reservationsSchedule.value?.length ?? 0 > 0){ return false }
+  if(buildingSelected.value == ""){ return false }
+  if(roomNumberSelected.value == ""){ return false }
+  if(floorSelected.value == 0){ return false }
+  if(reservationTimeMax.value == ""){ return false }
+  if(reservationTimeMin.value == ""){ return false }
+
+  return true
 }
 
 function getReservations(date: string) {
@@ -123,14 +139,13 @@ function getReservations(date: string) {
 }
 
 function selectDate(newSelectedDate) {
-  console.log(newSelectedDate)
   dateSelected.value = newSelectedDate;
   getReservations(dateSelected.value.format("YYYY-MM-DD"))
 }
 
 function reserve() {
-    const startTime = DateParser.parseDate(reservationTimeMax.value)
-    const endTime = DateParser.parseDate(reservationTimeMin.value)
+    const startTime = dateSelected.value.format("YYYY-MM-DD ") + reservationTimeMin.value
+    const endTime = dateSelected.value.format("YYYY-MM-DD ") + reservationTimeMax.value
     const token = localStorage.getItem('token') ?? ""
     const room = rooms.value?.filter((room) => { return room.buildingName == buildingSelected.value 
                                                   && room.floorNumber == floorSelected.value 
@@ -157,15 +172,24 @@ function isDeletePossible() : Boolean {
         <ScheduleDateIndicator/>
         <ScheduleDateSelector @dateSelected="selectDate" />
       </div>
-      <div class="details-section">
+      <div class="filters">
         <Filters @makeReservation="reserve"></Filters>
       </div>
     </div>
     <div class="schedule-content">
-      <ScheduleTimeline/>
-    </div>
-    <div>
-      <Reservation v-if="displayedReservation" :reservation="displayedReservation" :delete="isDeletePossible()"></Reservation>
+      <TableRow v-for="item in reservationsSchedule" :key="item.id">
+        <template #closedContent>
+            <ReservationClosed :reservation="item" />
+        </template>
+        
+        <template #openContent>
+          <Reservation @remove="remove" :reservation="item" :delete="isDeletePossible()"/>
+        </template>
+
+        <template #arrow>
+            <p>▼</p>
+        </template>
+      </TableRow>
     </div>
   </div>
   <div v-else>
@@ -174,20 +198,16 @@ function isDeletePossible() : Boolean {
 </template>
   
 <style scoped>
-.details-section {
+.filters {
   display: flex;
   flex-direction: column;
   background-color: rgb(201, 179, 179);
-  height: 100px;
   width: 100%
 }
 
 .schedule-day {
   display: flex;
   flex-direction: column;
-  background-color: var(--grey-200);
-  border: solid 1px var(--grey-300);
-  height: 80vh;
 }
 
 .schedule-sidebar {
@@ -198,9 +218,9 @@ function isDeletePossible() : Boolean {
 
 .schedule-content {
   display: flex;
-  flex-direction: row;
-  overflow: hidden;
+  flex-direction: column;
   padding: 20px;
+  overflow-y:scroll;
 }
 
 </style>

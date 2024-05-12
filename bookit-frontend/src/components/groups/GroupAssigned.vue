@@ -61,7 +61,7 @@ function goToGroups() {
 <style scoped>
 
     .container {
-        
+        background-color: #b3e0ff;
     }
 
     .assigned {

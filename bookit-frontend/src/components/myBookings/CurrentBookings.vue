@@ -65,7 +65,6 @@ function remove(request: ReservationRequest) {
             <p>You don't have any current reservations.</p>
         </div>
         <div v-else>
-            <p> {{ openSection }}</p>
             <div v-if='openSection == Section.MAINPAGE'>
                 <TableRow>
                     <template #closedContent>

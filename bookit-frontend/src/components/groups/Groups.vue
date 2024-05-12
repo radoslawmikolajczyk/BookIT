@@ -10,15 +10,13 @@
     import Group from './Group.vue';
 
     const { searchField } = stateManager();
-    const groupModels = ref<[GroupModel] | null>(null);
-    const groupModelsBackup = ref<[GroupModel] | null>(null);
+    const groupModels = ref<GroupModel[] | null>(null);
+    const groupModelsBackup = ref<GroupModel[] | null>(null);
     const groupsService = new GroupsService();
 
     watch(searchField, () => {
         filterGroups();
     });
-
-    
 
     onBeforeMount(() => {
         getAllGroups();
@@ -38,13 +36,12 @@
 
     function filterGroups() {
         groupModels.value = groupModelsBackup.value;
+
         const temp = groupModels.value?.filter((g) => {
             return g.name.toLowerCase().includes(searchField.value.toLowerCase());
         });
 
-        // workaround
-        groupModels.value = [new GroupModel("", "")];
-        groupModels.value.pop();
+        groupModels.value = []
 
         temp?.forEach((g) => {
             groupModels.value?.push(g);
@@ -90,7 +87,7 @@
 }
 
 .group-management-content {
-    width: 100%;
+    width: 90%;
     padding: 20px;
 }
 
@@ -100,7 +97,6 @@
 }
 
 .table-row-scroll {
-    width: 100%;
     overflow-y: auto;
     padding-bottom: 20px;
     height: 50vh;

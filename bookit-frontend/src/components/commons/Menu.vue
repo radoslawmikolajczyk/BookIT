@@ -87,6 +87,16 @@ function cancelLogout() {
 
 <style scoped>
 
+.logout-button {
+  padding: 10px 20px;
+  background-color: #dc3545; /* Red background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto; /* Pushes the logout button to the right */
+}
+
 .modal-background {
   position: fixed;
   top: 0;
@@ -145,6 +155,7 @@ a {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  width: 100%;
 }
 
 .menu-area {
@@ -160,6 +171,9 @@ a {
   -ms-flex-positive: 1;
   flex-grow: 1;
   position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
 }
 .marginauto {
   -webkit-box-orient: horizontal;
@@ -174,7 +188,7 @@ a {
   align-items: center;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
-  justify-content: end;
+  justify-content: center;
 }
 .menu-area > ul {
   width: 100%;

@@ -7,30 +7,26 @@ import dayjs from "dayjs";
 import { Room } from "../model/Room";
 
 const roomsRequest = ref<RoomRequest | null>(null)
-
 const rooms = ref<Room[] | null>(null)
 const roomsBuldings = ref<Set<string> | null>(null)
 const roomsFloorsNumbers = ref<Set<number> | null>(null)
 const roomsNumbers = ref<Set<string> | null>(null)
-
 const myCurrentBookingsEmpty = ref(true)
 const authorizedUser = ref<User | null>(null)
 const openSection = ref(Section.MAINPAGE)
 const openCreateGroupSection = ref(false)
 const searchField = ref("")
-
 const dateSelected = ref(dayjs());
 const reservationsSchedule = ref<Reservation[]>()
 const reservationsScheduleBackup = ref<Reservation[]>()
 const today = ref(dayjs().format("YYYY-MM-DD"));
-
 const floorSelected = ref(0)
 const buildingSelected = ref("")
 const roomNumberSelected = ref("")
 const userReservationsChecked = ref(false)
-const isCreateReservationBlocked = ref(true)
-const reservationTimeMax = ref("23:59")
-const reservationTimeMin = ref("00:01")
+const isCreateReservationButtonBlocked = ref(true)
+const reservationTimeMax = ref("")
+const reservationTimeMin = ref("")
 const displayedReservation = ref<Reservation>()
 const mostRecentReservation = ref<Reservation>()
 const openMenu = ref(false)
@@ -64,7 +60,7 @@ const stateManager = () => {
     dateSelected,
     reservationsSchedule,
     reservationsScheduleBackup,
-    isCreateReservationBlocked,
+    isCreateReservationButtonBlocked,
     today,
     displayedReservation,
 

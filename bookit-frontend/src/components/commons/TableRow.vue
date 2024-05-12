@@ -8,11 +8,9 @@
       <div v-if="isOpen" class="content">
         <slot name="openContent"></slot>
       </div>
-
       <div class="arrow" v-if="!isOpen">
         <slot name="arrow"></slot>
       </div>
-
     </div>
   </template>
   
@@ -34,12 +32,13 @@
   <style scoped>
   .container {
     border: 1px solid #ddd;
-    padding: 10px;
+    /* padding: 10px; */
     background-color: #f9f9f9;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
   
@@ -52,7 +51,7 @@
   }
   
   .arrow {
-    display: block;
+    flex: 1 1 100%;
     color: #555;
     text-align: center;
     font-size: 17px;

@@ -13,7 +13,7 @@ import { ReservationRequest } from "../../model/ReservationRequest.ts";
 import stateManager from "../../composables/stateManager.ts";
 import { useRouter } from "vue-router";
 import GroupAssigned from "../groups/GroupAssigned.vue";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -45,22 +45,22 @@ const days = computed(() => {
 
 });
 
-watch(computedDays, debounce(() => {
-  computedDays.value = computedDays.value?.sort((a,b): number => { 
-    var aDate = new Date(a.date)
-    var bDate = new Date(b.date)
+// watch(computedDays, debounce(() => {
+//   computedDays.value = computedDays.value?.sort((a,b): number => { 
+//     var aDate = new Date(a.date)
+//     var bDate = new Date(b.date)
 
-    if (aDate < bDate) {
-        return -1;
-    }
-    if (aDate > bDate) {
-        return 1;
-    }
+//     if (aDate < bDate) {
+//         return -1;
+//     }
+//     if (aDate > bDate) {
+//         return 1;
+//     }
 
-    return 0;
-   })
-}, 500),
-{ deep: true })
+//     return 0;
+//    })
+// }, 500),
+// { deep: true })
 
 const month = computed(() => {
   return Number(selectedDate.value.format("M"));

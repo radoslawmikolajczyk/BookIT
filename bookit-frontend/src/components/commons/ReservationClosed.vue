@@ -33,43 +33,45 @@ function getOnlyTime(date: string) {
 
 <template>
     <div class="reservation-container">
-        <div class="date">
-            <div class="label">Date:</div>
-            <div class="value">{{ getOnlyDate(props.reservation.endTime) }}</div>
-        </div>
-        <div class="info">
+        <section class="date">
+            <h4 class="label">Date:</h4>
+            <p class="value">{{ getOnlyDate(props.reservation.endTime) }}</p>
+        </section>
+        <section class="info">
             <div class="room-building">
-                <div class="label">Building Name:</div>
-                <div class="value">{{ props.reservation.room.buildingName }}</div>
+                <h4 class="label">Building Name:</h4>
+                <p class="value">{{ props.reservation.room.buildingName }}</p>
             </div>
             <div class="room-floor">
-                <div class="label">Floor Number:</div>
-                <div class="value">{{ props.reservation.room.floorNumber }}</div>
+                <h4 class="label">Floor Number:</h4>
+                <p class="value">{{ props.reservation.room.floorNumber }}</p>
             </div>
             <div class="room-name">
-                <div class="label">Room Name:</div>
-                <div class="value">{{ props.reservation.room.roomName }}</div>
+                <h4 class="label">Room Name:</h4>
+                <p class="value">{{ props.reservation.room.roomName }}</p>
             </div>
             <div class="reservation-time">
-                <div class="label">Reservation Time:</div>
-                <div class="value">{{ getOnlyTime(props.reservation.startTime) }} - {{ getOnlyTime(props.reservation.endTime) }}</div>
+                <h4 class="label">Reservation Time:</h4>
+                <p class="value">{{ getOnlyTime(props.reservation.startTime) }} - {{ getOnlyTime(props.reservation.endTime) }}</p>
             </div>
-        </div>
+        </section>
     </div>
 </template>
 
+
 <style scoped>
 .reservation-container {
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    background-color: #f0f5ff; /* Niebieski kolor tła */
-    border-radius: 5px;
+    background-color: #b3e0ff; /* Light blue background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     margin-bottom: 20px;
 }
 
-.date {
-    background-color: #c9d6ea; /* Jasny niebieski kolor dla pola daty */
+.date, .info > div {
+    background-color: #e0efff; /* Slightly lighter blue for contrast */
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -77,29 +79,39 @@ function getOnlyTime(date: string) {
 
 .info {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.room-building,
-.room-floor,
-.room-name,
-.reservation-time {
-    flex: 1;
+.room-building, .room-floor, .room-name, .reservation-time {
+    flex: 1 1 200px; /* Responsive width with minimum of 200px */
     padding: 10px;
-    background-color: #dbe5f1; /* Średni niebieski kolor dla pól informacyjnych */
-    border-radius: 5px;
     margin-right: 10px;
+    background-color: #dbe5f1; /* Consistent medium blue for information boxes */
+    border-radius: 5px;
 }
 
 .reservation-time {
-    margin-right: 0;
+    margin-right: 0; /* No margin on the right for the last item */
 }
 
 .label {
     font-weight: bold;
+    color: #003366; /* Darker blue for better readability */
 }
 
 .value {
     margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .info {
+        flex-direction: column;
+    }
+
+    .room-building, .room-floor, .room-name, .reservation-time {
+        margin-right: 0; /* Align all items in a single column on smaller screens */
+        margin-bottom: 10px;
+    }
 }
 </style>

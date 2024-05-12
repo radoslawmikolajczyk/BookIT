@@ -1,24 +1,25 @@
 <template>
-    <div class="join-group-container">
-      <div class="group-info">
-        <p>Group name:</p>
-        <p>{{ props.group.name }}</p>
-      </div>
-  
-      <div class="password-input">
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" />
-      </div>
-  
-      <div class="join-button">
-        <button @click.prevent="joinGroup()">Join</button>
-      </div>
-  
-      <div class="message">
-        {{ message }}
-      </div>
+  <div class="join-group-container">
+    <div class="group-info">
+      <h4>Group name:</h4>
+      <p>{{ props.group.name }}</p>
     </div>
-  </template>
+
+    <div class="password-input">
+      <label for="password">Password:</label>
+      <input type="password" id="password" v-model="password" />
+    </div>
+
+    <div class="join-button">
+      <button @click.prevent="joinGroup">Join</button>
+    </div>
+
+    <div class="message">
+      {{ message }}
+    </div>
+  </div>
+</template>
+
   
   <script setup lang="ts">
   import { defineProps, ref } from 'vue';
@@ -49,41 +50,68 @@
   </script>
   
   <style scoped>
-  .join-group-container {
-    width: 100px;
-    margin: 0 auto;
-  }
-  
-  .group-info {
-    margin-bottom: 20px;
-  }
-  
-  .password-input input {
-    width: 90px;
-    margin-bottom: 20px;
-  }
-  
-  .password-input label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .join-button {
-    text-align: center;
-  }
-  
-  .join-button button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .message {
-    margin-top: 20px;
-    font-style: italic;
-  }
-  </style>
+.join-group-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #b3e0ff; /* Light blue background */
+  border-radius: 8px;
+  width: 100%; /* Responsive width */
+  max-width: 200px; /* Maximum width to keep the form readable */
+  margin: 20px auto;
+}
+
+.group-info {
+  background-color: #e0efff; /* Slightly lighter shade of blue */
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%; /* Ensures full width within the container */
+  text-align: center; /* Centers text */
+  margin-bottom: 20px;
+}
+
+.password-input {
+  background-color: #e0efff;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%; /* Ensures the div matches the width of its container */
+  margin-bottom: 20px;
+}
+
+.password-input label {
+  color: #003366; /* Dark blue text */
+  margin-bottom: 5px;
+}
+
+.password-input input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Corrects sizing to include padding and border */
+}
+
+.join-button button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* Consistent blue button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.join-button button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.message {
+  font-style: italic;
+  color: #c01e09; /* Red text for messages */
+  margin-top: 10px;
+}
+</style>
+
   
