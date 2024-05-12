@@ -25,7 +25,7 @@ const props = defineProps<Props>();
   position: relative;
   min-height: 100px;
   font-size: 16px;
-  background-color: #fff;
+  /* background-color: #fff; */
   color: var(--grey-800);
   padding: 5px;
 }
@@ -50,7 +50,7 @@ const props = defineProps<Props>();
 }
 
 .calendar-day--today > span {
-  color: #fff;
+  /* color: #fff; */
   border-radius: 9999px;
   background-color: var(--grey-800);
 }

@@ -19,7 +19,6 @@
     const router = useRouter()
 
     onBeforeMount(() => {
-        openSection.value = Section.GROUPS
         service.getGroupById(authorizedUser?.value?.group?.id ?? -1)
         .then((result) => {
             if(result.isSuccess){
@@ -77,6 +76,7 @@ function goToGroups() {
     .assigned .group-name {
         font-weight: bold;
         text-transform: uppercase;
+        color: black;
     }
 
     .not-assigned {

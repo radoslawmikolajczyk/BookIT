@@ -42,7 +42,7 @@
         if(result.isSuccess) {
             message.value = "You have been added to the group!"
         } else {
-            message.value = "Error occured while adding to the group!"
+            message.value = "Wrong password!"
         }
     });
   }

@@ -8,7 +8,7 @@ interface Props {
     date: string,
     isCurrentMonth: boolean,
     isToday: boolean,
-    reservations: [Reservation] | null
+    reservations: Reservation[] | null
   }
 
 const props = defineProps<Props>();
@@ -18,25 +18,33 @@ const label = computed(() => {
   });
 
 const reservationLabel = computed(() => {
-  if(props.reservations != null) {
-    return "Reservations: " + props.reservations.length
-  }
-  return "Free"
+  return "Reservations: " + (props.reservations != null ? props.reservations?.length : 0)
 })
+
+function getDayStyle(length) {
+  var color = "#fff"
+  if(length == 0) {
+    color = "#39a308"
+  } else if(length > 10) {
+    color = "#e07e0e"
+  } else {
+    color = "#eee34a"
+  }
+
+  return {
+    backgroundColor: `${color}`
+  };
+}
 
 </script>
 
 <template>
-      <li
-      class="calendar-day"
-      :class="{
-        'calendar-day--not-current': !isCurrentMonth,
-        'calendar-day--today': isToday
-      }"
-    >
-    <span>{{ label }}</span>
-    <p> {{ reservationLabel }}</p>
+  <div>
+    <li class="calendar-day" :style="getDayStyle(props.reservations?.length ?? 0)" :class="{'calendar-day--not-current': !isCurrentMonth, 'calendar-day--today': isToday }">
+      <span>{{ label }}</span>
+      <p> {{ reservationLabel }}</p>
     </li>
+  </div>
 </template>
   
 <style scoped>
@@ -44,9 +52,10 @@ const reservationLabel = computed(() => {
     position: relative;
     min-height: 100px;
     font-size: 16px;
-    background-color: #fff;
-    color: var(--grey-800);
+    color: black;
     padding: 5px;
+    cursor: pointer;
+    background-color: #39a308;
   }
   
   .calendar-day > span {
@@ -72,6 +81,7 @@ const reservationLabel = computed(() => {
     color: #fff;
     border-radius: 9999px;
     background-color: var(--grey-800);
+    font-size: 16px;
   }
 </style>
   

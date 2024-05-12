@@ -3,5 +3,8 @@ export enum Section {
     BOOKINGS_CALENDAR,
     BOOKINGS_SCHEDULE,
     GROUPS,
-    HELP
+    HELP,
+    REGISTER,
+    LOGIN,
+    TERMS
 }

@@ -1,26 +1,3 @@
-<template>
-
-    <div class="main-container">
-        <div class="image-container">
-            <Suspense>
-                <template #default>
-                    <Image src="../../assets/img/main.png" class="main-image"/>
-                </template>
-                <template #fallback>
-                    <Image src="../../assets/img/placeholder.webp" class="main-image"/>
-                </template> 
-            </Suspense>
-        </div>
-        <div class="group">
-            <GroupAssigned></GroupAssigned>
-        </div>
-        <div class="reservation">
-            <CurrentBookings></CurrentBookings>
-        </div>
-    </div>
-
-</template>
-
 <script setup>
 import GroupAssigned from '../groups/GroupAssigned.vue';
 import CurrentBookings from '../myBookings/CurrentBookings.vue';
@@ -34,11 +11,28 @@ const Image = defineAsyncComponent(() =>
 
 const { openSection } = stateManager()
 
-onMounted(() => {
-    openSection.value = Section.MAINPAGE
-})
-
 </script>
+
+<template>
+    <div class="main-container">
+        <div class="image-container">
+            <Suspense>
+                <template #default>
+                    <Image src="../../assets/img/main.png" class="main-image"/>
+                </template>
+                <template #fallback>
+                    <Image src="../../assets/img/placeholder.webp" class="main-image"/>
+                </template>
+            </Suspense>
+        </div>
+        <div class="group">
+            <GroupAssigned></GroupAssigned>
+        </div>
+        <div class="reservation">
+            <CurrentBookings></CurrentBookings>
+        </div>
+    </div>
+</template>
 
 <style scoped>
 .main-container {

@@ -15,19 +15,21 @@ import { UserService } from './services/UserService'
 import Bookings from './components/bookings/Bookings.vue'
 import Schedule from './components/schedule/Schedule.vue'
 import CalendarMonth from './components/calendar/CalendarMonth.vue'
+import { Section } from './enums/section'
 
 const service = new UserService()
+const { openSection } = stateManager()
 
 const routes = [
-  { path: '/', component: MainPage, meta: { requiresAuth: true } },
-  { path: '/bookings', component: CalendarMonth, meta: { requiresAuth: true } },
-  { path: '/bookings/calendar', component: CalendarMonth, meta: { requiresAuth: true } },
-  { path: '/bookings/schedule', component: Schedule, meta: { requiresAuth: true } },
-  { path: '/groups', component: Groups, meta: { requiresAuth: true } },
-  { path: '/help', component: Help, meta: { requiresAuth: true } },
-  { path: '/register', component: CreateAccount },
-  { path: '/login', component: LoginPage },
-  { path: '/terms', component: TermsConditions }
+  { path: '/', component: MainPage, meta: { requiresAuth: true, openedSection: Section.MAINPAGE } },
+  { path: '/bookings', component: CalendarMonth, meta: { requiresAuth: true, openedSection: Section.BOOKINGS_CALENDAR } },
+  { path: '/bookings/calendar', component: CalendarMonth, meta: { requiresAuth: true, openedSection: Section.BOOKINGS_CALENDAR } },
+  { path: '/bookings/schedule', component: Schedule, meta: { requiresAuth: true, openedSection: Section.BOOKINGS_SCHEDULE } },
+  { path: '/groups', component: Groups, meta: { requiresAuth: true, openedSection: Section.GROUPS } },
+  { path: '/help', component: Help, meta: { requiresAuth: true, openedSection: Section.HELP } },
+  { path: '/register', component: CreateAccount, openedSection: Section.REGISTER },
+  { path: '/login', component: LoginPage, openedSection: Section.LOGIN },
+  { path: '/terms', component: TermsConditions, openedSection: Section.TERMS }
 ]
 
 const router = createRouter({
@@ -35,11 +37,13 @@ const router = createRouter({
   routes,
 })
 
-const { authorizedUser } = stateManager()
+const { authorizedUser, openMenu } = stateManager()
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
 
+  openSection.value = to.meta.openedSection
+  openMenu.value = !openMenu.value
 
   if (to.matched.some((route) => route.meta.requiresAuth)) {
     if (token) {

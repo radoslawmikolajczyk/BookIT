@@ -16,9 +16,9 @@
   
 <style scoped>
   .calendar-date-indicator {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 600;
-    color: var(--grey-00);
+    color: black;
   }
 </style>
   

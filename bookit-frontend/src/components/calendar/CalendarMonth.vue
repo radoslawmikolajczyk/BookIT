@@ -2,7 +2,7 @@
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, computed, watch } from "vue";
 import CalendarMonthDayItem from "./CalendarMonthDayItem.vue";
 import CalendarDateIndicator from "./CalendarDateIndicator.vue";
 import CalendarDateSelector from "./CalendarDateSelector.vue";
@@ -10,6 +10,10 @@ import CalendarWeekdays from "./CalendarWeekdays.vue";
 import { Reservation } from "../../model/Reservation";
 import { ReservationService } from "../../services/ReservationService.ts"
 import { ReservationRequest } from "../../model/ReservationRequest.ts";
+import stateManager from "../../composables/stateManager.ts";
+import { useRouter } from "vue-router";
+import GroupAssigned from "../groups/GroupAssigned.vue";
+import { debounce } from "lodash";
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -17,27 +21,46 @@ dayjs.extend(weekOfYear);
 interface ComputedDays {
   date: string, 
   isCurrentMonth: Boolean, 
-  reservations: [Reservation] | null
+  reservations: Reservation[] | null
 }
 
+const router = useRouter();
+const { dateSelected, authorizedUser } = stateManager()
 const selectedDate = ref(dayjs());
 const today = ref(dayjs().format("YYYY-MM-DD"));
 const reservationService = new ReservationService()
-const computedDays = ref<[ComputedDays] | null>(null)
+const computedDays = ref<ComputedDays[]>([])
 
 const days = computed(() => {
-  computedDays.value = null
-  
-  // workaround
-  computedDays.value = [{date: "", isCurrentMonth: false, reservations: [new Reservation()]}]
-  computedDays.value.pop()
+  computedDays.value = []
 
-   return [...previousMonthDays.value, ...currentMonthDays.value, ...nextMonthDays.value].map(async (day) => {
+  //
+  var sorted = [...previousMonthDays.value, ...currentMonthDays.value, ...nextMonthDays.value]
+
+  return [...previousMonthDays.value, ...currentMonthDays.value, ...nextMonthDays.value].map(async (day) => {
     return getReservations(day.date).then((result) => {
       computedDays.value?.push({ date: day.date, isCurrentMonth: day.isCurrentMonth, reservations: result != undefined ? result : null })
     })
   })
+
 });
+
+watch(computedDays, debounce(() => {
+  computedDays.value = computedDays.value?.sort((a,b): number => { 
+    var aDate = new Date(a.date)
+    var bDate = new Date(b.date)
+
+    if (aDate < bDate) {
+        return -1;
+    }
+    if (aDate > bDate) {
+        return 1;
+    }
+
+    return 0;
+   })
+}, 500),
+{ deep: true })
 
 const month = computed(() => {
   return Number(selectedDate.value.format("M"));
@@ -138,32 +161,40 @@ function selectDate(newSelectedDate) {
 }
 
 function clicked(day) {
-  console.log(day.reservations)
+  dateSelected.value = dayjs(day.date)
+  router.push("/bookings/schedule")
 }
 
 </script>
 
 <template>
   <div v-if="days"></div>
-  <div class="calendar-month">
+
+  <div v-if="authorizedUser?.group" class="calendar-month">
     <div class="calendar-month-header">
       <CalendarDateIndicator :selected-date="selectedDate" class="calendar-month-header-selected-month"/>
       <CalendarDateSelector :current-date="today" :selected-date="selectedDate" @dateSelected="selectDate"/>
     </div>
+
     <CalendarWeekdays/>
 
     <div>
       <ol class="days-grid">
-        <CalendarMonthDayItem v-for="day in computedDays" @click="clicked(day)" :date="day.date" :is-current-month="day.isCurrentMonth" :is-today="day.date === today" :reservations="day.reservations"/>
+        <CalendarMonthDayItem class="day" v-for="day in computedDays" @click="clicked(day)" :date="day.date" :is-current-month="day.isCurrentMonth" :is-today="day.date === today" :reservations="day.reservations"/>
       </ol>
     </div>
+  </div>
+  <div v-else>
+    <GroupAssigned></GroupAssigned>
   </div>
 </template>
   
 <style scoped>
+
 .calendar-month {
   background-color: var(--grey-200);
   border: solid 1px var(--grey-300);
+  padding: 20px;
 }
 
 .day-of-week {

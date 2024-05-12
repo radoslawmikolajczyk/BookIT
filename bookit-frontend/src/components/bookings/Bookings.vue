@@ -61,11 +61,11 @@ function reserve(request: ReservationRequest) {
 }
 
 function showCalendar() {
-    openSection.value = Section.BOOKINGS_CALENDAR
+    
 }
 
 function showSchedule() {
-    openSection.value = Section.BOOKINGS_SCHEDULE
+    
 }
 
 </script>

@@ -12,6 +12,7 @@ import stateManager from "../../composables/stateManager.ts";
 import Filters from "../bookings/Filters.vue";
 import { DateParser } from "../../utils/dateParser.ts";
 import Reservation from "../commons/Reservation.vue";
+import GroupAssigned from "../groups/GroupAssigned.vue";
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -150,7 +151,7 @@ function isDeletePossible() : Boolean {
 </script>
 
 <template>
-  <div class="schedule-day">
+  <div v-if="authorizedUser?.group" class="schedule-day">
     <div class="schedule-sidebar">
       <div>
         <ScheduleDateIndicator/>
@@ -166,6 +167,9 @@ function isDeletePossible() : Boolean {
     <div>
       <Reservation v-if="displayedReservation" :reservation="displayedReservation" :delete="isDeletePossible()"></Reservation>
     </div>
+  </div>
+  <div v-else>
+    <GroupAssigned></GroupAssigned>
   </div>
 </template>
   
@@ -189,7 +193,6 @@ function isDeletePossible() : Boolean {
 .schedule-sidebar {
   display: flex;
   flex-direction: column;
-  width: 100%;
   padding: 20px;
 }
 

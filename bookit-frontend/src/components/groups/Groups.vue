@@ -9,7 +9,7 @@
     import GroupClosed from './GroupClosed.vue';
     import Group from './Group.vue';
 
-    const { openCreateGroupSection, searchField } = stateManager();
+    const { searchField } = stateManager();
     const groupModels = ref<[GroupModel] | null>(null);
     const groupModelsBackup = ref<[GroupModel] | null>(null);
     const groupsService = new GroupsService();
@@ -17,6 +17,8 @@
     watch(searchField, () => {
         filterGroups();
     });
+
+    
 
     onBeforeMount(() => {
         getAllGroups();

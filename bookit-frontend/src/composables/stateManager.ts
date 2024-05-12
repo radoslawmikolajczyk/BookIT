@@ -32,6 +32,8 @@ const isCreateReservationBlocked = ref(true)
 const reservationTimeMax = ref("23:59")
 const reservationTimeMin = ref("00:01")
 const displayedReservation = ref<Reservation>()
+const mostRecentReservation = ref<Reservation>()
+const openMenu = ref(false)
 
 const stateManager = () => {
   return {
@@ -64,7 +66,10 @@ const stateManager = () => {
     reservationsScheduleBackup,
     isCreateReservationBlocked,
     today,
-    displayedReservation
+    displayedReservation,
+
+    mostRecentReservation,
+    openMenu
   };
 };
 

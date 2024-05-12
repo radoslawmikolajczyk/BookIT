@@ -5,10 +5,10 @@ export class DateParser {
     }
 
     //yyyy-MM-dd
-    static getOnlyDate(date: string, originalDate: string) : string {
+    static getOnlyDate(originalDate: string) : string {
         var parsedOriginal = this.parseDate(originalDate)
         var pieces = parsedOriginal.split(" ")
-        return date + " " + pieces[1]
+        return pieces[0]
     }
 
     //HH:mm

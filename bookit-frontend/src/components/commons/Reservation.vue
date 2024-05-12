@@ -4,6 +4,7 @@ import { ReservationRequest } from '../../model/ReservationRequest.ts';
 import ConfirmationDialog from './ConfirmationDialog.vue';
 import { onMounted, ref } from 'vue'
 import { RoomService } from '../../services/RoomService.ts';
+import { DateParser } from '../../utils/dateParser.ts';
 
 interface Props {
     reservation: Reservation,
@@ -55,12 +56,22 @@ function handleDecision(decision: boolean) {
         hideConfirmation()
     }
 }
+
+function getOnlyDate(date: string) {
+    return DateParser.getOnlyDate(date)
+}
+
+function getOnlyTime(date: string) {
+    return DateParser.getOnlyTime(date)
+}
+
 </script>
 
 <template>
     <div class="reservation-container">
         <div class="date">
-            <div> {{ props.reservation.endTime }}</div>
+            <div class="label">Date:</div>
+            <div class="value">{{ getOnlyDate(props.reservation.endTime) }}</div>
         </div>
         <div class="info">
             <div class="common-info">
@@ -77,7 +88,7 @@ function handleDecision(decision: boolean) {
             </div>
             <div class="common-info">
                 <div class="label">Reservation Time:</div>
-                <div class="value">{{ props.reservation.startTime }} - {{ props.reservation.endTime }}</div>
+                <div class="value">{{ getOnlyTime(props.reservation.startTime) }} - {{ getOnlyTime(props.reservation.endTime) }}</div>
             </div>
             <div class="description">
                 <div class="label">Room Description:</div>

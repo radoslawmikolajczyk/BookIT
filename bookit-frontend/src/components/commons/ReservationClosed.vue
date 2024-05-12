@@ -2,6 +2,7 @@
 import { Reservation } from '../../model/Reservation.ts';
 import { onMounted, defineProps } from 'vue'
 import { RoomService } from '../../services/RoomService.ts';
+import { DateParser } from '../../utils/dateParser.ts';
 
 interface Props {
     reservation: Reservation
@@ -20,13 +21,21 @@ onMounted(() => {
         })
 })
 
+function getOnlyDate(date: string) {
+    return DateParser.getOnlyDate(date)
+}
+
+function getOnlyTime(date: string) {
+    return DateParser.getOnlyTime(date)
+}
+
 </script>
 
 <template>
     <div class="reservation-container">
         <div class="date">
-            <div class="label">End Time:</div>
-            <div class="value">{{ props.reservation.endTime }}</div>
+            <div class="label">Date:</div>
+            <div class="value">{{ getOnlyDate(props.reservation.endTime) }}</div>
         </div>
         <div class="info">
             <div class="room-building">
@@ -43,7 +52,7 @@ onMounted(() => {
             </div>
             <div class="reservation-time">
                 <div class="label">Reservation Time:</div>
-                <div class="value">{{ props.reservation.startTime }} - {{ props.reservation.endTime }}</div>
+                <div class="value">{{ getOnlyTime(props.reservation.startTime) }} - {{ getOnlyTime(props.reservation.endTime) }}</div>
             </div>
         </div>
     </div>

@@ -1,7 +1,50 @@
+<script setup>
+import { ref, watch } from "vue";
+import { useRoute, useRouter } from 'vue-router';
+import { vOnClickOutside } from '@vueuse/components';
+import stateManager from "../../composables/stateManager";
+
+const { openMenu } = stateManager()
+const router = useRouter();
+const showLogoutConfirmation = ref(false);
+const mobileMenu = ref();
+
+watch(openMenu, () => {
+  mobileMenu.value = false
+})
+
+function toggleMenu() {
+
+  mobileMenu.value = !mobileMenu.value;
+  //openMenu.value = !mobileMenu.value;
+
+  subItem1.value = false;
+  megaItem1.value = false;
+}
+
+const subItem1 = ref();
+
+function ToogleSub1() {
+  subItem1.value = !subItem1.value;
+}
+
+const megaItem1 = ref();
+
+function confirmLogout() {
+  localStorage.removeItem('token');
+  router.push('/login');
+}
+
+function cancelLogout() {
+  showLogoutConfirmation.value = false;
+}
+
+</script>
+
 <template>
   <div id="app">
     <header class="header-area">
-      <div class="containers">
+      <div class="containers"> 
         <div class="row">
           <div class="col-12">
             <nav class="navigation">
@@ -41,43 +84,6 @@
     </header>
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import { useRoute, useRouter } from 'vue-router';
-
-const router = useRouter();
-const showLogoutConfirmation = ref(false);
-const mobileMenu = ref();
-
-function toggleMenu() {
-  mobileMenu.value = !mobileMenu.value;
-  subItem1.value = false;
-  megaItem1.value = false;
-}
-
-const subItem1 = ref();
-
-function ToogleSub1() {
-  subItem1.value = !subItem1.value;
-}
-
-const megaItem1 = ref();
-
-function ToogleNega1() {
-  megaItem1.value = !megaItem1.value;
-}
-
-function confirmLogout() {
-  localStorage.removeItem('token');
-  router.push('/login');
-}
-
-function cancelLogout() {
-  showLogoutConfirmation.value = false;
-}
-
-</script>
 
 <style scoped>
 

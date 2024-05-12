@@ -32,24 +32,59 @@
 </script>
 
 <template>
-    <div class="calendar-date-selector">
-      <span @click="selectPrevious"><</span>
-      <span @click="selectCurrent">Today</span>
-      <span @click="selectNext">></span>
+  <div class="calendar-date-selector">
+    <!-- Grouped Previous and Next above Today -->
+    <div class="navigation-buttons">
+      <button class="action-button" @click="selectPrevious"> < Previous</button>
+      <button class="action-button" @click="selectNext">Next ></button>
     </div>
+    <div class="today-button">
+      <button class="action-button" @click="selectCurrent">Today</button>
+    </div>
+  </div>
 </template>
   
 <style scoped>
   .calendar-date-selector {
     display: flex;
-    justify-content: space-between;
-    width: 80px;
-    color: var(--grey-800);
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
   }
-  
-  .calendar-date-selector > * {
+
+  .navigation-buttons {
+    display: flex;
+    justify-content:center;
+    width: 60%;
+  }
+
+  .navigation-buttons .action-button {
+    display: flex;
+    justify-content:center;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .today-button {
+    margin-top: 10px;
+  }
+
+  .action-button {
+    padding: 10px 20px;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    user-select: none;
+    transition: background-color 0.3s ease;
+
+    width: 110px;
+  }
+
+  .action-button:hover {
+    background-color: #001f3f;
   }
 </style>
   
