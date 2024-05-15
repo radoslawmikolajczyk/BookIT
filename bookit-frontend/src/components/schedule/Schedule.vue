@@ -15,6 +15,7 @@ import GroupAssigned from "../groups/GroupAssigned.vue";
 import ReservationClosed from "../commons/ReservationClosed.vue";
 import TableRow from "../commons/TableRow.vue";
 import Message from "./Message.vue"
+import { Reservation as ReservationModel } from "../../model/Reservation.ts";
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -189,8 +190,19 @@ function reserve() {
     }
 }
 
-function isDeletePossible() : Boolean {
-  return displayedReservation.value?.user.id == authorizedUser.value?.id
+function isDeletePossible(reservation: ReservationModel) : Boolean {
+  return reservation?.user.id == authorizedUser.value?.id
+}
+
+function remove(request: ReservationRequest) {
+    var startTime = DateParser.parseDate(request.startTime)
+    var endTime = DateParser.parseDate(request.endTime)
+    const token = localStorage.getItem('token') ?? ""
+
+    reservationService.deleteReservation(new ReservationRequest(token, request.roomId, startTime, endTime))
+        .then( result => {
+            
+        })
 }
 
 </script>
@@ -216,7 +228,7 @@ function isDeletePossible() : Boolean {
         </template>
         
         <template #openContent>
-          <Reservation @remove="remove" :reservation="item" :delete="isDeletePossible()"/>
+          <Reservation @remove="remove" :reservation="item" :delete="isDeletePossible(item)"/>
         </template>
 
         <template #arrow>

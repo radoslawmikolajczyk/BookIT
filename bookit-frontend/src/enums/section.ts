@@ -6,5 +6,6 @@ export enum Section {
     HELP,
     REGISTER,
     LOGIN,
-    TERMS
+    TERMS,
+    ROOMS
 }

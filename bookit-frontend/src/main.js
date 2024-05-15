@@ -16,6 +16,7 @@ import Schedule from './components/schedule/Schedule.vue'
 import CalendarMonth from './components/calendar/CalendarMonth.vue'
 import { Section } from './enums/section'
 import { GroupsService } from './services/GroupsService'
+import Rooms from './components/rooms/Rooms.vue'
 
 const service = new UserService()
 const groupService = new GroupsService()
@@ -28,6 +29,7 @@ const routes = [
   { path: '/bookings/schedule', component: Schedule, meta: { requiresAuth: true, openedSection: Section.BOOKINGS_SCHEDULE } },
   { path: '/groups', component: Groups, meta: { requiresAuth: true, openedSection: Section.GROUPS } },
   { path: '/help', component: Help, meta: { requiresAuth: true, openedSection: Section.HELP } },
+  { path: '/rooms', component: Rooms, meta: { requiresAuth: true, openedSection: Section.HELP } },
   { path: '/register', component: CreateAccount, openedSection: Section.REGISTER },
   { path: '/login', component: LoginPage, openedSection: Section.LOGIN },
   { path: '/terms', component: TermsConditions, openedSection: Section.TERMS }

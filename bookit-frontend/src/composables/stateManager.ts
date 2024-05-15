@@ -25,6 +25,9 @@ const today = ref(dayjs().format("YYYY-MM-DD"));
 const floorSelected = ref(0)
 const buildingSelected = ref("")
 const roomNumberSelected = ref("")
+const floorSelectedRoom = ref(0)
+const buildingSelectedRoom = ref("")
+const roomNumberSelectedRoom = ref("")
 const userReservationsChecked = ref(false)
 const isCreateReservationButtonBlocked = ref(true)
 const reservationTimeMax = ref("")
@@ -51,6 +54,9 @@ const stateManager = () => {
     floorSelected, 
     buildingSelected, 
     roomNumberSelected, 
+    floorSelectedRoom, 
+    buildingSelectedRoom, 
+    roomNumberSelectedRoom, 
     userReservationsChecked,
     reservationTimeMin,
     reservationTimeMax,
