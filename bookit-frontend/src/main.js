@@ -15,8 +15,10 @@ import { UserService } from './services/UserService'
 import Schedule from './components/schedule/Schedule.vue'
 import CalendarMonth from './components/calendar/CalendarMonth.vue'
 import { Section } from './enums/section'
+import { GroupsService } from './services/GroupsService'
 
 const service = new UserService()
+const groupService = new GroupsService()
 const { openSection } = stateManager()
 
 const routes = [
@@ -36,7 +38,7 @@ const router = createRouter({
   routes,
 })
 
-const { authorizedUser, openMenu } = stateManager()
+const { authorizedUser, openMenu, assignedGroup } = stateManager()
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
@@ -49,7 +51,17 @@ router.beforeEach((to, from, next) => {
       if(authorizedUser.value == null) {
         service.getUserByEmail(token)
         .then( result =>{
+            console.log(result.user)
             authorizedUser.value = result.user
+            if(result.user?.group){
+              console.log(result.user.group.id)
+              groupService.getGroupById(result.user.group.id).then((result) => {
+                if(result.isSuccess) {
+                  console.log(result.group)
+                  assignedGroup.value = result.group
+                } 
+              })
+            }
             next()
         })
       } else {
@@ -65,6 +77,15 @@ router.beforeEach((to, from, next) => {
         service.getUserByEmail(token)
         .then( result =>{
             authorizedUser.value = result.user
+            if(result.user?.group){
+              groupService.getGroupById(result.user.group.id).then((result) => {
+                if(result.isSuccess) {
+                  console.log(result.group)
+                  assignedGroup.value = result.group
+                }
+              })
+            }
+
             next('/');
         })
       } else {

@@ -11,14 +11,16 @@
         roomsFloorsNumbers,
         roomsBuldings,
         roomsNumbers,
-        authorizedUser
+        authorizedUser,
+        searchField,
+        roomsBackup
     } = stateManager()
 
     onBeforeMount(() => {
         roomService.getAllRooms()
         .then( result => {
             rooms.value = result.rooms
-
+            roomsBackup.value = result.rooms
             var numbers = result.rooms?.map((r) => { return r.floorNumber })
             var names = result.rooms?.map((r) => { return r.buildingName })
             var roomNumbers = result.rooms?.map((r) => { return r.roomName })
@@ -27,6 +29,16 @@
             roomsFloorsNumbers.value = new Set<number>(numbers)
             roomsBuldings.value = new Set<string>(names)
         })
+
+        // const hash = window.location.hash
+        // const hashFragment = hash.slice(1, hash.length);
+
+        // try {
+        //     const data = JSON.parse(decodeURIComponent(hashFragment));
+        //     searchField.value = data.searchField._value
+        // } catch (error) {
+        //     console.error(error);
+        // }
     })
 
 </script>

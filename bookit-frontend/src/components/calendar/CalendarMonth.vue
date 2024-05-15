@@ -223,5 +223,7 @@ function clicked(day) {
   grid-row-gap: var(--grid-gap);
   border-top: solid 1px var(--grey-200);
 }
+
+
 </style>
   

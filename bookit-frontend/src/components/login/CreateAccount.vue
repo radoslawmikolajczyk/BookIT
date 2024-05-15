@@ -55,7 +55,8 @@ const register = async () => {
     const result = await service.createUser(userRequest);
     requestResult.value = '';
     if (result.isSuccess) {
-      router.push('/login');
+      localStorage.setItem('token', email.value);
+      router.push('/');
     }
   } catch (error) {
     console.error('Error during registration:', error);

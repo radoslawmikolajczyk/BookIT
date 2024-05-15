@@ -35,21 +35,21 @@
         <div class="filter">
             <label for="building">Building</label>
             <select id="building" v-model="buildingSelected">
-                <option v-for="option in roomsBuldings" :value="option">{{ option }}</option>
+                <option v-for="option in roomsBuldings" :key="option" :value="option">{{ option }}</option>
             </select>
         </div>
 
         <div class="filter">
             <label for="floor">Room</label>
             <select id="floor" v-model="roomNumberSelected">
-                <option v-for="option in roomsNumbers" :value="option">{{ option }}</option>
+                <option v-for="option in roomsNumbers" :key="option" :value="option">{{ option }}</option>
             </select>
         </div>
 
         <div class="filter">
             <label for="floor">Floor</label>
             <select id="floor" v-model="floorSelected">
-                <option v-for="option in roomsFloorsNumbers" :value="option">{{ option }}</option>
+                <option v-for="option in roomsFloorsNumbers" :key="option" :value="option">{{ option }}</option>
             </select>
         </div>
 

@@ -3,6 +3,7 @@ import { RequestResponse } from '../model/RequestResponse.ts';
 import { UserGroupRequest } from '../model/UserGroupRequest.ts';
 
 export class GroupsService {
+
     async getGroupById(id: Number) : Promise<RequestResponse>{
         const response = await fetch('http://localhost:7777/api/groups/get/'+id);
         return await response.json();

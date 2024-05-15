@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { vOnClickOutside } from '@vueuse/components';
 import stateManager from "../../composables/stateManager";
 
-const { openMenu } = stateManager()
+const { openMenu, authorizedUser } = stateManager()
 const router = useRouter();
 const showLogoutConfirmation = ref(false);
 const mobileMenu = ref();
@@ -48,6 +48,9 @@ function cancelLogout() {
         <div class="row">
           <div class="col-12">
             <nav class="navigation">
+              <div class="user-info">
+                <p>{{ authorizedUser?.firstName }} {{ authorizedUser?.lastName }}</p>
+              </div>
               <button class="mobilebtn" @click="toggleMenu()">
                 <i class="fa fa-bars"></i>
               </button>	
@@ -62,6 +65,7 @@ function cancelLogout() {
                       <li :class="{ 'active': $route.path === '/bookings/schedule' }"><router-link to="/bookings/schedule">Schedule</router-link></li>
                     </ul>
                   </li>
+                  <li :class="{ 'active': $route.path === '/rooms' }"><router-link to="/rooms">Rooms</router-link></li>
                   <li :class="{ 'active': $route.path === '/groups' }"><router-link to="/groups">Groups</router-link></li>
                   <li :class="{ 'active': $route.path === '/help' }"><router-link to="/help">Help</router-link></li>
                   <li>

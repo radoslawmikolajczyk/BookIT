@@ -5,18 +5,23 @@
       <p>{{ props.group.name }}</p>
     </div>
 
-    <div class="password-input">
+    <div v-if="props.group.id != getUserGroupId()" class="password-input">
       <label for="password">Password:</label>
       <input type="password" id="password" v-model="password" />
     </div>
 
-    <div class="join-button">
+    <div v-if="props.group.id != getUserGroupId()" class="join-button">
       <button @click.prevent="joinGroup">Join</button>
     </div>
 
-    <div class="message">
+    <div v-if="props.group.id != getUserGroupId()" class="message" :style="{'color': messageColor }">
       {{ message }}
     </div>
+
+    <div v-if="props.group.id == getUserGroupId()" class="message" :style="{'color': 'green' }">
+        You are added to this group
+    </div>
+
   </div>
 </template>
 
@@ -25,28 +30,46 @@
   import { defineProps, ref } from 'vue';
   import { Group } from '../../model/Group';
   import { GroupsService } from '../../services/GroupsService';
+  import { UserService } from '../../services/UserService';
   import { UserGroupRequest } from '../../model/UserGroupRequest';
   import stateManager from '../../composables/stateManager';
-  
+  import { useRouter } from 'vue-router';
+
   interface Props {
     group: Group
   }
 
-  const { authorizedUser } = stateManager();
+  const { authorizedUser, assignedGroup } = stateManager();
   const service = new GroupsService();
+  const userService = new UserService();
   const props = defineProps<Props>();
   const password = ref("");
   const message = ref("");
-  
+  const messageColor = ref("green")
+  const router = useRouter();
+
   function joinGroup() {
     service.addUserToGroup(new UserGroupRequest(authorizedUser.value?.email ?? "", props.group.name, password.value)).then((result) => {
         if(result.isSuccess) {
-            message.value = "You have been added to the group!"
+            userService.getUserByEmail(authorizedUser.value?.email ?? "").then((result) => {
+              authorizedUser.value = result.user
+              assignedGroup.value = props.group
+            })
         } else {
             message.value = "Wrong password!"
+            messageColor.value = "red"
         }
+    }, error => {
+      console.error(error)
     });
   }
+
+  function getUserGroupId() : Number | undefined {
+
+    console.log(authorizedUser)
+    return assignedGroup?.value?.id ?? -1
+  }
+
   </script>
   
   <style scoped>

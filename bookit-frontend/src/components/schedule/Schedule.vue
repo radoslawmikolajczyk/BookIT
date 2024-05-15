@@ -7,7 +7,6 @@ import { ReservationService } from "../../services/ReservationService.ts"
 import { ReservationRequest } from "../../model/ReservationRequest.ts";
 import ScheduleDateIndicator from "../../components/schedule/ScheduleDateIndicator.vue"
 import ScheduleDateSelector from "../../components/schedule/ScheduleDateSelector.vue"
-import ScheduleTimeline from "./ScheduleTimeline.vue";
 import stateManager from "../../composables/stateManager.ts";
 import Filters from "./Filters.vue";
 import { DateParser } from "../../utils/dateParser.ts";
@@ -15,6 +14,7 @@ import Reservation from "../commons/Reservation.vue";
 import GroupAssigned from "../groups/GroupAssigned.vue";
 import ReservationClosed from "../commons/ReservationClosed.vue";
 import TableRow from "../commons/TableRow.vue";
+import Message from "./Message.vue"
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -25,13 +25,20 @@ const { reservationsSchedule,
   roomNumberSelected, 
   floorSelected, 
   buildingSelected, 
-  rooms, 
+  rooms,
+  roomsBackup, 
   userReservationsChecked,
   authorizedUser,
   reservationTimeMax,
   reservationTimeMin,
   displayedReservation,
-  isCreateReservationButtonBlocked } = stateManager()
+  isCreateReservationButtonBlocked,
+  filterMessage,
+  assignedGroup,
+  roomsNumbers,
+  roomsFloorsNumbers,
+  roomsBuldings,
+   } = stateManager()
 const reservationService = new ReservationService()
 
 watch(roomNumberSelected, () => {
@@ -64,20 +71,32 @@ watch(reservationTimeMin, () => {
   }
 )
 
+function isWithinTimeRange(time, minTime, maxTime) {
+  return time >= minTime && time <= maxTime;
+}
+
 function filterSchedule() {
-
+  filterMessage.value = ""
   reservationsSchedule.value = reservationsScheduleBackup.value
+  rooms.value = roomsBackup.value
+  
+    if (reservationTimeMax.value !== "" && reservationTimeMin.value !== "") {
+    const minTime = new Date('1/1/1999 ' + reservationTimeMin.value);
+    const maxTime = new Date('1/1/1999 ' + reservationTimeMax.value);
 
-  if(reservationTimeMax.value != "") {
-    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
-    return new Date ('1/1/1999 ' + DateParser.getOnlyTime(reservation.endTime)) <= new Date ('1/1/1999 ' + reservationTimeMax.value) 
-  })
-  }
+    if (minTime >= maxTime) {
+      filterMessage.value = "StartTime should be less than TimeMax!";
+    } else {
+      reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
+        const startTime = new Date('1/1/1999 ' + DateParser.getOnlyTime(reservation.startTime));
+        const endTime = new Date('1/1/1999 ' + DateParser.getOnlyTime(reservation.endTime));
+        
+        const isStartWithinRange = isWithinTimeRange(startTime, minTime, maxTime);
+        const isEndWithinRange = isWithinTimeRange(endTime, minTime, maxTime);
 
-  if(reservationTimeMin.value != "") {
-    reservationsSchedule.value = reservationsSchedule.value?.filter((reservation) => {
-    return new Date ('1/1/1999 ' + DateParser.getOnlyTime(reservation.startTime)) >= new Date ('1/1/1999 ' + reservationTimeMin.value) 
-  })
+        return isStartWithinRange || isEndWithinRange || (startTime < minTime && endTime > maxTime);
+      });
+    }
   }
 
   if(userReservationsChecked.value) {
@@ -108,13 +127,23 @@ function filterSchedule() {
 }
 
 function checkIfReservationPossible() : boolean {
+  console.log((dateSelected.value.format("YYYY-MM-DD ") + reservationTimeMin.value) )
+  console.log(dayjs().format("YYYY-MM-DD HH:mm"))
+
+  if( (dateSelected.value.format("YYYY-MM-DD ") + reservationTimeMin.value) < dayjs().format("YYYY-MM-DD HH:mm") ){
+    filterMessage.value = "Not possible to make a reservation for the past!"
+    return false
+  }
+
   if(reservationsSchedule.value?.length ?? 0 > 0){ return false }
   if(buildingSelected.value == ""){ return false }
   if(roomNumberSelected.value == ""){ return false }
   if(floorSelected.value == 0){ return false }
   if(reservationTimeMax.value == ""){ return false }
   if(reservationTimeMin.value == ""){ return false }
+  if(reservationTimeMin.value >= reservationTimeMax.value){ return false}
 
+  filterMessage.value = "Slot is free. You are able to make a reservation."
   return true
 }
 
@@ -131,6 +160,7 @@ function getReservations(date: string) {
       })
       reservationsSchedule.value = result.reservations
       reservationsScheduleBackup.value = result.reservations
+      roomsBackup.value = rooms.value
       filterSchedule()
     } else {
       console.log("Error occured during fetching data from server.")
@@ -166,7 +196,7 @@ function isDeletePossible() : Boolean {
 </script>
 
 <template>
-  <div v-if="authorizedUser?.group" class="schedule-day">
+  <div v-if="assignedGroup" class="schedule-day">
     <div class="schedule-sidebar">
       <div>
         <ScheduleDateIndicator/>
@@ -174,6 +204,9 @@ function isDeletePossible() : Boolean {
       </div>
       <div class="filters">
         <Filters @makeReservation="reserve"></Filters>
+      </div>
+      <div v-if="filterMessage.length != 0">
+          <Message></Message>
       </div>
     </div>
     <div class="schedule-content">
@@ -220,7 +253,7 @@ function isDeletePossible() : Boolean {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 </style>
